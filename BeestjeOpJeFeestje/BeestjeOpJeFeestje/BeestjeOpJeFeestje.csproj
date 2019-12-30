@@ -135,6 +135,23 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\aap.png" />
+    <Content Include="Images\bever.png" />
+    <Content Include="Images\doggo.png" />
+    <Content Include="Images\donkey.png" />
+    <Content Include="Images\duck.png" />
+    <Content Include="Images\field.png" />
+    <Content Include="Images\ijsbeer.png" />
+    <Content Include="Images\kat.png" />
+    <Content Include="Images\kip.png" />
+    <Content Include="Images\koe.png" />
+    <Content Include="Images\kuiken.png" />
+    <Content Include="Images\leeuw.png" />
+    <Content Include="Images\olifant.png" />
+    <Content Include="Images\pingwing.png" />
+    <Content Include="Images\varken.png" />
+    <Content Include="Images\zebra.png" />
+    <Content Include="Images\zeehond.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -159,8 +176,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
