@@ -92,8 +92,8 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_beastrepo.ContextDB().Entry(beast).State = EntityState.Modified;
-                //_beastrepo.ContextDB().Beast.Attach
+                
+                //_beastrepo.ContextDB().Entry(beast).State 
                 _beastrepo.Complete();
                 return RedirectToAction("Index");
             }
