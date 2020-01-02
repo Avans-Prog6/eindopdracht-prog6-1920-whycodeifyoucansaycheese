@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BeestjeOpJeFeestje.Domain.Beast>
+
+@{
+    ViewBag.Title = "Step1";
+    //Layout = "~/Views/Shared/_Step1Layout.cshtml";
+}
+
+
+
+<h2>Step1</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            <p>Bijbehorende afbeelding</p>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Price)
+    </td>
+    <td>
+        <img src="~/Images/donkey.png" alt="field.png" width="50" height="50" />
+    </td>
+    <td>
+        @*@Html.CheckBox("Selecteren");*@
+        @Html.CheckBoxFor(model => item.IsChecked)
+    </td>
+
+</tr>
+    }
+    @Html.ActionLink("Ga door naar stap 2", "Step1");
+</table>
+<div class="right">
+    <p>Hopelijk staat dit rechts</p>
+</div>
+
+
+
+

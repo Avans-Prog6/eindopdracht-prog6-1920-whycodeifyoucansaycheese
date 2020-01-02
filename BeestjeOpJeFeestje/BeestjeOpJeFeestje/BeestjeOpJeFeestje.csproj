@@ -223,6 +223,8 @@
     <Content Include="Views\ContactPerson\Details.cshtml" />
     <Content Include="Views\ContactPerson\Edit.cshtml" />
     <Content Include="Views\ContactPerson\Index.cshtml" />
+    <Content Include="Views\Booking\Step1.cshtml" />
+    <Content Include="Views\Booking\Step2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

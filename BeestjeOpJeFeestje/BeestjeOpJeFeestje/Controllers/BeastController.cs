@@ -27,6 +27,12 @@ namespace BeestjeOpJeFeestje.Controllers
             return View(beast.ToList());
         }
 
+        public ActionResult Step1()
+        {
+            var beast = _beastrepo.GetAll();
+            return View(beast.ToList());
+        }
+
         // GET: Beast/Details/5
         public ActionResult Details(int id)
         {

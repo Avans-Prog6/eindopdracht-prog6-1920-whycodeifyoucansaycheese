@@ -14,10 +14,12 @@ namespace BeestjeOpJeFeestje.Controllers
     public class BookingController : Controller
     {
         private IBoekingRepository _boekingRepository;
-
-        public BookingController(IBoekingRepository boekingRepository)
+        private IBeastRepository _beastrepo;
+        private List<Beast> _chosenBeasts;
+        public BookingController(IBoekingRepository boekingRepository, IBeastRepository BeastRepo)
         {
             _boekingRepository = boekingRepository;
+            _beastrepo = BeastRepo;
         }
 
         // GET: Booking
@@ -117,6 +119,49 @@ namespace BeestjeOpJeFeestje.Controllers
             }
             return View(booking);
         }
+
+        public ActionResult Step1()
+        {
+            var beast = _beastrepo.GetAll();
+            return View(beast.ToList());
+        }
+
+        [HttpPost, ActionName("Step1")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Step1([Bind(Include = "ID,Name,Type,Price,IsChecked")] IEnumerable<Beast> beast)
+        {
+            _chosenBeasts = new List<Beast>();
+            foreach (var item in beast)
+            {
+                if (item.IsChecked == true)
+                {
+                    _chosenBeasts.Add(item);
+                }
+            }
+
+            return RedirectToAction("Step2", "Booking");
+        }
+
+        public ActionResult Step2()
+        {
+           
+            return View(_chosenBeasts);
+        }
+        //[HttpPost, ActionName("Step2")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Step2([Bind(Include = "ID,Name,Type,Price,IsChecked")] IEnumerable<Beast> beast)
+        //{
+        //    var templist = new List<Beast>();
+        //    foreach(var item in beast)
+        //    {
+        //        if(item.IsChecked == true)
+        //        {
+        //            templist.Add(item);
+        //        }
+        //    }
+
+        //    return View(templist);
+        //}
 
         // POST: Booking/Delete/5
         [HttpPost, ActionName("Delete")]
