@@ -49,6 +49,8 @@ namespace BeestjeOpJeFeestje.App_Start
                 kernel.Bind<BeesteOpJeFeestjeEntities>().ToSelf().InRequestScope();
                 kernel.Bind<IBeastRepository>().To<BeastRepository>().InRequestScope();
                 kernel.Bind<IAccessoryRepository>().To<AccessoryRepository>().InRequestScope();
+                kernel.Bind<IBoekingRepository>().To<BoekingRepository>().InRequestScope();
+                kernel.Bind<IContactpersonRepository>().To<ContactpersonRepository>().InRequestScope();
                 RegisterServices(kernel);
                 return kernel;
             }
