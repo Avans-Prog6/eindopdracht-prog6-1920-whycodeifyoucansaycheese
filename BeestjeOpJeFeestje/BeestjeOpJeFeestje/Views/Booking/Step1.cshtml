@@ -10,6 +10,7 @@
 <h2>Step1</h2>
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     <table class="table">
         <tr>
             <th>
