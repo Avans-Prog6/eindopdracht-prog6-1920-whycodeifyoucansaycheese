@@ -142,6 +142,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccessoryController.cs" />
     <Compile Include="Controllers\BeastController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\ContactPersonController.cs" />
@@ -207,6 +208,11 @@
     <Content Include="Views\Beast\Details.cshtml" />
     <Content Include="Views\Beast\Edit.cshtml" />
     <Content Include="Views\Beast\Index.cshtml" />
+    <Content Include="Views\Accessory\Create.cshtml" />
+    <Content Include="Views\Accessory\Delete.cshtml" />
+    <Content Include="Views\Accessory\Details.cshtml" />
+    <Content Include="Views\Accessory\Edit.cshtml" />
+    <Content Include="Views\Accessory\Index.cshtml" />
     <Content Include="Views\Booking\Create.cshtml" />
     <Content Include="Views\Booking\Delete.cshtml" />
     <Content Include="Views\Booking\Details.cshtml" />

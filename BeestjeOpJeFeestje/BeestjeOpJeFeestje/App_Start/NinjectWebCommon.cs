@@ -42,13 +42,13 @@ namespace BeestjeOpJeFeestje.App_Start
         private static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
-            var context = new BeesteOpJeFeestjeEntities();
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
                 kernel.Bind<BeesteOpJeFeestjeEntities>().ToSelf().InRequestScope();
                 kernel.Bind<IBeastRepository>().To<BeastRepository>().InRequestScope();
+                kernel.Bind<IAccessoryRepository>().To<AccessoryRepository>().InRequestScope();
                 kernel.Bind<IBoekingRepository>().To<BoekingRepository>().InRequestScope();
                 kernel.Bind<IContactpersonRepository>().To<ContactpersonRepository>().InRequestScope();
                 RegisterServices(kernel);
