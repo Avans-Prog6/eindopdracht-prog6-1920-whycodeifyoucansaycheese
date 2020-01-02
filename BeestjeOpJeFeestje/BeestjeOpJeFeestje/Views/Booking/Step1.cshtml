@@ -8,40 +8,50 @@
 
 
 <h2>Step1</h2>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            <p>Bijbehorende afbeelding</p>
-        </th>
-    </tr>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                <p>Bijbehorende afbeelding</p>
+            </th>
+        </tr>
 
-    @foreach (var item in Model)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Price)
-    </td>
-    <td>
-        <img src="~/Images/donkey.png" alt="field.png" width="50" height="50" />
-    </td>
-    <td>
-        @*@Html.CheckBox("Selecteren");*@
-        @Html.CheckBoxFor(model => item.IsChecked)
-    </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <img src="~/Images/donkey.png" alt="field.png" width="50" height="50" />
+                </td>
+                <td>
+                    @*@Html.CheckBox("Selecteren");*@
+                    @Html.CheckBoxFor(model => item.IsChecked)
+                </td>
 
-</tr>
-    }
-    @Html.ActionLink("Ga door naar stap 2", "Step1");
-</table>
+            </tr>
+
+
+        }
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Ga door naar stap 2" class="btn btn-default" />
+        </div>
+        @ViewBag.Loc
+    </div>
+}
 <div class="right">
     <p>Hopelijk staat dit rechts</p>
 </div>

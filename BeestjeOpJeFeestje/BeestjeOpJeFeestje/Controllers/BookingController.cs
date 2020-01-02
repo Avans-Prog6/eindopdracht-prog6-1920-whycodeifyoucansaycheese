@@ -16,10 +16,12 @@ namespace BeestjeOpJeFeestje.Controllers
         private IBoekingRepository _boekingRepository;
         private IBeastRepository _beastrepo;
         private List<Beast> _chosenBeasts;
+        public List<Beast> AllBeasts { get; set; }
         public BookingController(IBoekingRepository boekingRepository, IBeastRepository BeastRepo)
         {
             _boekingRepository = boekingRepository;
             _beastrepo = BeastRepo;
+        }
         private HomeController _homeController;
         private DateTime _bookingDateTime;
        
@@ -129,13 +131,13 @@ namespace BeestjeOpJeFeestje.Controllers
 
         public ActionResult Step1()
         {
-            var beast = _beastrepo.GetAll();
-            return View(beast.ToList());
+            AllBeasts = new List<Beast>(_beastrepo.GetAll());
+            return View(AllBeasts);
         }
 
-        [HttpPost, ActionName("Step1")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Step1([Bind(Include = "ID,Name,Type,Price,IsChecked")] IEnumerable<Beast> beast)
+        public ActionResult Step1(List<Beast> beast)
         {
             _chosenBeasts = new List<Beast>();
             foreach (var item in beast)
