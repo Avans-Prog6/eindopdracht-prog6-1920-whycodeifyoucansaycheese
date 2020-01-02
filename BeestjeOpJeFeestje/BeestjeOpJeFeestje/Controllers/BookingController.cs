@@ -14,10 +14,13 @@ namespace BeestjeOpJeFeestje.Controllers
     public class BookingController : Controller
     {
         private IBoekingRepository _boekingRepository;
-
+        private HomeController _homeController;
+        private DateTime _bookingDateTime;
+       
         public BookingController(IBoekingRepository boekingRepository)
         {
             _boekingRepository = boekingRepository;
+            _bookingDateTime = HomeController.BookingDateTime;
         }
 
         // GET: Booking
