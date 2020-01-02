@@ -20,6 +20,13 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             _boekingRepository = boekingRepository;
             _beastrepo = BeastRepo;
+        private HomeController _homeController;
+        private DateTime _bookingDateTime;
+       
+        public BookingController(IBoekingRepository boekingRepository)
+        {
+            _boekingRepository = boekingRepository;
+            _bookingDateTime = HomeController.BookingDateTime;
         }
 
         // GET: Booking
