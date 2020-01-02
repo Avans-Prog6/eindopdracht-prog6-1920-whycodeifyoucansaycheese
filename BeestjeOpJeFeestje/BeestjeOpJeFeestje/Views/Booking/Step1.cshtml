@@ -5,40 +5,52 @@
 }
 
 <h2>Stap 1</h2>
+{
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            <p>Bijbehorende afbeelding</p>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50" />
+            </td>
+            <td>
+                @using (Html.BeginForm("AddCheckedAnimal", "Booking", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <input type="text" name="BeastID" id="BeastieId" value="Item.ID" hidden />
+                            <input type="submit" value="Selecteer" class="btn btn-success" />
+                        </div>
+                    </div>
+                }
+            </td>
+        </tr>
+    }
+</table>
+
 @using (Html.BeginForm("Step1", "Booking", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                <p>Bijbehorende afbeelding</p>
-            </th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50" />
-                </td>
-                <td>
-                    <input name="AreChecked" type="checkbox" value="item.Id" /><br />
-                </td>
-            </tr>
-        }
-    </table>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Ga door naar stap 2" class="btn btn-default" />

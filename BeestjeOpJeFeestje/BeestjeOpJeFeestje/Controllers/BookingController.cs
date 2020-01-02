@@ -18,6 +18,7 @@ namespace BeestjeOpJeFeestje.Controllers
         private List<Beast> _chosenBeasts;
         public List<Beast> AllBeasts { get; set; }
         private DateTime _bookingDateTime;
+        private List<Beast> _checkedBeasts;
 
         public BookingController(IBoekingRepository boekingRepository, IBeastRepository BeastRepo)
         {
@@ -193,6 +194,23 @@ namespace BeestjeOpJeFeestje.Controllers
             {
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public ActionResult AddCheckedAnimal(Beast beast)
+        {
+            var temp = this._boekingRepository.GetTemp();
+            BeastieVM beastie = _boekingRepository.GetById(int.Parse(Request.Form.Get("BeastID")));
+
+            var beastieList = _boekingRepository.GetTemp().Beasties;
+            beastieList.Add(beastie);
+            temp.Beasties = beastieList;
+
+            return Redirect("Step1");
+
+
+            _checkedBeasts.Add(beast);
+           return View();
         }
     }
 }
