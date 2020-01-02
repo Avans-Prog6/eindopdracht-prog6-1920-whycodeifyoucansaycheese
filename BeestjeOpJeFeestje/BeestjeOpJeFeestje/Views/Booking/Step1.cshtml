@@ -6,7 +6,7 @@
 }
 
 <h2>Stap 1</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("Step1", "Booking", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <table class="table">
