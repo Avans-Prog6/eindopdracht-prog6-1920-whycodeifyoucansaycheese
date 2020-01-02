@@ -17,15 +17,15 @@ namespace BeestjeOpJeFeestje.Controllers
         private IBeastRepository _beastrepo;
         private List<Beast> _chosenBeasts;
         public List<Beast> AllBeasts { get; set; }
+        private DateTime _bookingDateTime;
+
         public BookingController(IBoekingRepository boekingRepository, IBeastRepository BeastRepo)
         {
             _boekingRepository = boekingRepository;
             _beastrepo = BeastRepo;
         }
-        private HomeController _homeController;
-        private DateTime _bookingDateTime;
-       
-        public BookingController(IBoekingRepository boekingRepository)
+
+       public BookingController(IBoekingRepository boekingRepository)
         {
             _boekingRepository = boekingRepository;
             _bookingDateTime = HomeController.BookingDateTime;
