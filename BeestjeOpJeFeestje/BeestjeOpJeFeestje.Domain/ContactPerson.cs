@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
@@ -20,12 +22,35 @@ namespace BeestjeOpJeFeestje.Domain
             this.Booking = new HashSet<Booking>();
         }
     
+        [Key]
         public int ID { get; set; }
+
+        [Required]
+        [MinLength(2)]
+        [MaxLength(50)]
         public string FirstName { get; set; }
+
+        [MinLength(2)]
+        [MaxLength(50)]
         public string InBetween { get; set; }
+
+        [Required]
+        [MinLength(2)]
+        [MaxLength(50)]
         public string LastName { get; set; }
+
+        [Required]
+        [MinLength(2)]
+        [MaxLength(50)]
         public string Adress { get; set; }
+
+        [MinLength(2)]
+        [MaxLength(50)]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefoonnummer voldoet niet aan het format. Klopt hij wel?")]
         public string PhoneNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

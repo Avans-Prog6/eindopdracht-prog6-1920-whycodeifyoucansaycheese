@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
@@ -20,8 +22,13 @@ namespace BeestjeOpJeFeestje.Domain
             this.Beast = new HashSet<Beast>();
         }
     
+        [Key]
         public int ID { get; set; }
+        [Key]
         public int ContactpersonID { get; set; }
+
+        [DataType(DataType.Date)]
+        [Required]
         public System.DateTime Date { get; set; }
     
         public virtual ContactPerson ContactPerson { get; set; }
