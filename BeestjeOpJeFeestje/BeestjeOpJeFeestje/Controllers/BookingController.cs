@@ -137,8 +137,10 @@ namespace BeestjeOpJeFeestje.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Step1(List<Beast> beast)
+        public ActionResult Step1([Bind(Include = "ID,Name,Type,Price,IsChecked")] IEnumerable<Beast> beast)
         {
+            var x = Request.Form.AllKeys;
+
             _chosenBeasts = new List<Beast>();
             foreach (var item in beast)
             {

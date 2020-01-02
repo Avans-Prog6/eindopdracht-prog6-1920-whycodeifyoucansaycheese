@@ -5,9 +5,7 @@
     //Layout = "~/Views/Shared/_Step1Layout.cshtml";
 }
 
-
-
-<h2>Step1</h2>
+<h2>Stap 1</h2>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -34,16 +32,13 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <img src="~/Images/donkey.png" alt="field.png" width="50" height="50" />
+                    <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50" />
                 </td>
                 <td>
                     @*@Html.CheckBox("Selecteren");*@
                     @Html.CheckBoxFor(model => item.IsChecked)
                 </td>
-
             </tr>
-
-
         }
     </table>
     <div class="form-group">
