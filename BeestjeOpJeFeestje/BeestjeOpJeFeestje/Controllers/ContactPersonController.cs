@@ -11,123 +11,118 @@ using BeestjeOpJeFeestje.Domain.Interface_Repositories;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
-    public class BookingController : Controller
+    public class ContactPersonController : Controller
     {
-        private IBoekingRepository _boekingRepository;
+        private IContactpersonRepository _contactpersonRepository;
 
-        public BookingController(IBoekingRepository boekingRepository)
+        public ContactPersonController(IContactpersonRepository contactpersonRepository)
         {
-            _boekingRepository = boekingRepository;
+            _contactpersonRepository = contactpersonRepository;
         }
 
-        // GET: Booking
+        // GET: ContactPerson
         public ActionResult Index()
         {
-            var booking = _boekingRepository.GetAll();
-            return View(booking.ToList());
+            var cp = _contactpersonRepository.GetAll();
+            return View(cp.ToList());
         }
 
-        // GET: Booking/Details/5
+        // GET: ContactPerson/Details/5
         public ActionResult Details(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Booking booking = _boekingRepository.Get(id);
+            ContactPerson contactPerson = _contactpersonRepository.Get(id);
 
-            if (booking == null)
+            if (contactPerson == null)
             {
                 return HttpNotFound();
             }
-            return View(booking);
+            return View(contactPerson);
         }
 
-        // GET: Booking/Create
+        // GET: ContactPerson/Create
         public ActionResult Create()
         {
-            ViewBag.ContactpersonID = new SelectList(_boekingRepository.ContextDB().ContactPerson, "ID", "FirstName");
             return View();
         }
 
-        // POST: Booking/Create
+        // POST: ContactPerson/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ContactpersonID,Date")] Booking booking)
+        public ActionResult Create([Bind(Include = "ID,FirstName,InBetween,LastName,Adress,Email,PhoneNumber")] ContactPerson contactPerson)
         {
             if (ModelState.IsValid)
             {
-                _boekingRepository.Add(booking);
-                _boekingRepository.Complete();
+                _contactpersonRepository.Add(contactPerson);
+                _contactpersonRepository.Complete();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ContactpersonID = new SelectList(_boekingRepository.ContextDB().ContactPerson, "ID", "FirstName", booking.ContactpersonID);
-            return View(booking);
+            return View(contactPerson);
         }
 
-        // GET: Booking/Edit/5
+        // GET: ContactPerson/Edit/5
         public ActionResult Edit(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Booking booking = _boekingRepository.Get(id);
+            ContactPerson contactPerson = _contactpersonRepository.Get(id);
 
-            if (booking == null)
+            if (contactPerson == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ContactpersonID = new SelectList(_boekingRepository.ContextDB().ContactPerson, "ID", "FirstName", booking.ContactpersonID);
-            return View(booking);
+            return View(contactPerson);
         }
 
-        // POST: Booking/Edit/5
+        // POST: ContactPerson/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ContactpersonID,Date")] Booking booking)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,InBetween,LastName,Adress,Email,PhoneNumber")] ContactPerson contactPerson)
         {
             if (ModelState.IsValid)
             {
-                _boekingRepository.ContextDB().Entry(booking).State = EntityState.Modified;
-                _boekingRepository.Complete();
+                _contactpersonRepository.ContextDB().Entry(contactPerson).State = EntityState.Modified;
+                _contactpersonRepository.Complete();
                 return RedirectToAction("Index");
             }
-            ViewBag.ContactpersonID = new SelectList(_boekingRepository.ContextDB().ContactPerson, "ID", "FirstName", booking.ContactpersonID);
-            return View(booking);
+            return View(contactPerson);
         }
 
-        // GET: Booking/Delete/5
+        // GET: ContactPerson/Delete/5
         public ActionResult Delete(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Booking booking = _boekingRepository.Get(id);
+            ContactPerson contactPerson = _contactpersonRepository.Get(id);
 
-            if (booking == null)
+            if (contactPerson == null)
             {
                 return HttpNotFound();
             }
-            return View(booking);
+            return View(contactPerson);
         }
 
-        // POST: Booking/Delete/5
+        // POST: ContactPerson/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Booking booking = _boekingRepository.Get(id);
+            ContactPerson contactPerson = _contactpersonRepository.Get(id);
 
-            _boekingRepository.Remove(booking);
-
-            _boekingRepository.Complete();
+            _contactpersonRepository.Remove(contactPerson);
+            _contactpersonRepository.Complete();
             return RedirectToAction("Index");
         }
 
