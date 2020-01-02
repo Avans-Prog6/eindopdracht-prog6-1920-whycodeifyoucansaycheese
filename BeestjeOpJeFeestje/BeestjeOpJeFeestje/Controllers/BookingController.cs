@@ -16,6 +16,7 @@ namespace BeestjeOpJeFeestje.Controllers
         private IBoekingRepository _boekingRepository;
         private IBeastRepository _beastrepo;
         private List<Beast> _chosenBeasts;
+        private DateTime _bookingDateTime;
 
         public BookingController(IBoekingRepository boekingRepository, IBeastRepository BeastRepo)
         {
@@ -23,10 +24,7 @@ namespace BeestjeOpJeFeestje.Controllers
             _beastrepo = BeastRepo;
         }
 
-        private HomeController _homeController;
-        private DateTime _bookingDateTime;
-       
-        public BookingController(IBoekingRepository boekingRepository)
+       public BookingController(IBoekingRepository boekingRepository)
         {
             _boekingRepository = boekingRepository;
             _bookingDateTime = HomeController.BookingDateTime;
