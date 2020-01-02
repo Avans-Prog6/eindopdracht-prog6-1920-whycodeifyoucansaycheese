@@ -23,7 +23,7 @@ namespace BeestjeOpJeFeestje.Controllers
             if (ModelState.IsValid)
             {
                 BookingDateTime = booking.Date;
-                return RedirectToAction("Index", "Booking");
+                return RedirectToAction("Step1", "Booking");
             }
             return View(booking);
         }
