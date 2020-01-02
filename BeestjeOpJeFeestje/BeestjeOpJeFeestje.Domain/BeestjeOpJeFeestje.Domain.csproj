@@ -77,9 +77,11 @@
     <Compile Include="ContactPerson.cs">
       <DependentUpon>BeetjeOpJeFeestje.tt</DependentUpon>
     </Compile>
+    <Compile Include="Interface Repositories\IAccessoryRepository.cs" />
     <Compile Include="Interface Repositories\IBeastRepository.cs" />
     <Compile Include="Interface Repositories\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AccessoryRepository.cs" />
     <Compile Include="Repositories\BeastRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="sysdiagrams.cs">

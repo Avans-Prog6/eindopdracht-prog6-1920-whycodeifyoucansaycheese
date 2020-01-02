@@ -11,119 +11,118 @@ using BeestjeOpJeFeestje.Domain.Interface_Repositories;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
-    public class BeastController : Controller
+    public class AccessoryController : Controller
     {
-        private IBeastRepository _beastrepo;
 
-        public BeastController(IBeastRepository BeastRepo)
+        private IAccessoryRepository _accessRepo;
+
+        public AccessoryController(IAccessoryRepository AccessRepo)
         {
-            _beastrepo = BeastRepo;
+            _accessRepo = AccessRepo;
         }
-
-        // GET: Beast
+        // GET: Accessory
         public ActionResult Index()
         {
-            var beast = _beastrepo.GetAll();
-            return View(beast.ToList());
+            var accessory = _accessRepo.GetAll();
+            return View(accessory.ToList());
         }
 
-        // GET: Beast/Details/5
+        // GET: Accessory/Details/5
         public ActionResult Details(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Beast beast = _beastrepo.Get(id);
-            if (beast == null)
+            Accessory accessory = _accessRepo.Get(id);
+            if (accessory == null)
             {
                 return HttpNotFound();
             }
-            return View(beast);
+            return View(accessory);
         }
 
-        // GET: Beast/Create
+        // GET: Accessory/Create
         public ActionResult Create()
         {
-            ViewBag.Type = new SelectList(_beastrepo.ContextDB().Type, "Type1", "Type1");
+            ViewBag.BeastID = new SelectList(_accessRepo.ContextDB().Beast, "ID", "Name");
             return View();
         }
 
-        // POST: Beast/Create
+        // POST: Accessory/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Type,Price")] Beast beast)
+        public ActionResult Create([Bind(Include = "ID,Name,Price,BeastID")] Accessory accessory)
         {
             if (ModelState.IsValid)
             {
-                _beastrepo.Add(beast);
-                _beastrepo.Complete();
+                _accessRepo.Add(accessory);
+                _accessRepo.Complete();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Type = new SelectList(_beastrepo.ContextDB().Type, "Type1", "Type1", beast.Type);
-            return View(beast);
+            ViewBag.BeastID = new SelectList(_accessRepo.ContextDB().Beast, "ID", "Name", accessory.BeastID);
+            return View(accessory);
         }
 
-        // GET: Beast/Edit/5
+        // GET: Accessory/Edit/5
         public ActionResult Edit(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Beast beast = _beastrepo.Get(id);
-            if (beast == null)
+            Accessory accessory = _accessRepo.Get(id);
+            if (accessory == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Type = new SelectList(_beastrepo.ContextDB().Type, "Type1", "Type1", beast.Type);
-            return View(beast);
+            ViewBag.BeastID = new SelectList(_accessRepo.ContextDB().Beast, "ID", "Name", accessory.BeastID);
+            return View(accessory);
         }
 
-        // POST: Beast/Edit/5
+        // POST: Accessory/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Type,Price")] Beast beast)
+        public ActionResult Edit([Bind(Include = "ID,Name,Price,BeastID")] Accessory accessory)
         {
             if (ModelState.IsValid)
             {
-
-                _beastrepo.ContextDB().Entry(beast).State = EntityState.Modified;
-                _beastrepo.Complete();
+                _accessRepo.ContextDB().Entry(accessory).State = EntityState.Modified;
+                _accessRepo.Complete();
                 return RedirectToAction("Index");
             }
-            ViewBag.Type = new SelectList(_beastrepo.ContextDB().Type, "Type1", "Type1", beast.Type);
-            return View(beast);
+            ViewBag.BeastID = new SelectList(_accessRepo.ContextDB().Beast, "ID", "Name", accessory.BeastID);
+            return View(accessory);
         }
 
-        // GET: Beast/Delete/5
+        // GET: Accessory/Delete/5
         public ActionResult Delete(int id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Beast beast = _beastrepo.Get(id);
-            if (beast == null)
+            Accessory accessory = _accessRepo.Get(id);
+            if (accessory == null)
             {
                 return HttpNotFound();
             }
-            return View(beast);
+            return View(accessory);
         }
 
-        // POST: Beast/Delete/5
+        // POST: Accessory/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Beast beast = _beastrepo.Get(id);
-            _beastrepo.Remove(beast);
-            _beastrepo.Complete();
+            Accessory accessory = _accessRepo.Get(id);
+            _accessRepo.Remove(accessory);
+            _accessRepo.Complete();
             return RedirectToAction("Index");
         }
 
@@ -131,7 +130,7 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             if (disposing)
             {
-                
+                // lol niks
             }
             base.Dispose(disposing);
         }
