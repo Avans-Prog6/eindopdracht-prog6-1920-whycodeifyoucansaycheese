@@ -13,7 +13,8 @@ namespace BeestjeOpJeFeestje.Domain
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Booking
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -29,6 +30,7 @@ namespace BeestjeOpJeFeestje.Domain
 
         [DataType(DataType.Date)]
         [Required]
+        [DisplayName("Datum")]
         public System.DateTime Date { get; set; }
     
         public virtual ContactPerson ContactPerson { get; set; }
