@@ -11,11 +11,18 @@ namespace BeestjeOpJeFeestje.Domain
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Accessory
     {
+        [Key]
         public int ID { get; set; }
+        [Required]
+        [MinLength(3)]
+        [MaxLength(50)]
         public string Name { get; set; }
+        [Required]
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
         public int BeastID { get; set; }
     

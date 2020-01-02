@@ -11,7 +11,8 @@ namespace BeestjeOpJeFeestje.Domain
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Beast
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,9 +22,16 @@ namespace BeestjeOpJeFeestje.Domain
             this.Booking = new HashSet<Booking>();
         }
     
+        [Key]
         public int ID { get; set; }
+        [Required]
+        [MinLength(3)]
+        [MaxLength(50)]
         public string Name { get; set; }
         public string Type { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
