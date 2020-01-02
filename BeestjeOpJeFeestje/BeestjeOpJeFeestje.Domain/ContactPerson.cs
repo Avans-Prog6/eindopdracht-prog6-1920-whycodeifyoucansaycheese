@@ -30,7 +30,6 @@ namespace BeestjeOpJeFeestje.Domain
         [MaxLength(50)]
         public string FirstName { get; set; }
 
-        [Required]
         [MinLength(2)]
         [MaxLength(50)]
         public string InBetween { get; set; }
@@ -45,13 +44,11 @@ namespace BeestjeOpJeFeestje.Domain
         [MaxLength(50)]
         public string Adress { get; set; }
 
-        [Required]
         [MinLength(2)]
         [MaxLength(50)]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefoonnummer voldoet niet aan het format. Klopt hij wel?")]
         public string PhoneNumber { get; set; }
