@@ -48,6 +48,7 @@ namespace BeestjeOpJeFeestje.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
                 kernel.Bind<IBeastRepository>().To<BeastRepository>().WithConstructorArgument(context);
+                kernel.Bind<IBoekingRepository>().To<BoekingRepository>().WithConstructorArgument(context);
                 RegisterServices(kernel);
                 return kernel;
             }
