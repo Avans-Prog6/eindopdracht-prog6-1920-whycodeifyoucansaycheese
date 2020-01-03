@@ -5,22 +5,20 @@
 
 <h2>Step2</h2>
 
-<table class="table">
-
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        </tr>
-        @foreach (var item in Model)
+<div style="display: inline"></div>
+<ul>
+    @foreach (var item in Model)
+    {
+        foreach (var acc in item.Accessory)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-        </tr>
+            <li>@acc.Name</li>
+        }
     }
+</ul>
 
-    </table>
+
+<div class="form-group">
+    @Html.Action("InfoBar");
+</div>
 
 

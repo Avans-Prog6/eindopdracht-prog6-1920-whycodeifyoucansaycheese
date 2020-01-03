@@ -186,11 +186,16 @@ namespace BeestjeOpJeFeestje.Controllers
             var beastieList = _boekingRepository.AnimalsBooked().ToList();
             if (beastieList.Contains(beastie))
             {
+                beastieList.Remove(beastie);
+                temp.Beast = beastieList;
+                _boekingRepository.TempBooking = temp;
+                InfoBar();
                 return RedirectToAction("Step1");
             }
             beastieList.Add(beastie);
             temp.Beast = beastieList;
             _boekingRepository.TempBooking = temp;
+            InfoBar();
 
             return RedirectToAction("Step1");
         }

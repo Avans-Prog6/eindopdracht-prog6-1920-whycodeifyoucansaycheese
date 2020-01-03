@@ -25,7 +25,8 @@ namespace BeestjeOpJeFeestje.Domain
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
         public int BeastID { get; set; }
-    
+        
+        public bool IsSelected { get; set; }
         public virtual Beast Beast { get; set; }
     }
 }
