@@ -16,16 +16,15 @@ namespace BeestjeOpJeFeestje.Controllers
         private IBoekingRepository _boekingRepository;
         private IBeastRepository _beastrepo;
         private IAccessoryRepository _accrepo;
-        private List<Beast> _chosenBeasts;
+        private IContactpersonRepository _contactrepo;
         public List<Beast> AllBeasts { get; set; }
-        private DateTime _bookingDateTime;
-        private List<Beast> _checkedBeasts;
 
-        public BookingController(IBoekingRepository boekingRepository, IBeastRepository BeastRepo, IAccessoryRepository AccRepo)
+        public BookingController(IBoekingRepository boekingRepository, IBeastRepository BeastRepo, IAccessoryRepository AccRepo, IContactpersonRepository ContactRepo)
         {
             _boekingRepository = boekingRepository;
             _beastrepo = BeastRepo;
             _accrepo = AccRepo;
+            _contactrepo = ContactRepo;
         }
 
        public BookingController(IBoekingRepository boekingRepository)
@@ -141,8 +140,6 @@ namespace BeestjeOpJeFeestje.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Step1(string z)
         {
-            var x = Request.Form.AllKeys;
-
             return RedirectToAction("Step2", "Booking");
         }
 
@@ -152,6 +149,34 @@ namespace BeestjeOpJeFeestje.Controllers
             return View(_boekingRepository.AnimalsBooked());
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Step2(string z)
+        {
+            return View("Step3", "Booking");
+        }
+
+        public ActionResult Step3()
+        {
+            return View();
+        }
+
+        // POST: ContactPerson/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Step3([Bind(Include = "ID,FirstName,InBetween,LastName,Adress,Email,PhoneNumber")] ContactPerson contactPerson)
+        {
+            if (ModelState.IsValid)
+            {
+                _contactrepo.Add(contactPerson);
+                _contactrepo.Complete();
+                return RedirectToAction("Step4");
+            }
+
+            return View(contactPerson);
+        }
         public ActionResult InfoBar()
         {
             return View(_boekingRepository.TempBooking);
