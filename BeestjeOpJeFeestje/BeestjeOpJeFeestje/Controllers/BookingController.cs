@@ -153,7 +153,7 @@ namespace BeestjeOpJeFeestje.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Step2(string z)
         {
-            return View("Step3", "Booking");
+            return RedirectToAction("Step3", "Booking");
         }
 
         public ActionResult Step3()
@@ -174,7 +174,6 @@ namespace BeestjeOpJeFeestje.Controllers
                 _contactrepo.Complete();
                 return RedirectToAction("Step4");
             }
-
             return View(contactPerson);
         }
         public ActionResult InfoBar()
