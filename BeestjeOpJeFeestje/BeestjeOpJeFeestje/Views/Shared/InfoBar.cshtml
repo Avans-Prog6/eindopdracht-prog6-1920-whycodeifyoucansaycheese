@@ -6,17 +6,21 @@
         <p>Datum:</p>
         <p>@Model.Date</p>
         <p>Beesten:</p>
-        @foreach(var beast in Model.Beast)
-        {
-            Html.DisplayFor(model => beast.Name);
-        }
-        <p>Accessoires:</p>
-        @foreach(var beast in Model.Beast)
-        {
-            foreach(var acc in beast.Accessory)
+        <ul>
+            @foreach (var beast in Model.Beast)
             {
-                Html.DisplayFor(model => acc.Name);
+                <li> @beast.Name </li>
             }
-        }
+        </ul>
+        <p>Accessoires:</p>
+        <ul>
+            @foreach (var beast in Model.Beast)
+            {
+                foreach (var acc in beast.Accessory.Where(a => a.IsSelected == true))
+                {
+            <li>@acc.Name</li> 
+                }
+            }
+        </ul>
     </div>
 
