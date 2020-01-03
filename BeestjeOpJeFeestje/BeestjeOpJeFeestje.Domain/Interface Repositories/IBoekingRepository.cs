@@ -8,6 +8,9 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
 {
     public interface IBoekingRepository : IRepository<Booking>
     {
-
+        Booking TempBooking { get; set; }
+        IEnumerable<Beast> AnimalsBooked();
     }
+
+    
 }

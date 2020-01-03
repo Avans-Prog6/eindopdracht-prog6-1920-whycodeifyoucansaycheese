@@ -1,0 +1,22 @@
+﻿@model BeestjeOpJeFeestje.Domain.Booking
+@{ 
+    Layout = null;
+}
+    <div>
+        <p>Datum:</p>
+        <p>@Model.Date</p>
+        <p>Beesten:</p>
+        @foreach(var beast in Model.Beast)
+        {
+            Html.DisplayFor(model => beast.Name);
+        }
+        <p>Accessoires:</p>
+        @foreach(var beast in Model.Beast)
+        {
+            foreach(var acc in beast.Accessory)
+            {
+                Html.DisplayFor(model => acc.Name);
+            }
+        }
+    </div>
+

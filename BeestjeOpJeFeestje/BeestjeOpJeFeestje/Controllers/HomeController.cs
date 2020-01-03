@@ -4,12 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BeestjeOpJeFeestje.Domain;
+using BeestjeOpJeFeestje.Domain.Interface_Repositories;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
     public class HomeController : Controller
     {
-        public static DateTime BookingDateTime { get; private set; }
+        private IBoekingRepository _bookRepo;
+
+        public HomeController(IBoekingRepository BookRepo)
+        {
+            _bookRepo = BookRepo;
+        }
 
         public ActionResult Index()
         {
@@ -22,7 +28,7 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             if (ModelState.IsValid)
             {
-                BookingDateTime = booking.Date;
+                _bookRepo.TempBooking.Date = booking.Date;
                 return RedirectToAction("Step1", "Booking");
             }
             return View(booking);

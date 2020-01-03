@@ -11,6 +11,13 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
     {
         public BoekingRepository(BeesteOpJeFeestjeEntities context) : base(context)
         {
+            TempBooking = new Booking();
+        }
+
+        public Booking TempBooking { get; set; }
+        public IEnumerable<Beast> AnimalsBooked()
+        {
+            return TempBooking.Beast;
         }
     }
 }

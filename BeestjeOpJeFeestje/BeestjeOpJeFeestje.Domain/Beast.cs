@@ -33,8 +33,6 @@ namespace BeestjeOpJeFeestje.Domain
         [Required]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
-
-        public bool IsChecked { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Accessory> Accessory { get; set; }

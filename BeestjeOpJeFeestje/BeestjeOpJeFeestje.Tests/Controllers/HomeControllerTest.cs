@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BeestjeOpJeFeestje;
 using BeestjeOpJeFeestje.Controllers;
+using BeestjeOpJeFeestje.Domain.Repositories;
 
 namespace BeestjeOpJeFeestje.Tests.Controllers
 {
@@ -16,7 +17,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(new BoekingRepository(new Domain.BeesteOpJeFeestjeEntities()));
 
             // Act
             ViewResult result = controller.Index() as ViewResult;

@@ -14,5 +14,7 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
         {
 
         }
+
+        public IEnumerable<Beast> TempSelected { get; set; }
     }
 }

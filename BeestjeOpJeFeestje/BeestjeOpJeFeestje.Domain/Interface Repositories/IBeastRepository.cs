@@ -8,6 +8,6 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
 {
     public interface IBeastRepository : IRepository<Beast>
     {
-    
+        IEnumerable<Beast> TempSelected { get; set; }
     }
 }

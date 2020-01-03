@@ -46,11 +46,11 @@ namespace BeestjeOpJeFeestje.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-                kernel.Bind<BeesteOpJeFeestjeEntities>().ToSelf().InRequestScope();
-                kernel.Bind<IBeastRepository>().To<BeastRepository>().InRequestScope();
-                kernel.Bind<IAccessoryRepository>().To<AccessoryRepository>().InRequestScope();
-                kernel.Bind<IBoekingRepository>().To<BoekingRepository>().InRequestScope();
-                kernel.Bind<IContactpersonRepository>().To<ContactpersonRepository>().InRequestScope();
+                kernel.Bind<BeesteOpJeFeestjeEntities>().ToSelf().InSingletonScope();
+                kernel.Bind<IBeastRepository>().To<BeastRepository>().InSingletonScope();
+                kernel.Bind<IAccessoryRepository>().To<AccessoryRepository>().InSingletonScope();
+                kernel.Bind<IBoekingRepository>().To<BoekingRepository>().InSingletonScope();
+                kernel.Bind<IContactpersonRepository>().To<ContactpersonRepository>().InSingletonScope();
                 RegisterServices(kernel);
                 return kernel;
             }

@@ -29,7 +29,6 @@ namespace BeestjeOpJeFeestje.Controllers
        public BookingController(IBoekingRepository boekingRepository)
         {
             _boekingRepository = boekingRepository;
-            _bookingDateTime = HomeController.BookingDateTime;
         }
 
         // GET: Booking
@@ -138,18 +137,9 @@ namespace BeestjeOpJeFeestje.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Step1([Bind(Include = "ID,Name,Type,Price,IsChecked")] IEnumerable<Beast> beast)
+        public ActionResult Step1(string z)
         {
             var x = Request.Form.AllKeys;
-
-            _chosenBeasts = new List<Beast>();
-            foreach (var item in beast)
-            {
-                if (item.IsChecked == true)
-                {
-                    _chosenBeasts.Add(item);
-                }
-            }
 
             return RedirectToAction("Step2", "Booking");
         }
@@ -157,23 +147,13 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Step2()
         {
            
-            return View(_chosenBeasts);
+            return View(_boekingRepository.AnimalsBooked());
         }
-        //[HttpPost, ActionName("Step2")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Step2([Bind(Include = "ID,Name,Type,Price,IsChecked")] IEnumerable<Beast> beast)
-        //{
-        //    var templist = new List<Beast>();
-        //    foreach(var item in beast)
-        //    {
-        //        if(item.IsChecked == true)
-        //        {
-        //            templist.Add(item);
-        //        }
-        //    }
 
-        //    return View(templist);
-        //}
+        public ActionResult InfoBar()
+        {
+            return View(_boekingRepository.TempBooking);
+        }
 
         // POST: Booking/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -197,20 +177,22 @@ namespace BeestjeOpJeFeestje.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCheckedAnimal(Beast beast)
+        public ActionResult AddCheckedAnimal()
         {
-            var temp = this._boekingRepository.GetTemp();
-            BeastieVM beastie = _boekingRepository.GetById(int.Parse(Request.Form.Get("BeastID")));
+            var temp = this._boekingRepository.TempBooking;
+            var x = Request.Form.Get("BeastID");
+            var beastie = _beastrepo.Get(int.Parse(Request.Form.Get("BeastID")));
 
-            var beastieList = _boekingRepository.GetTemp().Beasties;
+            var beastieList = _boekingRepository.AnimalsBooked().ToList();
+            if (beastieList.Contains(beastie))
+            {
+                return RedirectToAction("Step1");
+            }
             beastieList.Add(beastie);
-            temp.Beasties = beastieList;
+            temp.Beast = beastieList;
+            _boekingRepository.TempBooking = temp;
 
-            return Redirect("Step1");
-
-
-            _checkedBeasts.Add(beast);
-           return View();
+            return RedirectToAction("Step1");
         }
     }
 }
