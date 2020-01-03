@@ -5,6 +5,20 @@
 }
 
 <h2>Stap 1</h2>
+<head runat="server">
+    <title></title>
+    <script type="text/javascript">
+        function SetButton(btn) {
+            if (btn.value == "Geselecteerd")
+                btn.value = "Selecteren";
+            else {
+                btn.value = "Geselecteerd";
+            }
+            return false;
+        }
+    </script>
+</head>
+
 <div class="form-inline">
     <div class="form-group">
         <table class="table">
@@ -39,7 +53,7 @@
                             <div class="form-group">
                                 <div class="col-md-3">
                                     <input type="text" name="BeastID" id="BeastieId" value="@item.ID" hidden />
-                                    <input type="submit" value="Selecteer" class="btn btn-success" />
+                                    <input type="submit" runat="server" value="Geselecteerd" OnClick="return SetButton(this)"/>
                                 </div>
                             </div>
                         }
