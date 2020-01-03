@@ -19,5 +19,26 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
         {
             return TempBooking.Beast;
         }
+
+        public IEnumerable<Accessory> AccessoriesBooked()
+        {
+            return TempBooking.Accessory;
+        }
+
+        public void AddBookedAccessory(Accessory acc)
+        {
+           var b = AnimalsBooked().SingleOrDefault(beast => beast.Accessory.Contains(acc));
+           var a = b.Accessory.First(accs => accs.ID == acc.ID);
+            a.IsSelected = true;
+            a.Selected = "Deselecteren";
+        }
+
+        public void RemoveBookAccessory(Accessory acc)
+        {
+            var b = AnimalsBooked().SingleOrDefault(beast => beast.Accessory.Contains(acc));
+            var a = b.Accessory.First(accs => accs.ID == acc.ID);
+            a.IsSelected = false;
+            a.Selected = "Selecteren";
+        }
     }
 }

@@ -7,14 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ContactPerson
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,39 +20,27 @@ namespace BeestjeOpJeFeestje.Domain
         {
             this.Booking = new HashSet<Booking>();
         }
-    
         [Key]
         public int ID { get; set; }
-
         [Required]
         [MinLength(2)]
         [MaxLength(50)]
-        [DisplayName("Voornaam")]
         public string FirstName { get; set; }
-
-        [MinLength(2)]
         [MaxLength(50)]
-        [DisplayName("Tussenvoegsel")]
         public string InBetween { get; set; }
-
         [Required]
         [MinLength(2)]
         [MaxLength(50)]
-        [DisplayName("Achternaam")]
         public string LastName { get; set; }
-
         [Required]
         [MinLength(2)]
         [MaxLength(50)]
         public string Adress { get; set; }
-
         [MinLength(2)]
         [MaxLength(50)]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-
         [DataType(DataType.PhoneNumber)]
-        [DisplayName("Telefoon nummer")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefoonnummer voldoet niet aan het format. Klopt hij wel?")]
         public string PhoneNumber { get; set; }
     

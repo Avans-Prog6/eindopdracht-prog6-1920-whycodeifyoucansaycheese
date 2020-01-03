@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
     public partial class Booking
     {
@@ -21,20 +19,21 @@ namespace BeestjeOpJeFeestje.Domain
         public Booking()
         {
             this.Beast = new HashSet<Beast>();
+            this.Accessory = new HashSet<Accessory>();
         }
     
         [Key]
         public int ID { get; set; }
-        [Key]
         public int ContactpersonID { get; set; }
 
-        [DataType(DataType.Date)]
         [Required]
-        [DisplayName("Datum")]
+        [DataType(DataType.Date)]
         public System.DateTime Date { get; set; }
     
         public virtual ContactPerson ContactPerson { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Beast> Beast { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Accessory> Accessory { get; set; }
     }
 }

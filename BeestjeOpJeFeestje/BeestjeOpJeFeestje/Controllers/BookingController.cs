@@ -15,15 +15,17 @@ namespace BeestjeOpJeFeestje.Controllers
     {
         private IBoekingRepository _boekingRepository;
         private IBeastRepository _beastrepo;
+        private IAccessoryRepository _accrepo;
         private List<Beast> _chosenBeasts;
         public List<Beast> AllBeasts { get; set; }
         private DateTime _bookingDateTime;
         private List<Beast> _checkedBeasts;
 
-        public BookingController(IBoekingRepository boekingRepository, IBeastRepository BeastRepo)
+        public BookingController(IBoekingRepository boekingRepository, IBeastRepository BeastRepo, IAccessoryRepository AccRepo)
         {
             _boekingRepository = boekingRepository;
             _beastrepo = BeastRepo;
+            _accrepo = AccRepo;
         }
 
        public BookingController(IBoekingRepository boekingRepository)
@@ -180,24 +182,52 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult AddCheckedAnimal()
         {
             var temp = this._boekingRepository.TempBooking;
-            var x = Request.Form.Get("BeastID");
             var beastie = _beastrepo.Get(int.Parse(Request.Form.Get("BeastID")));
 
             var beastieList = _boekingRepository.AnimalsBooked().ToList();
             if (beastieList.Contains(beastie))
             {
+                beastie.Selected = "Selecteren";
                 beastieList.Remove(beastie);
                 temp.Beast = beastieList;
                 _boekingRepository.TempBooking = temp;
                 InfoBar();
                 return RedirectToAction("Step1");
             }
+            beastie.Selected = "Deselecteren";
             beastieList.Add(beastie);
             temp.Beast = beastieList;
             _boekingRepository.TempBooking = temp;
             InfoBar();
 
             return RedirectToAction("Step1");
+        }
+
+        [HttpPost]
+        public ActionResult AddCheckedAccessory()
+        {
+            var temp = this._boekingRepository.TempBooking;
+            var acc = _accrepo.Get(int.Parse(Request.Form.Get("AccID")));
+
+            var accList = _boekingRepository.AccessoriesBooked().ToList();
+            if (accList.Contains(acc))
+            {
+                acc.Selected = "Selecteren";
+                acc.IsSelected = false;
+                accList.Remove(acc);
+                temp.Accessory = accList;
+                _boekingRepository.TempBooking = temp;
+                InfoBar();
+                return RedirectToAction("Step2");
+            }
+            acc.Selected = "Deselecteren";
+            acc.IsSelected = true;
+            accList.Add(acc);
+            temp.Accessory = accList;
+            _boekingRepository.TempBooking = temp;
+            InfoBar();
+
+            return RedirectToAction("Step2");
         }
     }
 }

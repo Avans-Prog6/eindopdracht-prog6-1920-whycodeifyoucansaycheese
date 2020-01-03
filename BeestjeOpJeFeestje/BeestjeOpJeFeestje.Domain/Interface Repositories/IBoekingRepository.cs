@@ -10,6 +10,9 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
     {
         Booking TempBooking { get; set; }
         IEnumerable<Beast> AnimalsBooked();
+        IEnumerable<Accessory> AccessoriesBooked();
+        void AddBookedAccessory(Accessory acc);
+        void RemoveBookAccessory(Accessory acc);
     }
 
     

@@ -25,15 +25,15 @@ namespace BeestjeOpJeFeestje.Domain
         [Key]
         public int ID { get; set; }
         [Required]
-        [MinLength(3)]
+        [MinLength(2)]
         [MaxLength(50)]
         public string Name { get; set; }
+        [Required]
         public string Type { get; set; }
-
         [Required]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
-    
+        public string Selected { get; set; } = "Selecteren";
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Accessory> Accessory { get; set; }
         public virtual Type Type1 { get; set; }

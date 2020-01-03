@@ -14,12 +14,11 @@
         </ul>
         <p>Accessoires:</p>
         <ul>
-            @foreach (var beast in Model.Beast)
+            @foreach (var acc in Model.Accessory)
             {
-                foreach (var acc in beast.Accessory.Where(a => a.IsSelected == true))
-                {
+                
             <li>@acc.Name</li> 
-                }
+                
             }
         </ul>
     </div>

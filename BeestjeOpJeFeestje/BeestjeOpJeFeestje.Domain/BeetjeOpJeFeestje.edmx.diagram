@@ -15,6 +15,7 @@
         <AssociationConnector Association="BeesteOpJeFeestjeModel.FK_Beast_Type" ManuallyRouted="false" />
         <AssociationConnector Association="BeesteOpJeFeestjeModel.FK_Booking_Person" ManuallyRouted="false" />
         <AssociationConnector Association="BeesteOpJeFeestjeModel.Booking_Beast" ManuallyRouted="false" />
+        <AssociationConnector Association="BeesteOpJeFeestjeModel.Booking_Accessory" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
