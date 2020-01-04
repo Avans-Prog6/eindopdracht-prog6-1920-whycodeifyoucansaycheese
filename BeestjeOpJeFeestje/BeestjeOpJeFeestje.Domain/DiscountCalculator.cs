@@ -25,7 +25,11 @@ namespace BeestjeOpJeFeestje.Domain
                 CalculateCharacterDiscount(beast.Name);
                 DuckDiscount(beast.Name);
             }
-            _discounts.Add(new Discount("Letter korting: ", characterdiscount));
+            if(characterdiscount > 0)
+            {
+                _discounts.Add(new Discount("Letter korting: ", characterdiscount));
+            }
+            
             DateDiscount(booking.Date);
             TypeDiscount(booking.Beast.ToList());
             return _discounts;

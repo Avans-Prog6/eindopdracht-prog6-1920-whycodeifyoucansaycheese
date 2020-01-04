@@ -40,5 +40,57 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
             a.IsSelected = false;
             a.Selected = "Selecteren";
         }
+
+        public bool SnowExists()
+        {
+            var list = AnimalsBooked().ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Type == "Sneeuw")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool FarmExists()
+        {
+            var list = AnimalsBooked().ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Type == "Boerderij")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool DesertExists()
+        {
+            var list = AnimalsBooked().ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Type == "Woestijn")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool PolarLionExists()
+        {
+            var list = AnimalsBooked().ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].Name == "Leeuw" || list[i].Name == "Ijsbeer")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

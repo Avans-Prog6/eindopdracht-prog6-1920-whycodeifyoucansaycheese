@@ -55,64 +55,11 @@ namespace BeestjeOpJeFeestje.Controllers
             return View(booking);
         }
 
-        // GET: Booking/Create
-        public ActionResult Create()
-        {
-            ViewBag.ContactpersonID = new SelectList(_boekingRepository.ContextDB().ContactPerson, "ID", "FirstName");
-            return View();
-        }
-
-        // POST: Booking/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ContactpersonID,Date")] Booking booking)
-        {
-            if (ModelState.IsValid)
-            {
-                _boekingRepository.Add(booking);
-                _boekingRepository.Complete();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.ContactpersonID = new SelectList(_boekingRepository.ContextDB().ContactPerson, "ID", "FirstName", booking.ContactpersonID);
-            return View(booking);
-        }
-
-        // GET: Booking/Edit/5
-        public ActionResult Edit(int id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Booking booking = _boekingRepository.Get(id);
-
-            if (booking == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ContactpersonID = new SelectList(_boekingRepository.ContextDB().ContactPerson, "ID", "FirstName", booking.ContactpersonID);
-            return View(booking);
-        }
 
         // POST: Booking/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ContactpersonID,Date")] Booking booking)
-        {
-            if (ModelState.IsValid)
-            {
-                _boekingRepository.ContextDB().Entry(booking).State = EntityState.Modified;
-                _boekingRepository.Complete();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ContactpersonID = new SelectList(_boekingRepository.ContextDB().ContactPerson, "ID", "FirstName", booking.ContactpersonID);
-            return View(booking);
-        }
+
 
         // GET: Booking/Delete/5
         public ActionResult Delete(int id)
@@ -132,7 +79,32 @@ namespace BeestjeOpJeFeestje.Controllers
 
         public ActionResult Step1()
         {
-            AllBeasts = new List<Beast>(_beastrepo.GetAll());
+            var temp = _boekingRepository.TempBooking;
+            if(temp.Date.Month > 9 || temp.Date.Month < 3)
+            {
+                _beastrepo.ExcludeDesert = true;
+            }
+            else
+            {
+                _beastrepo.ExcludeDesert = false;
+            }
+            if(temp.Date.Month > 5 && temp.Date.Month < 9)
+            {
+                _beastrepo.ExcludeSnow = true;
+            }
+            else
+            {
+                _beastrepo.ExcludeSnow = false;
+            }
+            if(temp.Date.DayOfWeek == DayOfWeek.Saturday || temp.Date.DayOfWeek == DayOfWeek.Sunday)
+            {
+                _beastrepo.ExcludePinguin = true;
+            }
+            else
+            {
+                _beastrepo.ExcludePinguin = false;
+            }
+                AllBeasts = new List<Beast>(_beastrepo.BeastsAvailable());
             return View(AllBeasts);
         }
 
@@ -184,6 +156,17 @@ namespace BeestjeOpJeFeestje.Controllers
             _boekingRepository.TempBooking.Price = calc.CalculateTotalPrice(_boekingRepository.TempBooking);
             return View(_boekingRepository.TempBooking);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Step4(string z)
+        {
+            _contactrepo.Add(_contactrepo.TempPerson);
+            _contactrepo.Complete();
+            _boekingRepository.Add(_boekingRepository.TempBooking);
+            _boekingRepository.Complete();
+            return RedirectToAction("Index");
+        }
         public ActionResult InfoBar()
         {
             return View(_boekingRepository.TempBooking);
@@ -219,12 +202,37 @@ namespace BeestjeOpJeFeestje.Controllers
             var beastieList = _boekingRepository.AnimalsBooked().ToList();
             if (beastieList.Contains(beastie))
             {
+                
                 beastie.Selected = "Selecteren";
                 beastieList.Remove(beastie);
                 temp.Beast = beastieList;
                 _boekingRepository.TempBooking = temp;
-                InfoBar();
+                if (!_boekingRepository.PolarLionExists())
+                {
+                    _beastrepo.ExcludeFarm = false;
+                }
+                if (!_boekingRepository.FarmExists())
+                {
+                    _beastrepo.ExcludePolarLion = false;
+                }
+                    InfoBar();
                 return RedirectToAction("Step1");
+            }
+            if(beastie.Name == "Leeuw" || beastie.Name == "Ijsbeer")
+            {
+                _beastrepo.ExcludeFarm = true;
+            }
+            else
+            {
+                _beastrepo.ExcludeFarm = false;
+            }
+            if(beastie.Type == "Boerderij")
+            {
+                _beastrepo.ExcludePolarLion = true;
+            }
+            else
+            {
+                _beastrepo.ExcludePolarLion = false;
             }
             beastie.Selected = "Deselecteren";
             beastieList.Add(beastie);

@@ -37,7 +37,7 @@
 
         <h4>Totale prijs: €@Model.Price</h4>
 
-        @using (Html.BeginForm("Step2", "Booking", FormMethod.Post))
+        @using (Html.BeginForm("Step4", "Booking", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
 
@@ -49,6 +49,6 @@
         }
     </div>
     <div class="form-group col-lg-offset-6" style="display:inline-block ">
-        @Html.Action("InfoBar");
+        @Html.Action("InfoBar")
     </div>
 </div>

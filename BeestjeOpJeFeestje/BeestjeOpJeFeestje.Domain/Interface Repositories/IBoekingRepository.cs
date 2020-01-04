@@ -13,6 +13,12 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
         IEnumerable<Accessory> AccessoriesBooked();
         void AddBookedAccessory(Accessory acc);
         void RemoveBookAccessory(Accessory acc);
+
+        bool SnowExists();
+        bool FarmExists();
+        bool DesertExists();
+
+        bool PolarLionExists();
     }
 
     
