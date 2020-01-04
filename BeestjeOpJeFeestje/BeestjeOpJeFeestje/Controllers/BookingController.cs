@@ -170,11 +170,16 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             if (ModelState.IsValid)
             {
-                _contactrepo.Add(contactPerson);
-                _contactrepo.Complete();
+                _contactrepo.TempPerson = contactPerson;
+                _boekingRepository.TempBooking.ContactPerson = contactPerson;
                 return RedirectToAction("Step4");
             }
             return View(contactPerson);
+        }
+
+        public ActionResult Step4()
+        {
+            return View(_boekingRepository.TempBooking);
         }
         public ActionResult InfoBar()
         {

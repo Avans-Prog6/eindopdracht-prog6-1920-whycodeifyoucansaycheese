@@ -8,5 +8,8 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
 {
     public interface IContactpersonRepository : IRepository<ContactPerson>
     {
+        ContactPerson TempPerson { get; set; }
     }
+
+    
 }

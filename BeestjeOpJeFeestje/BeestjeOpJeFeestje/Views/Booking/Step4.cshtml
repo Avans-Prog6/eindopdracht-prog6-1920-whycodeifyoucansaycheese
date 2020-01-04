@@ -1,0 +1,47 @@
+﻿@model BeestjeOpJeFeestje.Domain.Booking
+@{
+    ViewBag.Title = "Step4";
+}
+
+<h2>Step4</h2>
+
+
+
+
+<div class="form-inline">
+    <div class="form-group">
+        <h3>Contactgegevens</h3>
+
+        <p>@Model.ContactPerson.Fullname</p>
+        <p>@Model.ContactPerson.Adress</p>
+        <p>@Model.ContactPerson.Email</p>
+        <p>@Model.ContactPerson.PhoneNumber</p>
+
+        <h3>Prijs / Korting</h3>
+
+        <ul>
+            @foreach (var beast in Model.Beast)
+            {
+                <li>@beast.Name : €@beast.Price</li>
+            }
+            @foreach (var acc in Model.Accessory)
+            {
+                <li>@acc.Name : €@acc.Price</li>
+            }
+        </ul>
+
+        @using (Html.BeginForm("Step2", "Booking", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Bevestig boeking" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+    <div class="form-group col-lg-offset-6" style="display:inline-block ">
+        @Html.Action("InfoBar");
+    </div>
+</div>

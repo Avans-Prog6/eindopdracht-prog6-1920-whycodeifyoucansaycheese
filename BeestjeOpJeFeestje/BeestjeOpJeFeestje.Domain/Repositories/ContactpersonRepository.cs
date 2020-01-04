@@ -12,5 +12,7 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
         public ContactpersonRepository(BeesteOpJeFeestjeEntities context) : base(context)
         {
         }
+
+        public ContactPerson TempPerson { get; set; }
     }
 }

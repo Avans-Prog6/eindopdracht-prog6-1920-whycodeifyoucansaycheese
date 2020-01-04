@@ -229,6 +229,7 @@
     <Content Include="Views\Shared\Progress.cshtml" />
     <Content Include="Views\Shared\_ProgressLayout.cshtml" />
     <Content Include="Views\Booking\Step3.cshtml" />
+    <Content Include="Views\Booking\Step4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

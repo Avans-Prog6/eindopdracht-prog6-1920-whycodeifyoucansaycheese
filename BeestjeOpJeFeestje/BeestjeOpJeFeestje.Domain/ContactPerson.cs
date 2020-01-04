@@ -44,6 +44,19 @@ namespace BeestjeOpJeFeestje.Domain
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefoonnummer voldoet niet aan het format. Klopt hij wel?")]
         public string PhoneNumber { get; set; }
     
+
+        public string Fullname
+        {
+            get
+            {
+                if(InBetween != null)
+                {
+                    return FirstName + " " + InBetween + " " + LastName;
+                }
+                return FirstName + " " + LastName;
+
+            }
+        }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Booking { get; set; }
     }
