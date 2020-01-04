@@ -77,6 +77,8 @@
     <Compile Include="ContactPerson.cs">
       <DependentUpon>BeetjeOpJeFeestje.tt</DependentUpon>
     </Compile>
+    <Compile Include="Discount.cs" />
+    <Compile Include="DiscountCalculator.cs" />
     <Compile Include="Interface Repositories\IAccessoryRepository.cs" />
     <Compile Include="Interface Repositories\IBeastRepository.cs" />
     <Compile Include="Interface Repositories\IBoekingRepository.cs" />
