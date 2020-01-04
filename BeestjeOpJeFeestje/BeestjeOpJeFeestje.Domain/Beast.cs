@@ -21,7 +21,7 @@ namespace BeestjeOpJeFeestje.Domain
             this.Accessory = new HashSet<Accessory>();
             this.Booking = new HashSet<Booking>();
         }
-    
+
         [Key]
         public int ID { get; set; }
         [Required]
@@ -34,6 +34,7 @@ namespace BeestjeOpJeFeestje.Domain
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
         public string Selected { get; set; } = "Selecteren";
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Accessory> Accessory { get; set; }
         public virtual Type Type1 { get; set; }

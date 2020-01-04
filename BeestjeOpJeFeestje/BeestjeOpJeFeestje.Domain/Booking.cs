@@ -20,8 +20,9 @@ namespace BeestjeOpJeFeestje.Domain
         {
             this.Beast = new HashSet<Beast>();
             this.Accessory = new HashSet<Accessory>();
+            Discounts = new List<Discount>();
         }
-    
+
         [Key]
         public int ID { get; set; }
         public int ContactpersonID { get; set; }
@@ -29,7 +30,11 @@ namespace BeestjeOpJeFeestje.Domain
         [Required]
         [DataType(DataType.Date)]
         public System.DateTime Date { get; set; }
-    
+        [Required]
+        [DataType(DataType.Currency)]
+        public decimal Price { get; set; }
+        public ICollection<Discount> Discounts { get; set; }
+
         public virtual ContactPerson ContactPerson { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Beast> Beast { get; set; }

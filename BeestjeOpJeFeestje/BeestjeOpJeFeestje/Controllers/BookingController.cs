@@ -179,6 +179,9 @@ namespace BeestjeOpJeFeestje.Controllers
 
         public ActionResult Step4()
         {
+            var calc = new DiscountCalculator();
+            _boekingRepository.TempBooking.Discounts = calc.CalculateTotalDiscount(_boekingRepository.TempBooking);
+            _boekingRepository.TempBooking.Price = calc.CalculateTotalPrice(_boekingRepository.TempBooking);
             return View(_boekingRepository.TempBooking);
         }
         public ActionResult InfoBar()

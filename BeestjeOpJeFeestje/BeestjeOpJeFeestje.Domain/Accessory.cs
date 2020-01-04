@@ -20,6 +20,7 @@ namespace BeestjeOpJeFeestje.Domain
         {
             this.Booking = new HashSet<Booking>();
         }
+
         [Key]
         public int ID { get; set; }
         [Required]
@@ -33,6 +34,7 @@ namespace BeestjeOpJeFeestje.Domain
         public int BeastID { get; set; }
         public bool IsSelected { get; set; }
         public string Selected { get; set; } = "Selecteren";
+
         public virtual Beast Beast { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Booking { get; set; }

@@ -20,6 +20,7 @@ namespace BeestjeOpJeFeestje.Domain
         {
             this.Booking = new HashSet<Booking>();
         }
+
         [Key]
         public int ID { get; set; }
         [Required]
@@ -43,13 +44,13 @@ namespace BeestjeOpJeFeestje.Domain
         [DataType(DataType.PhoneNumber)]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefoonnummer voldoet niet aan het format. Klopt hij wel?")]
         public string PhoneNumber { get; set; }
-    
+
 
         public string Fullname
         {
             get
             {
-                if(InBetween != null)
+                if (InBetween != null)
                 {
                     return FirstName + " " + InBetween + " " + LastName;
                 }
@@ -57,6 +58,7 @@ namespace BeestjeOpJeFeestje.Domain
 
             }
         }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Booking> Booking { get; set; }
     }

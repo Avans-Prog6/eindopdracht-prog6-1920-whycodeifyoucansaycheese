@@ -30,6 +30,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ContactpersonID" Type="int" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Booking_Accessory">
           <Key>
@@ -236,6 +237,7 @@
           <NavigationProperty Name="ContactPerson" Relationship="Self.FK_Booking_Person" FromRole="Booking" ToRole="ContactPerson" />
           <NavigationProperty Name="Beast" Relationship="Self.Booking_Beast" FromRole="Booking" ToRole="Beast" />
           <NavigationProperty Name="Accessory" Relationship="BeesteOpJeFeestjeModel.Booking_Accessory" FromRole="Booking" ToRole="Accessory" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="ContactPerson">
           <Key>
@@ -368,6 +370,7 @@
           <EntitySetMapping Name="Booking">
             <EntityTypeMapping TypeName="BeesteOpJeFeestjeModel.Booking">
               <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ContactpersonID" ColumnName="ContactpersonID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />

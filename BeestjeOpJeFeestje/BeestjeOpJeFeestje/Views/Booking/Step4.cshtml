@@ -22,13 +22,20 @@
         <ul>
             @foreach (var beast in Model.Beast)
             {
-                <li>@beast.Name : €@beast.Price</li>
+                <li>@beast.Name: €@beast.Price</li>
             }
             @foreach (var acc in Model.Accessory)
             {
-                <li>@acc.Name : €@acc.Price</li>
+                <li>@acc.Name: €@acc.Price</li>
             }
+            @foreach (var discount in Model.Discounts)
+            {
+                <li>@discount.DiscountName @discount.PercentageDiscount%</li>
+            }
+        
         </ul>
+
+        <h4>Totale prijs: €@Model.Price</h4>
 
         @using (Html.BeginForm("Step2", "Booking", FormMethod.Post))
         {
