@@ -77,10 +77,11 @@ namespace BeestjeOpJeFeestje.Controllers
             return View(booking);
         }
 
+        #region Step1
         public ActionResult Step1()
         {
             var temp = _boekingRepository.TempBooking;
-            if(temp.Date.Month > 9 || temp.Date.Month < 3)
+            if (temp.Date.Month > 9 || temp.Date.Month < 3)
             {
                 _beastrepo.ExcludeDesert = true;
             }
@@ -88,7 +89,7 @@ namespace BeestjeOpJeFeestje.Controllers
             {
                 _beastrepo.ExcludeDesert = false;
             }
-            if(temp.Date.Month > 5 && temp.Date.Month < 9)
+            if (temp.Date.Month > 5 && temp.Date.Month < 9)
             {
                 _beastrepo.ExcludeSnow = true;
             }
@@ -96,7 +97,7 @@ namespace BeestjeOpJeFeestje.Controllers
             {
                 _beastrepo.ExcludeSnow = false;
             }
-            if(temp.Date.DayOfWeek == DayOfWeek.Saturday || temp.Date.DayOfWeek == DayOfWeek.Sunday)
+            if (temp.Date.DayOfWeek == DayOfWeek.Saturday || temp.Date.DayOfWeek == DayOfWeek.Sunday)
             {
                 _beastrepo.ExcludePinguin = true;
             }
@@ -104,7 +105,7 @@ namespace BeestjeOpJeFeestje.Controllers
             {
                 _beastrepo.ExcludePinguin = false;
             }
-                AllBeasts = new List<Beast>(_beastrepo.BeastsAvailable());
+            AllBeasts = new List<Beast>(_beastrepo.BeastsAvailable());
             return View(AllBeasts);
         }
 
@@ -114,20 +115,23 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             return RedirectToAction("Step2", "Booking");
         }
+        #endregion
+        #region Step2
 
-        public ActionResult Step2()
-        {
+                public ActionResult Step2()
+                {
            
-            return View(_boekingRepository.AnimalsBooked());
-        }
+                    return View(_boekingRepository.AnimalsBooked());
+                }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Step2(string z)
-        {
-            return RedirectToAction("Step3", "Booking");
-        }
-
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+                public ActionResult Step2(string z)
+                {
+                    return RedirectToAction("Step3", "Booking");
+                }
+        #endregion
+        #region Step3
         public ActionResult Step3()
         {
             return View();
@@ -148,7 +152,8 @@ namespace BeestjeOpJeFeestje.Controllers
             }
             return View(contactPerson);
         }
-
+        #endregion
+        #region Step4
         public ActionResult Step4()
         {
             var calc = new DiscountCalculator();
@@ -167,6 +172,89 @@ namespace BeestjeOpJeFeestje.Controllers
             _boekingRepository.Complete();
             return RedirectToAction("Index");
         }
+
+        #endregion
+        #region AddAnimal
+
+        [HttpPost]
+        public ActionResult AddCheckedAnimal()
+        {
+            var temp = this._boekingRepository.TempBooking;
+            var beastie = _beastrepo.Get(int.Parse(Request.Form.Get("BeastID")));
+
+            var beastieList = _boekingRepository.AnimalsBooked().ToList();
+            if (beastieList.Contains(beastie))
+            {
+
+                beastie.Selected = "Selecteren";
+                beastieList.Remove(beastie);
+                temp.Beast = beastieList;
+                _boekingRepository.TempBooking = temp;
+                if (!_boekingRepository.PolarLionExists())
+                {
+                    _beastrepo.ExcludeFarm = false;
+                }
+                if (!_boekingRepository.FarmExists())
+                {
+                    _beastrepo.ExcludePolarLion = false;
+                }
+                InfoBar();
+                return RedirectToAction("Step1");
+            }
+            if (beastie.Name == "Leeuw" || beastie.Name == "Ijsbeer")
+            {
+                _beastrepo.ExcludeFarm = true;
+            }
+            else
+            {
+                _beastrepo.ExcludeFarm = false;
+            }
+            if (beastie.Type == "Boerderij")
+            {
+                _beastrepo.ExcludePolarLion = true;
+            }
+            else
+            {
+                _beastrepo.ExcludePolarLion = false;
+            }
+            beastie.Selected = "Deselecteren";
+            beastieList.Add(beastie);
+            temp.Beast = beastieList;
+            _boekingRepository.TempBooking = temp;
+            InfoBar();
+
+            return RedirectToAction("Step1");
+        }
+        #endregion
+        #region AddAccessory
+        [HttpPost]
+        public ActionResult AddCheckedAccessory()
+        {
+            var temp = this._boekingRepository.TempBooking;
+            var acc = _accrepo.Get(int.Parse(Request.Form.Get("AccID")));
+
+            var accList = _boekingRepository.AccessoriesBooked().ToList();
+            if (accList.Contains(acc))
+            {
+                acc.Selected = "Selecteren";
+                acc.IsSelected = false;
+                accList.Remove(acc);
+                temp.Accessory = accList;
+                _boekingRepository.TempBooking = temp;
+                InfoBar();
+                return RedirectToAction("Step2");
+            }
+            acc.Selected = "Deselecteren";
+            acc.IsSelected = true;
+            accList.Add(acc);
+            temp.Accessory = accList;
+            _boekingRepository.TempBooking = temp;
+            InfoBar();
+
+            return RedirectToAction("Step2");
+
+        }
+        #endregion
         public ActionResult InfoBar()
         {
             return View(_boekingRepository.TempBooking);
@@ -193,81 +281,6 @@ namespace BeestjeOpJeFeestje.Controllers
             base.Dispose(disposing);
         }
 
-        [HttpPost]
-        public ActionResult AddCheckedAnimal()
-        {
-            var temp = this._boekingRepository.TempBooking;
-            var beastie = _beastrepo.Get(int.Parse(Request.Form.Get("BeastID")));
-
-            var beastieList = _boekingRepository.AnimalsBooked().ToList();
-            if (beastieList.Contains(beastie))
-            {
-                
-                beastie.Selected = "Selecteren";
-                beastieList.Remove(beastie);
-                temp.Beast = beastieList;
-                _boekingRepository.TempBooking = temp;
-                if (!_boekingRepository.PolarLionExists())
-                {
-                    _beastrepo.ExcludeFarm = false;
-                }
-                if (!_boekingRepository.FarmExists())
-                {
-                    _beastrepo.ExcludePolarLion = false;
-                }
-                    InfoBar();
-                return RedirectToAction("Step1");
-            }
-            if(beastie.Name == "Leeuw" || beastie.Name == "Ijsbeer")
-            {
-                _beastrepo.ExcludeFarm = true;
-            }
-            else
-            {
-                _beastrepo.ExcludeFarm = false;
-            }
-            if(beastie.Type == "Boerderij")
-            {
-                _beastrepo.ExcludePolarLion = true;
-            }
-            else
-            {
-                _beastrepo.ExcludePolarLion = false;
-            }
-            beastie.Selected = "Deselecteren";
-            beastieList.Add(beastie);
-            temp.Beast = beastieList;
-            _boekingRepository.TempBooking = temp;
-            InfoBar();
-
-            return RedirectToAction("Step1");
-        }
-
-        [HttpPost]
-        public ActionResult AddCheckedAccessory()
-        {
-            var temp = this._boekingRepository.TempBooking;
-            var acc = _accrepo.Get(int.Parse(Request.Form.Get("AccID")));
-
-            var accList = _boekingRepository.AccessoriesBooked().ToList();
-            if (accList.Contains(acc))
-            {
-                acc.Selected = "Selecteren";
-                acc.IsSelected = false;
-                accList.Remove(acc);
-                temp.Accessory = accList;
-                _boekingRepository.TempBooking = temp;
-                InfoBar();
-                return RedirectToAction("Step2");
-            }
-            acc.Selected = "Deselecteren";
-            acc.IsSelected = true;
-            accList.Add(acc);
-            temp.Accessory = accList;
-            _boekingRepository.TempBooking = temp;
-            InfoBar();
-
-            return RedirectToAction("Step2");
-        }
+       
     }
 }
