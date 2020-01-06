@@ -16,7 +16,7 @@
                         <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50" />
                         <div class="caption" align="center">
                             <h3>@acc.Name: €@acc.Price</h3>
-                            @using (Html.BeginForm("AddCheckedAnimal", "Booking", FormMethod.Post))
+                            @using (Html.BeginForm("AddCheckedAccessory", "Booking", FormMethod.Post))
                             {
                                 @Html.AntiForgeryToken()
                                 <input type="text" name="AccID" id="AccieID" value="@acc.ID" hidden />
