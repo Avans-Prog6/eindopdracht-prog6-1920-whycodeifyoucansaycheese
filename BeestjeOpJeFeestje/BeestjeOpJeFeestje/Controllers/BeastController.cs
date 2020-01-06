@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BeestjeOpJeFeestje.Domain;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
@@ -13,7 +9,7 @@ namespace BeestjeOpJeFeestje.Controllers
 {
     public class BeastController : Controller
     {
-        private IBeastRepository _beastrepo;
+        private readonly IBeastRepository _beastrepo;
 
         public BeastController(IBeastRepository BeastRepo)
         {
@@ -36,15 +32,9 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Beast/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Beast beast = _beastrepo.Get(id);
-            if (beast == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var beast = _beastrepo.Get(id);
+            if (beast == null) return HttpNotFound();
             return View(beast);
         }
 
@@ -76,15 +66,9 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Beast/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Beast beast = _beastrepo.Get(id);
-            if (beast == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var beast = _beastrepo.Get(id);
+            if (beast == null) return HttpNotFound();
             ViewBag.Type = new SelectList(_beastrepo.ContextDB().Type, "Type1", "Type1", beast.Type);
             return View(beast);
         }
@@ -98,11 +82,11 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 _beastrepo.ContextDB().Entry(beast).State = EntityState.Modified;
                 _beastrepo.Complete();
                 return RedirectToAction("Index");
             }
+
             ViewBag.Type = new SelectList(_beastrepo.ContextDB().Type, "Type1", "Type1", beast.Type);
             return View(beast);
         }
@@ -110,24 +94,19 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Beast/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Beast beast = _beastrepo.Get(id);
-            if (beast == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var beast = _beastrepo.Get(id);
+            if (beast == null) return HttpNotFound();
             return View(beast);
         }
 
         // POST: Beast/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Beast beast = _beastrepo.Get(id);
+            var beast = _beastrepo.Get(id);
             _beastrepo.Remove(beast);
             _beastrepo.Complete();
             return RedirectToAction("Index");
@@ -137,8 +116,8 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             if (disposing)
             {
-                
             }
+
             base.Dispose(disposing);
         }
     }

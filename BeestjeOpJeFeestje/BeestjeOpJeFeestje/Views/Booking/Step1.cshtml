@@ -2,7 +2,7 @@
 
 <h2>Stap 1</h2>
 <div>
-    <img src="~/Images/stap1.png" alt="stap1.png" width="500" class="center-block" style="padding-bottom: 2%" />
+    <img src="~/Images/stap1.png" alt="stap1.png" width="500" class="center-block" style="padding-bottom: 2%"/>
 </div>
 <div class="form-inline">
     <div class="form-group">
@@ -29,7 +29,7 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50" />
+                        <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50"/>
                     </td>
                     <td>
                         @using (Html.BeginForm("AddCheckedAnimal", "Booking", FormMethod.Post))
@@ -37,7 +37,7 @@
                             @Html.AntiForgeryToken()
                             <div class="form-group">
                                 <div class="col-md-3">
-                                    <input type="text" name="BeastID" id="BeastieId" value="@item.ID" hidden />
+                                    <input type="text" name="BeastID" id="BeastieId" value="@item.ID" hidden/>
                                     <input type="submit" value="@item.Selected"/>
                                 </div>
                             </div>
@@ -53,16 +53,12 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Ga door naar stap 2" class="btn btn-default" />
+                    <input type="submit" value="Ga door naar stap 2" class="btn btn-default"/>
                 </div>
             </div>
         }
     </div>
-    <div class="form-group col-lg-offset-2" style="display:inline-block">
+    <div class="form-group col-lg-offset-2" style="display: inline-block">
         @Html.Action("InfoBar")
     </div>
 </div>
-
-
-
-

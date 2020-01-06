@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BeestjeOpJeFeestje.Domain;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
@@ -13,13 +9,13 @@ namespace BeestjeOpJeFeestje.Controllers
 {
     public class AccessoryController : Controller
     {
-
-        private IAccessoryRepository _accessRepo;
+        private readonly IAccessoryRepository _accessRepo;
 
         public AccessoryController(IAccessoryRepository AccessRepo)
         {
             _accessRepo = AccessRepo;
         }
+
         // GET: Accessory
         public ActionResult Index()
         {
@@ -30,15 +26,9 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Accessory/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Accessory accessory = _accessRepo.Get(id);
-            if (accessory == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var accessory = _accessRepo.Get(id);
+            if (accessory == null) return HttpNotFound();
             return View(accessory);
         }
 
@@ -54,7 +44,8 @@ namespace BeestjeOpJeFeestje.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Price,BeastID")] Accessory accessory)
+        public ActionResult Create([Bind(Include = "ID,Name,Price,BeastID")]
+            Accessory accessory)
         {
             if (ModelState.IsValid)
             {
@@ -70,15 +61,9 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Accessory/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Accessory accessory = _accessRepo.Get(id);
-            if (accessory == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var accessory = _accessRepo.Get(id);
+            if (accessory == null) return HttpNotFound();
             ViewBag.BeastID = new SelectList(_accessRepo.ContextDB().Beast, "ID", "Name", accessory.BeastID);
             return View(accessory);
         }
@@ -88,7 +73,8 @@ namespace BeestjeOpJeFeestje.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Price,BeastID")] Accessory accessory)
+        public ActionResult Edit([Bind(Include = "ID,Name,Price,BeastID")]
+            Accessory accessory)
         {
             if (ModelState.IsValid)
             {
@@ -96,6 +82,7 @@ namespace BeestjeOpJeFeestje.Controllers
                 _accessRepo.Complete();
                 return RedirectToAction("Index");
             }
+
             ViewBag.BeastID = new SelectList(_accessRepo.ContextDB().Beast, "ID", "Name", accessory.BeastID);
             return View(accessory);
         }
@@ -103,24 +90,19 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Accessory/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Accessory accessory = _accessRepo.Get(id);
-            if (accessory == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var accessory = _accessRepo.Get(id);
+            if (accessory == null) return HttpNotFound();
             return View(accessory);
         }
 
         // POST: Accessory/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Accessory accessory = _accessRepo.Get(id);
+            var accessory = _accessRepo.Get(id);
             _accessRepo.Remove(accessory);
             _accessRepo.Complete();
             return RedirectToAction("Index");
@@ -132,6 +114,7 @@ namespace BeestjeOpJeFeestje.Controllers
             {
                 // lol niks
             }
+
             base.Dispose(disposing);
         }
     }

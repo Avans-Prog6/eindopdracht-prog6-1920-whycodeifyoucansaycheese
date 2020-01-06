@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using BeestjeOpJeFeestje.Domain;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
 
@@ -10,7 +6,7 @@ namespace BeestjeOpJeFeestje.Controllers
 {
     public class HomeController : Controller
     {
-        private IBoekingRepository _bookRepo;
+        private readonly IBoekingRepository _bookRepo;
 
         public HomeController(IBoekingRepository BookRepo)
         {
@@ -24,15 +20,16 @@ namespace BeestjeOpJeFeestje.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "ID,ContactpersonID,Date")] Booking booking)
+        public ActionResult Index([Bind(Include = "ID,ContactpersonID,Date")]
+            Booking booking)
         {
             if (ModelState.IsValid)
             {
                 _bookRepo.TempBooking.Date = booking.Date;
                 return RedirectToAction("Step1", "Booking");
             }
+
             return View(booking);
         }
-
     }
 }

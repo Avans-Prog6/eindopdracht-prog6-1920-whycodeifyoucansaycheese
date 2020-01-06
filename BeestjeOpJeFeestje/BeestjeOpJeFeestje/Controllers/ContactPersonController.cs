@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BeestjeOpJeFeestje.Domain;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
@@ -13,7 +9,7 @@ namespace BeestjeOpJeFeestje.Controllers
 {
     public class ContactPersonController : Controller
     {
-        private IContactpersonRepository _contactpersonRepository;
+        private readonly IContactpersonRepository _contactpersonRepository;
 
         public ContactPersonController(IContactpersonRepository contactpersonRepository)
         {
@@ -30,16 +26,10 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: ContactPerson/Details/5
         public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ContactPerson contactPerson = _contactpersonRepository.Get(id);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var contactPerson = _contactpersonRepository.Get(id);
 
-            if (contactPerson == null)
-            {
-                return HttpNotFound();
-            }
+            if (contactPerson == null) return HttpNotFound();
             return View(contactPerson);
         }
 
@@ -54,7 +44,8 @@ namespace BeestjeOpJeFeestje.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,InBetween,LastName,Adress,Email,PhoneNumber")] ContactPerson contactPerson)
+        public ActionResult Create([Bind(Include = "ID,FirstName,InBetween,LastName,Adress,Email,PhoneNumber")]
+            ContactPerson contactPerson)
         {
             if (ModelState.IsValid)
             {
@@ -69,16 +60,10 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: ContactPerson/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ContactPerson contactPerson = _contactpersonRepository.Get(id);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var contactPerson = _contactpersonRepository.Get(id);
 
-            if (contactPerson == null)
-            {
-                return HttpNotFound();
-            }
+            if (contactPerson == null) return HttpNotFound();
             return View(contactPerson);
         }
 
@@ -87,7 +72,8 @@ namespace BeestjeOpJeFeestje.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,InBetween,LastName,Adress,Email,PhoneNumber")] ContactPerson contactPerson)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,InBetween,LastName,Adress,Email,PhoneNumber")]
+            ContactPerson contactPerson)
         {
             if (ModelState.IsValid)
             {
@@ -95,31 +81,27 @@ namespace BeestjeOpJeFeestje.Controllers
                 _contactpersonRepository.Complete();
                 return RedirectToAction("Index");
             }
+
             return View(contactPerson);
         }
 
         // GET: ContactPerson/Delete/5
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ContactPerson contactPerson = _contactpersonRepository.Get(id);
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var contactPerson = _contactpersonRepository.Get(id);
 
-            if (contactPerson == null)
-            {
-                return HttpNotFound();
-            }
+            if (contactPerson == null) return HttpNotFound();
             return View(contactPerson);
         }
 
         // POST: ContactPerson/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ContactPerson contactPerson = _contactpersonRepository.Get(id);
+            var contactPerson = _contactpersonRepository.Get(id);
 
             _contactpersonRepository.Remove(contactPerson);
             _contactpersonRepository.Complete();
@@ -131,6 +113,7 @@ namespace BeestjeOpJeFeestje.Controllers
             if (disposing)
             {
             }
+
             base.Dispose(disposing);
         }
     }

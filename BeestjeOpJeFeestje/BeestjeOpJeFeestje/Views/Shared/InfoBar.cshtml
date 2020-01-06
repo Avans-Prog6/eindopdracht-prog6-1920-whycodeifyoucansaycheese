@@ -1,25 +1,22 @@
 ﻿@model BeestjeOpJeFeestje.Domain.Booking
-@{ 
+@{
     Layout = null;
 }
-    <div>
-        <p>Datum:</p>
-        <p>@Model.Date</p>
-        <p>Beesten:</p>
-        <ul>
-            @foreach (var beast in Model.Beast)
-            {
-                <li> @beast.Name </li>
-            }
-        </ul>
-        <p>Accessoires:</p>
-        <ul>
-            @foreach (var acc in Model.Accessory)
-            {
-                
-            <li>@acc.Name</li> 
-                
-            }
-        </ul>
-    </div>
-
+<div>
+    <p>Datum:</p>
+    <p>@Model.Date</p>
+    <p>Beesten:</p>
+    <ul>
+        @foreach (var beast in Model.Beast)
+        {
+            <li> @beast.Name </li>
+        }
+    </ul>
+    <p>Accessoires:</p>
+    <ul>
+        @foreach (var acc in Model.Accessory)
+        {
+            <li>@acc.Name</li>
+        }
+    </ul>
+</div>
