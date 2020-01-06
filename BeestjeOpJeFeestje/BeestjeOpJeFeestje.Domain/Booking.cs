@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
@@ -29,6 +31,7 @@ namespace BeestjeOpJeFeestje.Domain
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayName("Datum")]
         public System.DateTime Date { get; set; }
         [Required]
         [DataType(DataType.Currency)]

@@ -1,13 +1,14 @@
 ﻿@model BeestjeOpJeFeestje.Domain.Booking
 
-<div class="jumbotron">
-    <h1>Boek een beestje</h1>
-    <p class="lead">Welkom bij 'Beestje op een feestje' (BOEF). Hier kun je een of meerdere van onze dieren boeken voor op jouw feestje! Kies de dag van je feestje en volg de stappen om je beestje te boeken.</p>
-
+<div class="container">
+    <div class="jumbotron">
+        <h1>Boek een beestje</h1>
+        <p class="lead">Welkom bij 'Beestje op een feestje' (BOEF). Hier kun je een of meerdere van onze dieren boeken voor op jouw feestje! Kies de dag van je feestje en volg de stappen om je beestje te boeken.</p>
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-lg-4">
         <h2>Boek hier je beestje!</h2>
         <p>
             Selecteer hieronder de datum waarop je een beestje wilt boeken!
@@ -30,8 +31,8 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Boeken!" class="btn btn-default"/>
+                    <div class="col-md-offset-2 col-md-2">
+                        <input type="submit" value="Boeken!" class="btn btn-success"/>
                     </div>
                 </div>
             </div>
@@ -39,7 +40,7 @@
 
     </div>
 
-    <div class="col-md-4">
-        <img src="~/Images/field.png" alt="field.png"/>
+    <div class="col-md-6">
+        <img src="~/Images/field.png" alt="field.png" class="img-responsive"/>
     </div>
 </div>
