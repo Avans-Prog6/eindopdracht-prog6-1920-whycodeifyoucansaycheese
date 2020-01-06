@@ -175,6 +175,10 @@
     <Content Include="Images\leeuw.png" />
     <Content Include="Images\olifant.png" />
     <Content Include="Images\pingwing.png" />
+    <Content Include="Images\stap1.png" />
+    <Content Include="Images\stap2.png" />
+    <Content Include="Images\stap3.png" />
+    <Content Include="Images\stap4.png" />
     <Content Include="Images\varken.png" />
     <Content Include="Images\zebra.png" />
     <Content Include="Images\zeehond.png" />
