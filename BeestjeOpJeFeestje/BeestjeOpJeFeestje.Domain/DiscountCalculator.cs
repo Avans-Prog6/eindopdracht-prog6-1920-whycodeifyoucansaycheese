@@ -8,7 +8,7 @@ namespace BeestjeOpJeFeestje.Domain
 {
     public class DiscountCalculator
     {
-        private List<Discount> _discounts;
+        public List<Discount> _discounts;
         private int _totaldiscount;
         private int characterdiscount = 0;
 
@@ -31,7 +31,11 @@ namespace BeestjeOpJeFeestje.Domain
             }
             
             DateDiscount(booking.Date);
-            TypeDiscount(booking.Beast.ToList());
+            if(TypeDiscount(booking.Beast.ToList()) != null)
+            {
+                _discounts.Add(TypeDiscount(booking.Beast.ToList()));
+            }
+            
             return _discounts;
         }
 
@@ -101,9 +105,9 @@ namespace BeestjeOpJeFeestje.Domain
             _discounts.Add(new Discount("Dag van de week korting: ", discount));
         }
 
-        private void TypeDiscount(List<Beast> beasts)
+        public Discount TypeDiscount(List<Beast> beasts)
         {
-            if (beasts.Count < 3 || _totaldiscount >= 60) return;
+            if (beasts.Count < 3 || _totaldiscount >= 60) return null;
             var jungleAmount = 0;
             var desertAmount = 0;
             var farmAmount = 0;
@@ -135,7 +139,12 @@ namespace BeestjeOpJeFeestje.Domain
                 {
                     discount = CalculateHalvedDiscount(discount);
                 }
-                _discounts.Add(new Discount("3 Types: ", discount));
+                return new Discount("Type korting:", discount);
+
+            }
+            else
+            {
+                return null;
             }
         }
 
