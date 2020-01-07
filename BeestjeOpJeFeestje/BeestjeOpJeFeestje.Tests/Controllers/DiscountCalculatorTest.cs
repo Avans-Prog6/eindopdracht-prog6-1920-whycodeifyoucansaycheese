@@ -63,6 +63,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             };
             booking.Beast = beasts;
             return booking;
+        }
         private TestContext testContextInstance;
 
         /// <summary>
