@@ -12,6 +12,7 @@ namespace BeestjeOpJeFeestje.Domain
         private int _totaldiscount;
         private int characterdiscount = 0;
 
+
         public DiscountCalculator()
         {
             _discounts = new List<Discount>();
@@ -23,14 +24,22 @@ namespace BeestjeOpJeFeestje.Domain
             foreach(var beast in booking.Beast)
             {
                 CalculateCharacterDiscount(beast.Name);
-                DuckDiscount(beast.Name);
+                if(DuckDiscount(beast.Name) != null)
+                {
+                    _discounts.Add(DuckDiscount(beast.Name));
+                }
+                
             }
             if(characterdiscount > 0)
             {
                 _discounts.Add(new Discount("Letter korting: ", characterdiscount));
             }
             
-            DateDiscount(booking.Date);
+            if(DateDiscount(booking.Date) != null)
+            {
+                _discounts.Add(DateDiscount(booking.Date));
+            }
+            
             if(TypeDiscount(booking.Beast.ToList()) != null)
             {
                 _discounts.Add(TypeDiscount(booking.Beast.ToList()));
@@ -78,9 +87,9 @@ namespace BeestjeOpJeFeestje.Domain
             return -1;
         }
 
-        public void DuckDiscount(string name)
+        public Discount DuckDiscount(string name)
         {
-            if (!name.Equals("Eend") || _totaldiscount >= 60) return;
+            if (!name.Equals("Eend") || _totaldiscount >= 60) return null;
             if (new Random().Next(6) == 1)
             {
                 _totaldiscount += 50;
@@ -90,20 +99,25 @@ namespace BeestjeOpJeFeestje.Domain
                     discount = CalculateHalvedDiscount(discount);
                 }
                 
-                _discounts.Add(new Discount("Eend: ", discount));
+                return new Discount("Eend: ", discount);
             }
+            else
+            {
+                return null;
+            }
+
         }
 
-        public void DateDiscount(DateTime date)
+        public Discount DateDiscount(DateTime date)
         {
-            if ((date.DayOfWeek != DayOfWeek.Monday && date.DayOfWeek != DayOfWeek.Tuesday) || _totaldiscount >= 60) return;
+            if ((date.DayOfWeek != DayOfWeek.Monday && date.DayOfWeek != DayOfWeek.Tuesday) || _totaldiscount >= 60) return null;
             _totaldiscount += 15;
             int discount = 15;
             if (_totaldiscount > 60)
             {
                 discount = CalculateHalvedDiscount(discount);
             }
-            _discounts.Add(new Discount("Dag van de week korting: ", discount));
+            return new Discount("Dag van de week korting: ", discount);
         }
 
         public Discount TypeDiscount(List<Beast> beasts)
