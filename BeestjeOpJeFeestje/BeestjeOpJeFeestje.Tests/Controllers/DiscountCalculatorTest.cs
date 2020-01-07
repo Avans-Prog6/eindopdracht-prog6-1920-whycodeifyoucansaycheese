@@ -30,7 +30,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         }
 
         [TestMethod]
-        public void CalculateCharacterDiscount_NoDiscount_Test()
+        public void CalculateCharacterDiscount_DiscountFalse_Test()
         {
             //1. Arrange
             var calc = new DiscountCalculator();
@@ -45,18 +45,32 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         }
 
         [TestMethod]
-        public void CalculateCharacterDiscount_SomeDiscount_Test()
+        public void CalculateCharacterDiscount_DiscountTrue_Test()
         {
             //1. Arrange
             var calc = new DiscountCalculator();
-            var aap = "abc";
-            var aapDiscountShouldBe = 6;
+            var abc = "abc";
+            var abcDiscountShouldBe = 6;
 
             //2. Act
-            var actualResult = calc.CalculateCharacterDiscount(aap);
+            var actualResult = calc.CalculateCharacterDiscount(abc);
 
             //3. Assert
-            Assert.AreEqual(aapDiscountShouldBe, actualResult);
+            Assert.AreEqual(abcDiscountShouldBe, actualResult);
+        }
+
+        [TestMethod]
+        public void DuckDiscount_DuckDiscountTrue_Test()
+        {
+            //1. Arrange
+            var calc = new DiscountCalculator();
+            var duckName = "Eend";
+            var random = new Random();
+
+            //2. Act
+            var result = calc.DuckDiscount(duckName);
+
+            //3. Assert
         }
     }
 }

@@ -88,6 +88,7 @@ namespace BeestjeOpJeFeestje.Domain
                 
                 _discounts.Add(new Discount("Eend: ", discount));
             }
+
         }
 
         public void DateDiscount(DateTime date)
@@ -140,7 +141,7 @@ namespace BeestjeOpJeFeestje.Domain
             }
         }
 
-        public int CalculateHalvedDiscount(int discount)
+        private int CalculateHalvedDiscount(int discount)
         {
             var temp = _totaldiscount - 60;
             discount -= temp;
