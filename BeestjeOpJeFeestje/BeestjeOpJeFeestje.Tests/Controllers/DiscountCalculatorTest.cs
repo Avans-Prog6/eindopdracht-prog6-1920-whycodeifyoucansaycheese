@@ -12,23 +12,56 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
     public class DiscountCalculatorTest
     {
         private DiscountCalculator _calc;
-
-        [TestInitialize]
-        public void Init()
-        {
-
-        }
-
+        
         [TestMethod]
         public void TypeDiscount_DiscountTrue_Test()
         {
             //1. Arange
             _calc = new DiscountCalculator();
 
-            //2. Act
+            var beasts = new List<Beast>
+            {
+                new Beast
+                {
+                    Name = "Koe",
+                    Price = 100,
+                    Type = "Boerderij"
+                },
+                new Beast
+                {
+                    Name = "Paard",
+                    Price = 100,
+                    Type = "Boerderij"
+                },
+                new Beast
+                {
+                    Name = "Varken",
+                    Price = 100,
+                    Type = "Boerderij"
+                }
+            };
 
+            //2. Act
+            var result = _calc.TypeDiscount(beasts);
 
             //3. Assert
+            Assert.AreEqual(10, result.PercentageDiscount);
+
+
+            /*            var beast1 = new Mock<Beast>();
+            var beast2 = new Mock<Beast>();
+            var beast3 = new Mock<Beast>();
+
+            beast1.Object.Type = "Boerderij";
+            beast2.Object.Type = "Boerderij";
+            beast3.Object.Type = "Boerderij";
+
+           List<Mock<Beast>> beasts = new List<Mock<Beast>>
+            {
+                beast1,
+                beast2,
+                beast3
+            };*/
 
         }
         [TestMethod]
@@ -37,14 +70,35 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //1. Arange
             _calc = new DiscountCalculator();
 
-            //2. Act
+            var beasts = new List<Beast>
+            {
+                new Beast
+                {
+                    Name = "Koe",
+                    Price = 100,
+                    Type = "Boerderij"
+                },
+                new Beast
+                {
+                    Name = "Paard",
+                    Price = 100,
+                    Type = "Boerderij"
+                },
+                new Beast
+                {
+                    Name = "Hagedis",
+                    Price = 200,
+                    Type = "Woestijn"
+                }
+            };
 
+            //2. Act
+            var result = _calc.TypeDiscount(beasts);
 
             //3. Assert
-
+            Assert.IsNull(result);
         }
-
-
+        
         [TestMethod]
         public void CalculateCharacterDiscount_DiscountFalse_Test()
         {
@@ -76,7 +130,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         }
 
         [TestMethod]
-        public void DuckDiscount_DuckDiscountTrue_Test()
+        public void DuckDiscount_AppliesDuckDiscountAppropriately_Test()
         {
             //1. Arrange
             _calc = new DiscountCalculator();
