@@ -12,6 +12,8 @@ namespace BeestjeOpJeFeestje.Domain
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class BeesteOpJeFeestjeEntities : DbContext
     {
@@ -31,5 +33,23 @@ namespace BeestjeOpJeFeestje.Domain
         public virtual DbSet<ContactPerson> ContactPerson { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Type> Type { get; set; }
+    
+        public virtual ObjectResult<Beast> GetUnavailableBeasts(Nullable<System.DateTime> date)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Beast>("GetUnavailableBeasts", dateParameter);
+        }
+    
+        public virtual ObjectResult<Beast> GetUnavailableBeasts(Nullable<System.DateTime> date, MergeOption mergeOption)
+        {
+            var dateParameter = date.HasValue ?
+                new ObjectParameter("Date", date) :
+                new ObjectParameter("Date", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Beast>("GetUnavailableBeasts", mergeOption, dateParameter);
+        }
     }
 }

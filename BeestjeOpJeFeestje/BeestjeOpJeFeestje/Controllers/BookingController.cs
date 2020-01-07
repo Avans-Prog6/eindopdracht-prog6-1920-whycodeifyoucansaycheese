@@ -180,7 +180,7 @@ namespace BeestjeOpJeFeestje.Controllers
                 _beastrepo.ExcludePinguin = true;
             else
                 _beastrepo.ExcludePinguin = false;
-            AllBeasts = new List<Beast>(_beastrepo.BeastsAvailable());
+            AllBeasts = new List<Beast>(_beastrepo.BeastsAvailable(temp.Date));
             return View(AllBeasts);
         }
 
@@ -254,6 +254,7 @@ namespace BeestjeOpJeFeestje.Controllers
             _contactrepo.Complete();
             _boekingRepository.Add(_boekingRepository.TempBooking);
             _boekingRepository.Complete();
+            _boekingRepository.TempBooking = new Booking();
             return RedirectToAction("Index");
         }
 

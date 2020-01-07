@@ -77,9 +77,7 @@
           <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Accessory_Beast">
-          <End Role="Beast" Type="Self.Beast" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Beast" Type="Self.Beast" Multiplicity="1" />
           <End Role="Accessory" Type="Self.Accessory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Beast">
@@ -162,6 +160,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetUnavailableBeasts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Date" Type="date" Mode="In" />
+        </Function>
         <EntityContainer Name="BeesteOpJeFeestjeModelStoreContainer">
           <EntitySet Name="Accessory" EntityType="Self.Accessory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Beast" EntityType="Self.Beast" Schema="dbo" store:Type="Tables" />
@@ -336,11 +337,20 @@
             <End Role="Accessory" EntitySet="Accessory" />
             <End Role="Booking" EntitySet="Booking" />
           </AssociationSet>
+          <FunctionImport Name="GetUnavailableBeasts" EntitySet="Beast" ReturnType="Collection(BeesteOpJeFeestjeModel.Beast)">
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <Association Name="Booking_Accessory">
           <End Type="BeesteOpJeFeestjeModel.Accessory" Role="Accessory" Multiplicity="*" />
           <End Type="BeesteOpJeFeestjeModel.Booking" Role="Booking" Multiplicity="*" />
         </Association>
+        <ComplexType Name="GetUnavailableBeasts_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="10" Scale="2" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -424,6 +434,8 @@
               <ScalarProperty Name="ID" ColumnName="AccessoryID" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="GetUnavailableBeasts" FunctionName="BeesteOpJeFeestjeModel.Store.GetUnavailableBeasts">
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

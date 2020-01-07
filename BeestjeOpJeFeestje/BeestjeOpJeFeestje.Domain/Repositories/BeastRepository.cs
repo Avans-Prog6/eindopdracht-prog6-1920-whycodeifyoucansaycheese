@@ -23,13 +23,23 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
             Context.Set<Beast>().AddOrUpdate(beast);
         }
 
-        public IEnumerable<Beast> BeastsAvailable()
+        public IEnumerable<Beast> BeastsAvailable(DateTime date)
         {
             var list = GetAll().ToList();
-            if(ExcludePinguin == true)
+            var unavailable = Context.GetUnavailableBeasts(date.Date).ToList();
+
+            foreach (var item in unavailable)
+            {
+                list.Remove(item);
+            }
+            if (ExcludePinguin == true)
             {
                 var pin = list.Where(beast => beast.Name == "Pinguin").SingleOrDefault();
-                list.Remove(pin);
+                if(pin != null)
+                {
+                    list.Remove(pin);
+                }
+                
             }
             if(ExcludePolarLion == true)
             {

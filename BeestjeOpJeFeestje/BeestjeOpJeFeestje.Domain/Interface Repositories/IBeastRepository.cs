@@ -10,7 +10,7 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
     {
         IEnumerable<Beast> TempSelected { get; set; }
 
-        IEnumerable<Beast> BeastsAvailable();
+        IEnumerable<Beast> BeastsAvailable(DateTime date);
 
         void UpdateBeast(Beast beast);
 

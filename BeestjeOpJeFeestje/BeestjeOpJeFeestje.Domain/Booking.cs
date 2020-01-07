@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel;
-
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class Booking
@@ -36,7 +35,7 @@ namespace BeestjeOpJeFeestje.Domain
 
         [Required]
         [DataType(DataType.Currency)]
-        [DisplayName("Prijs booking")]
+        [DisplayName("Prijs boeking")]
         public decimal Price { get; set; }
 
         public ICollection<Discount> Discounts { get; set; }
