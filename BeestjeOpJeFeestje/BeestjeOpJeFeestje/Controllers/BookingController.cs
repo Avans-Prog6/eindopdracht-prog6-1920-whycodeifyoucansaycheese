@@ -168,18 +168,9 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Step1()
         {
             var temp = _boekingRepository.TempBooking;
-            if (temp.Date.Month > 9 || temp.Date.Month < 3)
-                _beastrepo.ExcludeDesert = true;
-            else
-                _beastrepo.ExcludeDesert = false;
-            if (temp.Date.Month > 5 && temp.Date.Month < 9)
-                _beastrepo.ExcludeSnow = true;
-            else
-                _beastrepo.ExcludeSnow = false;
-            if (temp.Date.DayOfWeek == DayOfWeek.Saturday || temp.Date.DayOfWeek == DayOfWeek.Sunday)
-                _beastrepo.ExcludePinguin = true;
-            else
-                _beastrepo.ExcludePinguin = false;
+            _beastrepo.ExcludeDesert = Validator.ExcludeDesert(temp);
+            _beastrepo.ExcludeSnow = Validator.ExcludeSnow(temp);
+            _beastrepo.ExcludePinguin = Validator.IsWeekend(temp);
             AllBeasts = new List<Beast>(_beastrepo.BeastsAvailable(temp.Date));
             return View(AllBeasts);
         }
