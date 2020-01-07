@@ -4,7 +4,8 @@
 <div>
     <img src="~/Images/stap2.png" alt="stap2.png" width="500" class="center-block" style="padding-bottom: 2%" />
 </div>
-
+<h4>Kies uw accessoires</h4>
+<hr />
 <div class="row">
     <div class="col-lg-8">
         @foreach (var item in Model)
@@ -20,7 +21,7 @@
                             {
                                 @Html.AntiForgeryToken()
                                 <input type="text" name="AccID" id="AccieID" value="@acc.ID" hidden />
-                                <input type="submit" value="@acc.Selected" class="btn btn-default"/>
+                                <input type="submit" value="@acc.Selected" class="btn btn-default" />
                             }
                         </div>
                     </div>
