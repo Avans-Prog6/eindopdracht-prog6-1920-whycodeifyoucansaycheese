@@ -8,5 +8,10 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
 {
     public interface IAccessoryRepository : IRepository<Accessory>
     {
+        void UpdateAccessory(Accessory acc);
+
+       
     }
+
+    
 }

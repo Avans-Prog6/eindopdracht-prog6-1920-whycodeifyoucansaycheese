@@ -14,6 +14,8 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
         void AddBookedAccessory(Accessory acc);
         void RemoveBookAccessory(Accessory acc);
 
+        void RecalculateTotalPrice(IEnumerable<Booking> bookings);
+
         bool SnowExists();
         bool FarmExists();
         bool DesertExists();

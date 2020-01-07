@@ -10,20 +10,17 @@ namespace BeestjeOpJeFeestje.Controllers
     public class BeastController : Controller
     {
         private readonly IBeastRepository _beastrepo;
-
-        public BeastController(IBeastRepository BeastRepo)
+        private IAccessoryRepository _accRepo;
+        private IBoekingRepository _boekingRepository;
+        public BeastController(IBeastRepository BeastRepo, IAccessoryRepository AccRepo, IBoekingRepository boekingRepository)
         {
             _beastrepo = BeastRepo;
+            _accRepo = AccRepo;
+            _boekingRepository = boekingRepository;
         }
 
         // GET: Beast
         public ActionResult Index()
-        {
-            var beast = _beastrepo.GetAll();
-            return View(beast.ToList());
-        }
-
-        public ActionResult Step1()
         {
             var beast = _beastrepo.GetAll();
             return View(beast.ToList());
@@ -82,7 +79,7 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             if (ModelState.IsValid)
             {
-                _beastrepo.ContextDB().Entry(beast).State = EntityState.Modified;
+                _beastrepo.UpdateBeast(beast);
                 _beastrepo.Complete();
                 return RedirectToAction("Index");
             }
@@ -107,8 +104,18 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var beast = _beastrepo.Get(id);
+            _accRepo.RemoveRange(beast.Accessory);
+            beast.Accessory.Clear();
+            _accRepo.Complete();
+            var temp = beast.Booking;
+            foreach (var item in temp)
+            {
+                item.Beast.Remove(beast);
+            }
+            _boekingRepository.RecalculateTotalPrice(temp);
             _beastrepo.Remove(beast);
             _beastrepo.Complete();
+            //_boekingRepository.Complete();
             return RedirectToAction("Index");
         }
 

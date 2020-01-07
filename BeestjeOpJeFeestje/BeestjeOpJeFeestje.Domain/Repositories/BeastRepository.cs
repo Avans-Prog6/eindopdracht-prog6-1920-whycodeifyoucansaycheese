@@ -1,9 +1,11 @@
 ﻿using BeestjeOpJeFeestje.Domain.Interface_Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity.Migrations;
 
 namespace BeestjeOpJeFeestje.Domain.Repositories
 {
@@ -15,6 +17,11 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
         }
 
         public IEnumerable<Beast> TempSelected { get; set; }
+
+        public void UpdateBeast(Beast beast)
+        {
+            Context.Set<Beast>().AddOrUpdate(beast);
+        }
 
         public IEnumerable<Beast> BeastsAvailable()
         {

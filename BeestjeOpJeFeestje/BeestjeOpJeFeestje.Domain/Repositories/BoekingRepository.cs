@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
+using System.Data.Entity.Migrations;
 
 namespace BeestjeOpJeFeestje.Domain.Repositories
 {
@@ -39,6 +40,21 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
             var a = b.Accessory.First(accs => accs.ID == acc.ID);
             a.IsSelected = false;
             a.Selected = "Selecteren";
+        }
+
+        public void RecalculateTotalPrice(IEnumerable<Booking> bookings)
+        {
+            var context = Context.Set<Booking>();
+            var list = bookings.ToList();
+            for (int i = list.Count()-1; i >= 0; i--)
+            {
+                var temp = list[i];
+                var discountcalc = new DiscountCalculator();
+                discountcalc.CalculateTotalDiscount(temp);
+                temp.Price = discountcalc.CalculateTotalPrice(temp);
+                context.AddOrUpdate(temp);
+            }
+            Complete();
         }
 
         public bool SnowExists()

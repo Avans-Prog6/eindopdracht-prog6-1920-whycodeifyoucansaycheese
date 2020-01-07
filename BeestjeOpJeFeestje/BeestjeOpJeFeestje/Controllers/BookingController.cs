@@ -144,9 +144,12 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var booking = _boekingRepository.Get(id);
-
+            booking.Accessory.Clear();
+            booking.Beast.Clear();
+            var person = booking.ContactPerson;
+            
             _boekingRepository.Remove(booking);
-
+            _contactrepo.Remove(person);
             _boekingRepository.Complete();
             return RedirectToAction("Index");
         }

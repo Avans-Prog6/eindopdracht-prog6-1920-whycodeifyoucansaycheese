@@ -12,6 +12,8 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
 
         IEnumerable<Beast> BeastsAvailable();
 
+        void UpdateBeast(Beast beast);
+
         bool ExcludePinguin { get; set; }
         bool ExcludeDesert { get; set; }
         bool ExcludeSnow { get; set; }

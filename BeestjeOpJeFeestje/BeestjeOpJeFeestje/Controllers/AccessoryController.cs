@@ -10,10 +10,11 @@ namespace BeestjeOpJeFeestje.Controllers
     public class AccessoryController : Controller
     {
         private readonly IAccessoryRepository _accessRepo;
-
-        public AccessoryController(IAccessoryRepository AccessRepo)
+        private IBoekingRepository _boekingRepository;
+        public AccessoryController(IAccessoryRepository AccessRepo, IBoekingRepository boekingRepository)
         {
             _accessRepo = AccessRepo;
+            _boekingRepository = boekingRepository;
         }
 
         // GET: Accessory
@@ -78,7 +79,7 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             if (ModelState.IsValid)
             {
-                _accessRepo.ContextDB().Entry(accessory).State = EntityState.Modified;
+                _accessRepo.UpdateAccessory(accessory);
                 _accessRepo.Complete();
                 return RedirectToAction("Index");
             }
@@ -103,6 +104,12 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             var accessory = _accessRepo.Get(id);
+            var temp = accessory.Booking;
+            foreach (var item in temp)
+            {
+                item.Accessory.Remove(accessory);
+            }
+            _boekingRepository.RecalculateTotalPrice(temp);
             _accessRepo.Remove(accessory);
             _accessRepo.Complete();
             return RedirectToAction("Index");
