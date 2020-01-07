@@ -22,7 +22,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             _boekingsRepository = new Mock<IBoekingRepository>();
         }
         [TestMethod]
-        public void TypeDiscountTest()
+        public void TypeDiscount_HasDiscount_Test()
         {
             //1. Arange
             calc = new DiscountCalculator();
@@ -35,6 +35,21 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //3. Assert
 
             Assert.AreEqual(10, discount.PercentageDiscount);
+        }
+        [TestMethod]
+        public void TypeDiscount_NoDiscount_Test()
+        {
+            //1. Arange
+            calc = new DiscountCalculator();
+            Booking booking = GetBadSampleBooking();
+
+            //2. Act
+
+            var discount = calc.TypeDiscount(booking.Beast.ToList());
+
+            //3. Assert
+
+            Assert.IsNull(discount);
         }
 
         private Booking GetSampleBooking()
@@ -59,6 +74,34 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
                     Name = "Varken",
                     Price = 100,
                     Type = "Boerderij"
+                }
+            };
+            booking.Beast = beasts;
+            return booking;
+        }
+
+        private Booking GetBadSampleBooking()
+        {
+            Booking booking = new Booking();
+            List<Beast> beasts = new List<Beast>
+            {
+                new Beast
+                {
+                    Name = "Koe",
+                    Price = 100,
+                    Type = "Boerderij"
+                },
+                new Beast
+                {
+                    Name = "Paard",
+                    Price = 100,
+                    Type = "Boerderij"
+                },
+                new Beast
+                {
+                    Name = "Cobra",
+                    Price = 100,
+                    Type = "Woestijn"
                 }
             };
             booking.Beast = beasts;
