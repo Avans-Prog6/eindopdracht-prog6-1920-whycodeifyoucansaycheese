@@ -87,12 +87,8 @@ namespace BeestjeOpJeFeestje.Controllers
 
             if (beastie.Name == "Leeuw" || beastie.Name == "Ijsbeer")
                 _beastrepo.ExcludeFarm = true;
-            else
-                _beastrepo.ExcludeFarm = false;
             if (beastie.Type == "Boerderij")
                 _beastrepo.ExcludePolarLion = true;
-            else
-                _beastrepo.ExcludePolarLion = false;
             beastie.Selected = "Deselecteren";
             beastieList.Add(beastie);
             temp.Beast = beastieList;
