@@ -160,7 +160,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\aap.png" />
+    <Content Include="Images\Aap.png" />
     <Content Include="Images\bever.png" />
     <Content Include="Images\doggo.png" />
     <Content Include="Images\donkey.png" />
@@ -171,9 +171,9 @@
     <Content Include="Images\kip.png" />
     <Content Include="Images\koe.png" />
     <Content Include="Images\kuiken.png" />
-    <Content Include="Images\leeuw.png" />
+    <Content Include="Images\Leeuw.png" />
     <Content Include="Images\olifant.png" />
-    <Content Include="Images\pingwing.png" />
+    <Content Include="Images\pinguin.png" />
     <Content Include="Images\stap1.png" />
     <Content Include="Images\stap2.png" />
     <Content Include="Images\stap3.png" />

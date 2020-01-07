@@ -56,7 +56,7 @@ namespace BeestjeOpJeFeestje.Domain
             return totalprice;
         }
 
-        private void CalculateCharacterDiscount(string name)
+        public int CalculateCharacterDiscount(string name)
         {
             name = name.ToLower();
             for (var c = 'a'; c <= 'z'; c++)
@@ -71,13 +71,14 @@ namespace BeestjeOpJeFeestje.Domain
                 }
                 else
                 {
-                    
+                    return characterdiscount;
                     break;
                 }
-                    
+
+            return -1;
         }
 
-        private void DuckDiscount(string name)
+        public void DuckDiscount(string name)
         {
             if (!name.Equals("Eend") || _totaldiscount >= 60) return;
             if (new Random().Next(6) == 1)
@@ -93,7 +94,7 @@ namespace BeestjeOpJeFeestje.Domain
             }
         }
 
-        private void DateDiscount(DateTime date)
+        public void DateDiscount(DateTime date)
         {
             if ((date.DayOfWeek != DayOfWeek.Monday && date.DayOfWeek != DayOfWeek.Tuesday) || _totaldiscount >= 60) return;
             _totaldiscount += 15;
@@ -148,7 +149,7 @@ namespace BeestjeOpJeFeestje.Domain
             }
         }
 
-        private int CalculateHalvedDiscount(int discount)
+        public int CalculateHalvedDiscount(int discount)
         {
             var temp = _totaldiscount - 60;
             discount -= temp;
