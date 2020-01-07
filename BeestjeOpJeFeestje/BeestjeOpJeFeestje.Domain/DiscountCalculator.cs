@@ -8,58 +8,47 @@ namespace BeestjeOpJeFeestje.Domain
 {
     public class DiscountCalculator
     {
-        public List<Discount> _discounts;
+        public List<Discount> Discounts;
         private int _totaldiscount;
-        private int characterdiscount = 0;
-
+        private int _characterdiscount = 0;
+        public bool DuckDiscountBool { get; set; }
 
         public DiscountCalculator()
         {
-            _discounts = new List<Discount>();
+            Discounts = new List<Discount>();
         }
 
         public List<Discount> CalculateTotalDiscount(Booking booking)
         {
-            
-            foreach(var beast in booking.Beast)
+            foreach (var beast in booking.Beast)
             {
                 CalculateCharacterDiscount(beast.Name);
-                if(DuckDiscount(beast.Name) != null)
+                if (DuckDiscount(beast.Name) != null)
                 {
-                    _discounts.Add(DuckDiscount(beast.Name));
+                    Discounts.Add(DuckDiscount(beast.Name));
                 }
-                
             }
-            if(characterdiscount > 0)
+            if (_characterdiscount > 0)
             {
-                _discounts.Add(new Discount("Letter korting: ", characterdiscount));
+                Discounts.Add(new Discount("Letter korting: ", _characterdiscount));
             }
-            
-            if(DateDiscount(booking.Date) != null)
+
+            if (DateDiscount(booking.Date) != null)
             {
-                _discounts.Add(DateDiscount(booking.Date));
+                Discounts.Add(DateDiscount(booking.Date));
             }
-            
-            if(TypeDiscount(booking.Beast.ToList()) != null)
+
+            if (TypeDiscount(booking.Beast.ToList()) != null)
             {
-                _discounts.Add(TypeDiscount(booking.Beast.ToList()));
+                Discounts.Add(TypeDiscount(booking.Beast.ToList()));
             }
-            
-            return _discounts;
+
+            return Discounts;
         }
 
         public decimal CalculateTotalPrice(Booking booking)
         {
-            decimal totalprice = 0;
-
-            foreach(var beast in booking.Beast)
-            {
-                totalprice += beast.Price;
-            }
-            foreach(var acc in booking.Accessory)
-            {
-                totalprice += acc.Price;
-            }
+            var totalprice = booking.Beast.Sum(beast => beast.Price) + booking.Accessory.Sum(acc => acc.Price);
 
             totalprice = totalprice / 100 * (100 - _totaldiscount);
             return totalprice;
@@ -72,18 +61,16 @@ namespace BeestjeOpJeFeestje.Domain
                 if (name.Contains(c) && _totaldiscount < 60)
                 {
                     _totaldiscount += 2;
-                    characterdiscount += 2;
+                    _characterdiscount += 2;
                     if (_totaldiscount > 60)
                     {
-                        characterdiscount = CalculateHalvedDiscount(characterdiscount);
+                        _characterdiscount = CalculateHalvedDiscount(_characterdiscount);
                     }
                 }
                 else
                 {
-                    return characterdiscount;
-                    break;
+                    return _characterdiscount;
                 }
-
             return -1;
         }
 
@@ -92,27 +79,25 @@ namespace BeestjeOpJeFeestje.Domain
             if (!name.Equals("Eend") || _totaldiscount >= 60) return null;
             if (new Random().Next(6) == 1)
             {
+                DuckDiscountBool = true;
                 _totaldiscount += 50;
-                int discount = 50;
+                var discount = 50;
                 if (_totaldiscount > 60)
                 {
                     discount = CalculateHalvedDiscount(discount);
                 }
-                
+
                 return new Discount("Eend: ", discount);
             }
-            else
-            {
-                return null;
-            }
-
+            DuckDiscountBool = false;
+            return null;
         }
 
         public Discount DateDiscount(DateTime date)
         {
             if ((date.DayOfWeek != DayOfWeek.Monday && date.DayOfWeek != DayOfWeek.Tuesday) || _totaldiscount >= 60) return null;
             _totaldiscount += 15;
-            int discount = 15;
+            var discount = 15;
             if (_totaldiscount > 60)
             {
                 discount = CalculateHalvedDiscount(discount);
@@ -126,7 +111,7 @@ namespace BeestjeOpJeFeestje.Domain
             var jungleAmount = 0;
             var desertAmount = 0;
             var farmAmount = 0;
-            var SnowAmount = 0;
+            var snowAmount = 0;
             foreach (var beast in beasts)
             {
                 switch (beast.Type)
@@ -138,7 +123,7 @@ namespace BeestjeOpJeFeestje.Domain
                         jungleAmount++;
                         break;
                     case "Sneeuw":
-                        SnowAmount++;
+                        snowAmount++;
                         break;
                     case "Woestijn":
                         desertAmount++;
@@ -146,21 +131,14 @@ namespace BeestjeOpJeFeestje.Domain
                 }
             }
 
-            if(jungleAmount >= 3 || desertAmount >= 3 || farmAmount >= 3 || SnowAmount >= 3)
+            if (jungleAmount < 3 && desertAmount < 3 && farmAmount < 3 && snowAmount < 3) return null;
+            _totaldiscount += 10;
+            var discount = 10;
+            if (_totaldiscount > 60)
             {
-                _totaldiscount += 10;
-                var discount = 10;
-                if (_totaldiscount > 60)
-                {
-                    discount = CalculateHalvedDiscount(discount);
-                }
-                return new Discount("Type korting:", discount);
-
+                discount = CalculateHalvedDiscount(discount);
             }
-            else
-            {
-                return null;
-            }
+            return new Discount("Type korting:", discount);
         }
 
         private int CalculateHalvedDiscount(int discount)
