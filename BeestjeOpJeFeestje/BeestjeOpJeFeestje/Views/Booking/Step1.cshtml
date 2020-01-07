@@ -4,50 +4,7 @@
 <div>
     <img src="~/Images/stap1.png" alt="stap1.png" width="500" class="center-block" style="padding-bottom: 2%" />
 </div>
-@*<div class="form-inline">
-        <div class="form-group">
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-                    <th>
-                        <p>Bijbehorende afbeelding</p>
-                    </th>
-                </tr>
 
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Price)
-                        </td>
-                        <td>
-                            <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50" />
-                        </td>
-                        <td>
-                            @using (Html.BeginForm("AddCheckedAnimal", "Booking", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                        <input type="text" name="BeastID" id="BeastieId" value="@item.ID" hidden />
-                                        <input type="submit" value="@item.Selected" />
-                                    </div>
-                                </div>
-                            }
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
-    </div>*@
 <div class="row">
     <div class="col-lg-8">
         @foreach (var item in Model)
@@ -80,7 +37,3 @@
         <input type="submit" value="Ga door naar stap 2" class="btn btn-success" />
     </div>
 }
-
-@*<div class="form-group col-lg-offset-2" style="display: inline-block">
-        @Html.Action("InfoBar")
-    </div>*@

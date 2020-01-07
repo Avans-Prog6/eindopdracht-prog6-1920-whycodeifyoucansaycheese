@@ -221,10 +221,11 @@
     <Content Include="Views\Booking\Step1.cshtml" />
     <Content Include="Views\Booking\Step2.cshtml" />
     <Content Include="Views\Shared\InfoBar.cshtml" />
-    <Content Include="Views\Booking\Step3.cshtml" />
+    <Content Include="Views\Booking\Steppp3.cshtml" />
     <Content Include="Views\Booking\Step4.cshtml" />
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Views\Booking\Details.cshtml" />
+    <Content Include="Views\Booking\Step3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
