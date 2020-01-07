@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
@@ -23,16 +25,24 @@ namespace BeestjeOpJeFeestje.Domain
 
         [Key]
         public int ID { get; set; }
+
         [Required]
         [MinLength(2)]
         [MaxLength(50)]
+        [DisplayName("Naam accessoire")]
         public string Name { get; set; }
+
         [Required]
         [DataType(DataType.Currency)]
+        [DisplayName("Prijs accessoire")]
         public decimal Price { get; set; }
+
         [Required]
+        [DisplayName("Beest")]
         public int BeastID { get; set; }
+
         public bool IsSelected { get; set; }
+
         public string Selected { get; set; } = "Selecteren";
 
         public virtual Beast Beast { get; set; }

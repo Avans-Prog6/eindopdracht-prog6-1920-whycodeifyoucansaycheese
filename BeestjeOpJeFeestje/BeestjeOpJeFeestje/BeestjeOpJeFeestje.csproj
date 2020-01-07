@@ -145,7 +145,6 @@
     <Compile Include="Controllers\AccessoryController.cs" />
     <Compile Include="Controllers\BeastController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
-    <Compile Include="Controllers\ContactPersonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -219,15 +218,9 @@
     <Content Include="Views\Accessory\Index.cshtml" />
     <Content Include="Views\Booking\Create.cshtml" />
     <Content Include="Views\Booking\Delete.cshtml" />
-    <Content Include="Views\ContactPerson\Create.cshtml" />
-    <Content Include="Views\ContactPerson\Delete.cshtml" />
-    <Content Include="Views\ContactPerson\Details.cshtml" />
-    <Content Include="Views\ContactPerson\Edit.cshtml" />
-    <Content Include="Views\ContactPerson\Index.cshtml" />
     <Content Include="Views\Booking\Step1.cshtml" />
     <Content Include="Views\Booking\Step2.cshtml" />
     <Content Include="Views\Shared\InfoBar.cshtml" />
-    <Content Include="Views\Shared\Progress.cshtml" />
     <Content Include="Views\Booking\Step3.cshtml" />
     <Content Include="Views\Booking\Step4.cshtml" />
     <Content Include="Views\Booking\Index.cshtml" />

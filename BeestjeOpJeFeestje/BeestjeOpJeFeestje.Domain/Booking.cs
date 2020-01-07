@@ -31,11 +31,14 @@ namespace BeestjeOpJeFeestje.Domain
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayName("Datum")]
+        [DisplayName("Datum booking")]
         public System.DateTime Date { get; set; }
+
         [Required]
         [DataType(DataType.Currency)]
+        [DisplayName("Prijs booking")]
         public decimal Price { get; set; }
+
         public ICollection<Discount> Discounts { get; set; }
 
         public virtual ContactPerson ContactPerson { get; set; }
