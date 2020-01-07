@@ -43,6 +43,10 @@ namespace BeestjeOpJeFeestje.Domain
         public decimal Price { get; set; }
 
         public string Selected { get; set; } = "Selecteren";
+        public string ImagePath
+        {
+            get { return Name + ".png"; }
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Accessory> Accessory { get; set; }

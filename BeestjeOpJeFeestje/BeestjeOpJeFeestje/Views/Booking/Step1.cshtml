@@ -6,7 +6,7 @@
 </div>
 
 <h4>Kies uw diertjes</h4>
-<hr />
+<hr/>
 
 <div class="row">
     <div class="col-lg-8">
@@ -14,7 +14,7 @@
         {
             <div class="col-lg-4">
                 <div class="thumbnail">
-                    <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50" />
+                    <img src="~/Images/@item.ImagePath" alt="animal" width="50" height="50" />
                     <div class="caption" align="center">
                         <h3>@item.Name: €@item.Price</h3>
                         @using (Html.BeginForm("AddCheckedAnimal", "Booking", FormMethod.Post))
