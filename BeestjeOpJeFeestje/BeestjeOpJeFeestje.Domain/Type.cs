@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
@@ -20,6 +22,7 @@ namespace BeestjeOpJeFeestje.Domain
             this.Beast = new HashSet<Beast>();
         }
     
+        [DisplayName("Type")]
         public string Type1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

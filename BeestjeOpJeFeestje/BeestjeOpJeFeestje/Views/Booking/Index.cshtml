@@ -1,10 +1,6 @@
 ﻿@model IEnumerable<BeestjeOpJeFeestje.Domain.Booking>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+<h2>Overzicht boekingen</h2>
 
 <table class="table">
     <tr>
@@ -15,7 +11,7 @@
             @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ContactPerson.FirstName)
+            @Html.DisplayNameFor(model => model.ContactPerson.Fullname)
         </th>
         <th></th>
     </tr>
@@ -30,7 +26,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ContactPerson.FirstName)
+                @Html.DisplayFor(modelItem => item.ContactPerson.Fullname)
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new {id = item.ID}) |

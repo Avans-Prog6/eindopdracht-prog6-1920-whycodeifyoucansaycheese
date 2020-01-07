@@ -4,7 +4,8 @@
 <div>
     <img src="~/Images/stap2.png" alt="stap2.png" width="500" class="center-block" style="padding-bottom: 2%" />
 </div>
-
+<h4>Kies uw accessoires</h4>
+<hr />
 <div class="row">
     <div class="col-lg-8">
         @foreach (var item in Model)
@@ -20,7 +21,7 @@
                             {
                                 @Html.AntiForgeryToken()
                                 <input type="text" name="AccID" id="AccieID" value="@acc.ID" hidden />
-                                <input type="submit" value="@acc.Selected" class="btn btn-default"/>
+                                <input type="submit" value="@acc.Selected" class="btn btn-default" />
                             }
                         </div>
                     </div>
@@ -40,69 +41,3 @@
         <input type="submit" value="Ga door naar stap 3" class="btn btn-success" />
     </div>
 }
-
-
-
-
-
-@*<div class="form-inline">
-        <div class="form-group">
-            <table class="table">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-                    <th>
-                        <p>Bijbehorende afbeelding</p>
-                    </th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    foreach (var acc in item.Accessory)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => acc.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => acc.Price)
-                            </td>
-                            <td>
-                                <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50" />
-                            </td>
-                            <td>
-                                @using (Html.BeginForm("AddCheckedAccessory", "Booking", FormMethod.Post))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <input type="text" name="AccID" id="AccieID" value="@acc.ID" hidden />
-                                            <input type="submit" value="@acc.Selected" />
-                                        </div>
-                                    </div>
-                                }
-                            </td>
-                        </tr>
-                    }
-                }
-            </table>
-
-            @using (Html.BeginForm("Step2", "Booking", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Ga door naar stap 3" class="btn btn-success" />
-                    </div>
-                </div>
-            }
-        </div>
-        <div class="form-group col-lg-offset-2" style="display: inline-block">
-            @Html.Action("InfoBar")
-        </div>
-    </div>*@

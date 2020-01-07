@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel;
+
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
@@ -23,29 +25,41 @@ namespace BeestjeOpJeFeestje.Domain
 
         [Key]
         public int ID { get; set; }
+
         [Required]
         [MinLength(2)]
         [MaxLength(50)]
+        [DisplayName("Voornaam")]
         public string FirstName { get; set; }
+
         [MaxLength(50)]
+        [DisplayName("Tussenvoegsel")]
         public string InBetween { get; set; }
+
         [Required]
         [MinLength(2)]
         [MaxLength(50)]
+        [DisplayName("Achternaam")]
         public string LastName { get; set; }
+
         [Required]
         [MinLength(2)]
         [MaxLength(50)]
+        [DisplayName("Adres")]
         public string Adress { get; set; }
+
         [MinLength(2)]
         [MaxLength(50)]
         [DataType(DataType.EmailAddress)]
+        [DisplayName("E-mail adres")]
         public string Email { get; set; }
+
         [DataType(DataType.PhoneNumber)]
+        [DisplayName("Telefoonnummer")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefoonnummer voldoet niet aan het format. Klopt hij wel?")]
         public string PhoneNumber { get; set; }
 
-
+        [DisplayName("Volledige naam")]
         public string Fullname
         {
             get
