@@ -10,7 +10,7 @@ namespace BeestjeOpJeFeestje.Domain
     {
         public List<Discount> Discounts;
         private int _totaldiscount;
-        private int _characterdiscount = 0;
+        private int _characterdiscount;
         public bool DuckDiscountBool { get; set; }
 
         public DiscountCalculator()
@@ -42,7 +42,6 @@ namespace BeestjeOpJeFeestje.Domain
             {
                 Discounts.Add(TypeDiscount(booking.Beast.ToList()));
             }
-
             return Discounts;
         }
 

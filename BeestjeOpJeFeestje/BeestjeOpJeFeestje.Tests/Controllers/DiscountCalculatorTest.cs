@@ -94,7 +94,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         }
 
         [TestMethod]
-        public void DateDiscount_DateDiscountTrue_Test()
+        public void DateDiscount_MondayTuesdayAppliesDiscount_Test()
         {
             //1. Arrange
             _calc = new DiscountCalculator();
