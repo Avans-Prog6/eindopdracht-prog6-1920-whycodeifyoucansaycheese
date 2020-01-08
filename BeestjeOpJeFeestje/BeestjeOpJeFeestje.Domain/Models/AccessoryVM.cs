@@ -47,6 +47,14 @@ namespace BeestjeOpJeFeestje.Domain.Models
 
         public string Selected { get; set; } = "Selecteren";
 
+        public string ImagePath
+        {
+            get
+            {
+                return Name + ".png";
+            }
+        }
+
         public Accessory Accessory { get => _accessory; }
 
         public BeastVM Beast { get => _accessoryBeast; set { _accessoryBeast = value; } }
