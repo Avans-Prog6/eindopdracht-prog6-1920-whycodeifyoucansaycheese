@@ -47,22 +47,6 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //3. Assert
             Assert.AreEqual(10, result.PercentageDiscount);
 
-
-            /*            var beast1 = new Mock<Beast>();
-            var beast2 = new Mock<Beast>();
-            var beast3 = new Mock<Beast>();
-
-            beast1.Object.Type = "Boerderij";
-            beast2.Object.Type = "Boerderij";
-            beast3.Object.Type = "Boerderij";
-
-           List<Mock<Beast>> beasts = new List<Mock<Beast>>
-            {
-                beast1,
-                beast2,
-                beast3
-            };*/
-
         }
         [TestMethod]
         public void TypeDiscount_DiscountFalse_Test()
@@ -130,42 +114,79 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         }
 
         [TestMethod]
-        public void DuckDiscount_AppliesDuckDiscountAppropriately_Test()
+        public void DuckDiscount_DuckDiscountTrue_Test()
         {
             //1. Arrange
             _calc = new DiscountCalculator();
             const string duckName = "Eend";
             const int expectedDuckDiscount = 50;
+            var randomMock = new Mock<Random>();
+            randomMock.Setup(r => r.Next(6)).Returns(1);
 
             //2. Act
-            var discount = _calc.DuckDiscount(duckName);
+            var discount = _calc.DuckDiscount(duckName, randomMock.Object.Next(6));
 
             //3. Assert
-            if (_calc.DuckDiscountBool)
                 Assert.AreEqual(expectedDuckDiscount, discount.PercentageDiscount);
-            else
-                Assert.IsNull(discount);
         }
 
         [TestMethod]
-        public void DateDiscount_MondayTuesdayAppliesDiscount_Test()
+        public void DuckDiscount_DuckDiscountFalse_Test()
+        {
+            //1. Arrange
+            _calc = new DiscountCalculator();
+            const string duckName = "Eend";
+            var randomMock = new Mock<Random>();
+            randomMock.Setup(r => r.Next(6)).Returns(3);
+
+            //2. Act
+            var discount = _calc.DuckDiscount(duckName, randomMock.Object.Next(6));
+
+            //3. Assert
+            Assert.IsNull(discount);
+        }
+
+        [TestMethod]
+        public void DateDiscount_DiscountTrue_Test()
         {
             //1. Arrange
             _calc = new DiscountCalculator();
             const int expectedDateDiscount = 15;
             var monday = new DateTime(2020, 01, 06);
             var tuesday = new DateTime(2020, 01, 07);
-            var wednesday = new DateTime(2020, 01, 08);
 
             //2. Act
             var resultMonday = _calc.DateDiscount(monday);
             var resultTuesday = _calc.DateDiscount(tuesday);
-            var resultWednesday = _calc.DateDiscount(wednesday);
 
             //3. Assert
             Assert.AreEqual(expectedDateDiscount, resultMonday.PercentageDiscount);
             Assert.AreEqual(expectedDateDiscount, resultTuesday.PercentageDiscount);
+        }
+
+        [TestMethod]
+        public void DateDiscount_DiscountFalse_Test()
+        {
+            //1. Arrange
+            _calc = new DiscountCalculator();
+            var wednesday = new DateTime(2020, 01, 08);
+            var thursday = new DateTime(2020, 01, 09);
+            var friday = new DateTime(2020, 01, 10);
+            var saturday = new DateTime(2020, 01, 11);
+            var sunday = new DateTime(2020, 01, 12);
+
+            var resultWednesday = _calc.DateDiscount(wednesday);
+            var resultThursday = _calc.DateDiscount(thursday);
+            var resultFriday = _calc.DateDiscount(friday);
+            var resultSaturday = _calc.DateDiscount(saturday);
+            var resultSunday = _calc.DateDiscount(sunday);
+
+            //3. Assert
             Assert.IsNull(resultWednesday);
+            Assert.IsNull(resultThursday);
+            Assert.IsNull(resultFriday);
+            Assert.IsNull(resultSaturday);
+            Assert.IsNull(resultSunday);
         }
     }
 }

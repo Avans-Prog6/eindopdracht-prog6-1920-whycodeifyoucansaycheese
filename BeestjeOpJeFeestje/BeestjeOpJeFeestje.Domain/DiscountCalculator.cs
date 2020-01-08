@@ -11,7 +11,7 @@ namespace BeestjeOpJeFeestje.Domain
         public List<Discount> Discounts;
         private int _totaldiscount;
         private int _characterdiscount;
-        public bool DuckDiscountBool { get; set; }
+        private int _randomNumber;
 
         public DiscountCalculator()
         {
@@ -23,9 +23,9 @@ namespace BeestjeOpJeFeestje.Domain
             foreach (var beast in booking.Beast)
             {
                 CalculateCharacterDiscount(beast.Name);
-                if (DuckDiscount(beast.Name) != null)
+                if (DuckDiscount(beast.Name, GetRandomNumber()) != null)
                 {
-                    Discounts.Add(DuckDiscount(beast.Name));
+                    Discounts.Add(DuckDiscount(beast.Name, _randomNumber));
                 }
             }
             if (_characterdiscount > 0)
@@ -73,23 +73,23 @@ namespace BeestjeOpJeFeestje.Domain
             return -1;
         }
 
-        public Discount DuckDiscount(string name)
+        public Discount DuckDiscount(string name, int random)
         {
-            if (!name.Equals("Eend") || _totaldiscount >= 60) return null;
-            if (new Random().Next(6) == 1)
+            if (!name.Equals("Eend") || _totaldiscount >= 60 || random != 1) return null;
+            _totaldiscount += 50;
+            var discount = 50;
+            if (_totaldiscount > 60)
             {
-                DuckDiscountBool = true;
-                _totaldiscount += 50;
-                var discount = 50;
-                if (_totaldiscount > 60)
-                {
-                    discount = CalculateHalvedDiscount(discount);
-                }
-
-                return new Discount("Eend: ", discount);
+                discount = CalculateHalvedDiscount(discount);
             }
-            DuckDiscountBool = false;
-            return null;
+
+            return new Discount("Eend: ", discount);
+        }
+
+        private int GetRandomNumber()
+        {
+            _randomNumber = new Random().Next(6);
+            return _randomNumber;
         }
 
         public Discount DateDiscount(DateTime date)
