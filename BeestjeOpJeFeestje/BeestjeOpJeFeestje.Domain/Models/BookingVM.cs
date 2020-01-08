@@ -22,10 +22,7 @@ namespace BeestjeOpJeFeestje.Domain.Models
         public BookingVM(Booking booking)
         {
             _booking = booking;
-            //Beast = new List<BeastVM>(booking.Beast.Select(b => new BeastVM(b)));
-            //Accessory = new List<AccessoryVM>(booking.Accessory.Select(a => new AccessoryVM(a)));
             Discounts = new List<Discount>();
-            Beast = new List<BeastVM>();
         }
 
         [Key]

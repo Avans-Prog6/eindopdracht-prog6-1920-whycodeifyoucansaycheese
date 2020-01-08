@@ -23,10 +23,12 @@ namespace BeestjeOpJeFeestje.Domain
             foreach (var beast in booking.Beast)
             {
                 CalculateCharacterDiscount(beast.Name);
-                if (DuckDiscount(beast.Name, GetRandomNumber()) != null)
+                Discounts.Add(DuckDiscount(beast.Name, _randomNumber));
+                if(Discounts[Discounts.Count - 1] == null)
                 {
-                    Discounts.Add(DuckDiscount(beast.Name, _randomNumber));
+                    Discounts.RemoveAt(Discounts.Count - 1);
                 }
+                
             }
             if (_characterdiscount > 0)
             {
