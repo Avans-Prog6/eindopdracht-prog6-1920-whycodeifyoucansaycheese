@@ -175,6 +175,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             var saturday = new DateTime(2020, 01, 11);
             var sunday = new DateTime(2020, 01, 12);
 
+            //2. Act
             var resultWednesday = _calc.DateDiscount(wednesday);
             var resultThursday = _calc.DateDiscount(thursday);
             var resultFriday = _calc.DateDiscount(friday);
