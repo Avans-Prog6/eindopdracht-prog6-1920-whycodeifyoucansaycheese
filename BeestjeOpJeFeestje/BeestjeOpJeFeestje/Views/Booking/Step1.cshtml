@@ -14,14 +14,14 @@
         {
             <div class="col-lg-4">
                 <div class="thumbnail">
-                    <img src="~/Images/@item.ImagePath" alt="animal" width="50" height="50" />
+                    <img src="~/Images/@item.ImagePath" alt="animal" width="50" height="50"/>
                     <div class="caption" align="center">
                         <h3>@item.Name: €@item.Price</h3>
                         @using (Html.BeginForm("AddCheckedAnimal", "Booking", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
-                            <input type="text" name="BeastID" id="BeastieId" value="@item.ID" hidden />
-                            <input class="btn btn-default" type="submit" value="@item.Selected" />
+                            <input type="text" name="BeastID" id="BeastieId" value="@item.ID" hidden/>
+                            <input class="btn btn-default" type="submit" value="@item.Selected"/>
                         }
                     </div>
                 </div>
