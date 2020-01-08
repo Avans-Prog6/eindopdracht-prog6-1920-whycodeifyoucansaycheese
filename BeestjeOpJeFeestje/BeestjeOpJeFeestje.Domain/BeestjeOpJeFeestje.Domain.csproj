@@ -96,6 +96,7 @@
     <Compile Include="Type.cs">
       <DependentUpon>BeetjeOpJeFeestje.tt</DependentUpon>
     </Compile>
+    <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
