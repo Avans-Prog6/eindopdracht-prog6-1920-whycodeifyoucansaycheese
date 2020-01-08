@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeestjeOpJeFeestje.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,15 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
 {
     public interface IBoekingRepository : IRepository<Booking>
     {
-        Booking TempBooking { get; set; }
-        IEnumerable<Beast> AnimalsBooked();
-        IEnumerable<Accessory> AccessoriesBooked();
-        void AddBookedAccessory(Accessory acc);
-        void RemoveBookAccessory(Accessory acc);
+        BookingVM TempBooking { get; set; }
+        IEnumerable<BeastVM> AnimalsBooked();
 
-        void RecalculateTotalPrice(IEnumerable<Booking> bookings);
+        IEnumerable<AccessoryVM> AvailableAccessories();
+        IEnumerable<AccessoryVM> AccessoriesBooked();
+        void AddBookedAccessory(AccessoryVM acc);
+        void RemoveBookAccessory(AccessoryVM acc);
+
+        void RecalculateTotalPrice(IEnumerable<BookingVM> bookings);
 
         bool SnowExists();
         bool FarmExists();

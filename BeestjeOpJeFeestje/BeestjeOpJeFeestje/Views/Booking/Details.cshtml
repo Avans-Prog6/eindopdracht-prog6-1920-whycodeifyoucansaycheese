@@ -1,4 +1,4 @@
-﻿@model BeestjeOpJeFeestje.Domain.Booking
+﻿@model BeestjeOpJeFeestje.Domain.Models.BookingVM
 
 @{
     ViewBag.Title = "Details";
@@ -8,7 +8,7 @@
 
 <div>
     <h4>Booking</h4>
-    <hr/>
+    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Date)
@@ -61,7 +61,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Type1.Type1)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
         </tr>
     }

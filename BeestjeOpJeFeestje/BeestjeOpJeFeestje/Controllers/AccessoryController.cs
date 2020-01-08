@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using BeestjeOpJeFeestje.Domain;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
+using BeestjeOpJeFeestje.Domain.Models;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
@@ -20,7 +21,7 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Accessory
         public ActionResult Index()
         {
-            var accessory = _accessRepo.GetAll();
+            var accessory = _accessRepo.GetAll().Select(a => new AccessoryVM(a));
             return View(accessory.ToList());
         }
 
@@ -28,7 +29,7 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Details(int id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var accessory = _accessRepo.Get(id);
+            var accessory = new AccessoryVM(_accessRepo.Get(id));
             if (accessory == null) return HttpNotFound();
             return View(accessory);
         }
@@ -46,11 +47,11 @@ namespace BeestjeOpJeFeestje.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Name,Price,BeastID")]
-            Accessory accessory)
+            AccessoryVM accessory)
         {
             if (ModelState.IsValid)
             {
-                _accessRepo.Add(accessory);
+                _accessRepo.Add(accessory.Accessory);
                 _accessRepo.Complete();
                 return RedirectToAction("Index");
             }
@@ -63,7 +64,7 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Edit(int id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var accessory = _accessRepo.Get(id);
+            var accessory = new AccessoryVM(_accessRepo.Get(id));
             if (accessory == null) return HttpNotFound();
             ViewBag.BeastID = new SelectList(_accessRepo.ContextDB().Beast, "ID", "Name", accessory.BeastID);
             return View(accessory);
@@ -75,7 +76,7 @@ namespace BeestjeOpJeFeestje.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Name,Price,BeastID")]
-            Accessory accessory)
+            AccessoryVM accessory)
         {
             if (ModelState.IsValid)
             {
@@ -103,14 +104,14 @@ namespace BeestjeOpJeFeestje.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var accessory = _accessRepo.Get(id);
+            var accessory = new AccessoryVM(_accessRepo.Get(id));
             var temp = accessory.Booking;
             foreach (var item in temp)
             {
                 item.Accessory.Remove(accessory);
             }
             _boekingRepository.RecalculateTotalPrice(temp);
-            _accessRepo.Remove(accessory);
+            _accessRepo.Remove(accessory.Accessory);
             _accessRepo.Complete();
             return RedirectToAction("Index");
         }

@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using BeestjeOpJeFeestje.Domain;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
+using BeestjeOpJeFeestje.Domain.Models;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
@@ -21,7 +22,7 @@ namespace BeestjeOpJeFeestje.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Include = "ID,ContactpersonID,Date")]
-            Booking booking)
+            BookingVM booking)
         {
             if (ModelState.IsValid)
             {

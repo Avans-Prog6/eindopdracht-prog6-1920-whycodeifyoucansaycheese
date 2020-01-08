@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
+using BeestjeOpJeFeestje.Domain.Models;
 
 namespace BeestjeOpJeFeestje.Domain.Repositories
 {
@@ -13,6 +14,6 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
         {
         }
 
-        public ContactPerson TempPerson { get; set; }
+        public ContactpersonVM TempPerson { get; set; }
     }
 }

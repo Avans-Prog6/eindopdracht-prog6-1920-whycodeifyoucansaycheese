@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BeestjeOpJeFeestje.Domain.Beast>
+﻿@model IEnumerable<BeestjeOpJeFeestje.Domain.Models.BeastVM>
 
 <h2>Overzicht beestjes</h2>
 
@@ -29,7 +29,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Type1.Type1)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {id = item.ID}) |

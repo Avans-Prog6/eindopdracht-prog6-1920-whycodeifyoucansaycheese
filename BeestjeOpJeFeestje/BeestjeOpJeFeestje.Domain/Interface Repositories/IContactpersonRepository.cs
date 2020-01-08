@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeestjeOpJeFeestje.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
 {
     public interface IContactpersonRepository : IRepository<ContactPerson>
     {
-        ContactPerson TempPerson { get; set; }
+        ContactpersonVM TempPerson { get; set; }
     }
 
     

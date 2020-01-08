@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
+using BeestjeOpJeFeestje.Domain.Models;
 
 namespace BeestjeOpJeFeestje.Domain.Repositories
 {
@@ -17,18 +18,18 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
 
         }
 
-        public void UpdateAccessory(Accessory acc)
+        public void UpdateAccessory(AccessoryVM acc)
         {
-            Context.Set<Accessory>().AddOrUpdate(acc);
+            Context.Set<Accessory>().AddOrUpdate(acc.Accessory);
         }
 
-        public override void RemoveRange(IEnumerable<Accessory> accessories)
+        public void RemoveRange(IEnumerable<AccessoryVM> accessories)
         {
             foreach (var accessory in accessories)
             {
                 accessory.Booking.Clear();
             }
-            Context.Set<Accessory>().RemoveRange(accessories);
+            Context.Set<Accessory>().RemoveRange(accessories.Select(a => a.Accessory));
         }
 
     }

@@ -23,30 +23,12 @@ namespace BeestjeOpJeFeestje.Domain
             this.Booking = new HashSet<Booking>();
         }
 
-        [Key]
         public int ID { get; set; }
 
-        [Required]
-        [MinLength(2)]
-        [MaxLength(50)]
-        [DisplayName("Naam beest")]
         public string Name { get; set; }
 
-        [Required]
-        [DisplayName("Type")]
         public string Type { get; set; }
-
-        [Required]
-        [DataType(DataType.Currency)]
-        [Range(0.0, Double.MaxValue, ErrorMessage = "De geldprijs moet positief zijn.")]
-        [DisplayName("Prijs beest")]
         public decimal Price { get; set; }
-
-        public string Selected { get; set; } = "Selecteren";
-        public string ImagePath
-        {
-            get { return Name + ".png"; }
-        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Accessory> Accessory { get; set; }

@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using BeestjeOpJeFeestje.Domain;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
+using BeestjeOpJeFeestje.Domain.Models;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
@@ -29,12 +30,12 @@ namespace BeestjeOpJeFeestje.Controllers
             _boekingRepository = boekingRepository;
         }
 
-        public List<Beast> AllBeasts { get; set; }
+        public List<BeastVM> AllBeasts { get; set; }
 
         // GET: Booking
         public ActionResult Index()
         {
-            var booking = _boekingRepository.GetAll();
+            var booking = _boekingRepository.GetAll().Select(b => new BookingVM(b));
             return View(booking.ToList());
         }
 
@@ -42,7 +43,7 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Details(int id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var booking = _boekingRepository.Get(id);
+            var booking = new BookingVM(_boekingRepository.Get(id));
 
             if (booking == null) return HttpNotFound();
             return View(booking);
@@ -58,7 +59,7 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Delete(int id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var booking = _boekingRepository.Get(id);
+            var booking = new BookingVM(_boekingRepository.Get(id));
 
             if (booking == null) return HttpNotFound();
             return View(booking);
@@ -69,13 +70,23 @@ namespace BeestjeOpJeFeestje.Controllers
         [HttpPost]
         public ActionResult AddCheckedAnimal()
         {
+            BeastVM beastie = null;
             var temp = _boekingRepository.TempBooking;
-            var beastie = _beastrepo.Get(int.Parse(Request.Form.Get("BeastID")));
-
+            var id = int.Parse(Request.Form.Get("BeastID"));
             var beastieList = _boekingRepository.AnimalsBooked().ToList();
+            foreach (var item in beastieList)
+            {
+                if(id == item.ID)
+                {
+                    beastie = item;
+                }
+            }
+            if(beastie == null)
+            {
+               beastie = new BeastVM(_beastrepo.Get(id));
+            }
             if (beastieList.Contains(beastie))
             {
-                beastie.Selected = "Selecteren";
                 beastieList.Remove(beastie);
                 temp.Beast = beastieList;
                 _boekingRepository.TempBooking = temp;
@@ -89,7 +100,6 @@ namespace BeestjeOpJeFeestje.Controllers
                 _beastrepo.ExcludeFarm = true;
             if (beastie.Type == "Boerderij")
                 _beastrepo.ExcludePolarLion = true;
-            beastie.Selected = "Deselecteren";
             beastieList.Add(beastie);
             temp.Beast = beastieList;
             _boekingRepository.TempBooking = temp;
@@ -105,24 +115,36 @@ namespace BeestjeOpJeFeestje.Controllers
         [HttpPost]
         public ActionResult AddCheckedAccessory()
         {
+            AccessoryVM accessory = null;
             var temp = _boekingRepository.TempBooking;
-            var acc = _accrepo.Get(int.Parse(Request.Form.Get("AccID")));
-
+            var id = int.Parse(Request.Form.Get("AccID"));
             var accList = _boekingRepository.AccessoriesBooked().ToList();
-            if (accList.Contains(acc))
+            //var acc = new AccessoryVM(_accrepo.Get(int.Parse(Request.Form.Get("AccID"))));
+            foreach (var item in accList)
             {
-                acc.Selected = "Selecteren";
-                acc.IsSelected = false;
-                accList.Remove(acc);
+                if (id == item.ID)
+                {
+                    accessory = item;
+                }
+            }
+            if (accessory == null)
+            {
+                accessory = new AccessoryVM(_accrepo.Get(id));
+            }
+            if (accList.Contains(accessory))
+            {
+                accessory.Selected = "Selecteren";
+                accessory.IsSelected = false;
+                accList.Remove(accessory);
                 temp.Accessory = accList;
                 _boekingRepository.TempBooking = temp;
                 InfoBar();
                 return RedirectToAction("Step2");
             }
 
-            acc.Selected = "Deselecteren";
-            acc.IsSelected = true;
-            accList.Add(acc);
+            accessory.Selected = "Deselecteren";
+            accessory.IsSelected = true;
+            accList.Add(accessory);
             temp.Accessory = accList;
             _boekingRepository.TempBooking = temp;
             InfoBar();
@@ -171,7 +193,22 @@ namespace BeestjeOpJeFeestje.Controllers
             _beastrepo.ExcludeDesert = Validator.ExcludeDesert(temp);
             _beastrepo.ExcludeSnow = Validator.ExcludeSnow(temp);
             _beastrepo.ExcludePinguin = Validator.IsWeekend(temp);
-            AllBeasts = new List<Beast>(_beastrepo.BeastsAvailable(temp.Date));
+            AllBeasts = new List<BeastVM>(_beastrepo.BeastsAvailable(temp.Date));
+            foreach (var item in AllBeasts)
+            {
+                for (int i = 0; i < temp.Beast.Count; i++)
+                {
+                    if (temp.Beast[i].ID == item.ID)
+                    {
+                        item.Selected = "Deselecteren";
+                    }
+                    else
+                    {
+                        item.Selected = "Selecteren";
+                    }
+                }
+            }
+            
             return View(AllBeasts);
         }
 
@@ -188,7 +225,23 @@ namespace BeestjeOpJeFeestje.Controllers
 
         public ActionResult Step2()
         {
-            return View(_boekingRepository.AnimalsBooked());
+            var temp = _boekingRepository.TempBooking;
+            var booked = _boekingRepository.AvailableAccessories();
+            foreach (var item in booked)
+            {
+                for (int i = 0; i < temp.Accessory.Count; i++)
+                {
+                    if (temp.Accessory[i].ID == item.ID)
+                    {
+                        item.Selected = "Deselecteren";
+                    }
+                    else
+                    {
+                        item.Selected = "Selecteren";
+                    }
+                }
+            }
+            return View(booked);
         }
 
         [HttpPost]
@@ -213,7 +266,7 @@ namespace BeestjeOpJeFeestje.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Step3([Bind(Include = "ID,FirstName,InBetween,LastName,Adress,Email,PhoneNumber")]
-            ContactPerson contactPerson)
+            ContactpersonVM contactPerson)
         {
             if (ModelState.IsValid)
             {
@@ -232,20 +285,22 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Step4()
         {
             var calc = new DiscountCalculator();
-            _boekingRepository.TempBooking.Discounts = calc.CalculateTotalDiscount(_boekingRepository.TempBooking);
-            _boekingRepository.TempBooking.Price = calc.CalculateTotalPrice(_boekingRepository.TempBooking);
-            return View(_boekingRepository.TempBooking);
+            var booking = _boekingRepository.TempBooking;
+            booking.Discounts = calc.CalculateTotalDiscount(booking.Booking);
+            booking.Price = calc.CalculateTotalPrice(booking.Booking);
+            return View(booking);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Step4(string z)
         {
-            _contactrepo.Add(_contactrepo.TempPerson);
+            _contactrepo.Add(_contactrepo.TempPerson.ContactPerson);
             _contactrepo.Complete();
-            _boekingRepository.Add(_boekingRepository.TempBooking);
+            //_boekingRepository.TempBooking.ContactPerson = _contactrepo.TempPerson;
+            _boekingRepository.Add(_boekingRepository.TempBooking.Booking);
             _boekingRepository.Complete();
-            _boekingRepository.TempBooking = new Booking();
+            _boekingRepository.TempBooking = new BookingVM();
             return RedirectToAction("Index");
         }
 

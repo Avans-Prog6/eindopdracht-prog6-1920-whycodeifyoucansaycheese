@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Migrations;
+using BeestjeOpJeFeestje.Domain.Models;
 
 namespace BeestjeOpJeFeestje.Domain.Repositories
 {
@@ -16,14 +17,15 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
         {
         }
 
-        public IEnumerable<Beast> TempSelected { get; set; }
+        public IEnumerable<BeastVM> TempSelected { get; set; }
 
-        public void UpdateBeast(Beast beast)
+
+        public void UpdateBeast(BeastVM beast)
         {
-            Context.Set<Beast>().AddOrUpdate(beast);
+            Context.Set<Beast>().AddOrUpdate(beast.Beast);
         }
 
-        public IEnumerable<Beast> BeastsAvailable(DateTime date)
+        public IEnumerable<BeastVM> BeastsAvailable(DateTime date)
         {
             var list = GetAll().ToList();
             var unavailable = Context.GetUnavailableBeasts(date.Date).ToList();
@@ -82,7 +84,7 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
                 }
             }
 
-            return list;
+            return list.Select(b => new BeastVM(b));
 
         }
 

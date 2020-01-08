@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeestjeOpJeFeestje.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,12 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
 {
     public interface IBeastRepository : IRepository<Beast>
     {
-        IEnumerable<Beast> TempSelected { get; set; }
+        IEnumerable<BeastVM> TempSelected { get; set; }
 
-        IEnumerable<Beast> BeastsAvailable(DateTime date);
 
-        void UpdateBeast(Beast beast);
+        IEnumerable<BeastVM> BeastsAvailable(DateTime date);
+
+        void UpdateBeast(BeastVM beast);
 
         bool ExcludePinguin { get; set; }
         bool ExcludeDesert { get; set; }

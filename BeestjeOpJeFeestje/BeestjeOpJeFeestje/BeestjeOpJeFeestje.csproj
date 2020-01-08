@@ -164,7 +164,7 @@
     <Content Include="Images\bever.png" />
     <Content Include="Images\doggo.png" />
     <Content Include="Images\donkey.png" />
-    <Content Include="Images\duck.png" />
+    <Content Include="Images\eend.png" />
     <Content Include="Images\field.png" />
     <Content Include="Images\ijsbeer.png" />
     <Content Include="Images\kat.png" />
@@ -218,17 +218,16 @@
     <Content Include="Views\Accessory\Index.cshtml" />
     <Content Include="Views\Booking\Create.cshtml" />
     <Content Include="Views\Booking\Delete.cshtml" />
-    <Content Include="Views\Booking\Step1.cshtml" />
     <Content Include="Views\Booking\Step2.cshtml" />
     <Content Include="Views\Shared\InfoBar.cshtml" />
     <Content Include="Views\Booking\Step4.cshtml" />
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Views\Booking\Details.cshtml" />
     <Content Include="Views\Booking\Step3.cshtml" />
+    <Content Include="Views\Booking\Step1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

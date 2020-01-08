@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using BeestjeOpJeFeestje.Domain;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
+using BeestjeOpJeFeestje.Domain.Models;
 
 namespace BeestjeOpJeFeestje.Controllers
 {
@@ -22,7 +23,7 @@ namespace BeestjeOpJeFeestje.Controllers
         // GET: Beast
         public ActionResult Index()
         {
-            var beast = _beastrepo.GetAll();
+            var beast = _beastrepo.GetAll().Select(b => new BeastVM(b));
             return View(beast.ToList());
         }
 
@@ -30,7 +31,7 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Details(int id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var beast = _beastrepo.Get(id);
+            var beast = new BeastVM(_beastrepo.Get(id));
             if (beast == null) return HttpNotFound();
             return View(beast);
         }
@@ -47,11 +48,11 @@ namespace BeestjeOpJeFeestje.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Type,Price")] Beast beast)
+        public ActionResult Create([Bind(Include = "ID,Name,Type,Price")] BeastVM beast)
         {
             if (ModelState.IsValid)
             {
-                _beastrepo.Add(beast);
+                _beastrepo.Add(beast.Beast);
                 _beastrepo.Complete();
                 return RedirectToAction("Index");
             }
@@ -64,7 +65,7 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Edit(int id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var beast = _beastrepo.Get(id);
+            var beast = new BeastVM(_beastrepo.Get(id));
             if (beast == null) return HttpNotFound();
             ViewBag.Type = new SelectList(_beastrepo.ContextDB().Type, "Type1", "Type1", beast.Type);
             return View(beast);
@@ -75,7 +76,7 @@ namespace BeestjeOpJeFeestje.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Type,Price")] Beast beast)
+        public ActionResult Edit([Bind(Include = "ID,Name,Type,Price")] BeastVM beast)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +104,7 @@ namespace BeestjeOpJeFeestje.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var beast = _beastrepo.Get(id);
+            var beast = new BeastVM(_beastrepo.Get(id));
             _accRepo.RemoveRange(beast.Accessory);
             beast.Accessory.Clear();
             _accRepo.Complete();
@@ -113,7 +114,7 @@ namespace BeestjeOpJeFeestje.Controllers
                 item.Beast.Remove(beast);
             }
             _boekingRepository.RecalculateTotalPrice(temp);
-            _beastrepo.Remove(beast);
+            _beastrepo.Remove(beast.Beast);
             _beastrepo.Complete();
             //_boekingRepository.Complete();
             return RedirectToAction("Index");
