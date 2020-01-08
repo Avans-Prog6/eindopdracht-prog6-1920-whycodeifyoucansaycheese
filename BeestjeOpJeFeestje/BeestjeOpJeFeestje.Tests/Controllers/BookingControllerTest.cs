@@ -38,32 +38,6 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
 
         }
 
-        private Booking GetBadSampleBooking()
-        {
-            Booking booking = new Booking();
-            List<Beast> beasts = new List<Beast>
-            {
-                new Beast
-                {
-                    Name = "Koe",
-                    Price = 100,
-                    Type = "Boerderij"
-                },
-                new Beast
-                {
-                    Name = "Paard",
-                    Price = 100,
-                    Type = "Boerderij"
-                },
-                new Beast
-                {
-                    Name = "Pinguin",
-                    Price = 100,
-                    Type = "Woestijn"
-                }
-            };
-            booking.Beast = beasts;
-            return booking;
-        }
+    
     }
 }

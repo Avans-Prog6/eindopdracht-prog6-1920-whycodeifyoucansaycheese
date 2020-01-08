@@ -14,7 +14,7 @@ namespace BeestjeOpJeFeestje.Domain
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class Booking
+    public partial class Booking 
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Booking()
