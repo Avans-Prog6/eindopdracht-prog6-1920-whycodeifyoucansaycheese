@@ -46,55 +46,6 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         }
 
         [TestMethod]
-        public void BookUnavailableBeast_ListIsEmpty_Test()
-        {
-            //1. Arrange
-            var existingBooking = new Booking { ID = 1, Date = DateTime.Now.Date };
-            var list = new List<Beast>();
-            var beast = new Beast { Name = "Koe" };
-            list.Add(beast);
-
-            beast.Booking.Add(existingBooking);
-            _boekingsRepository.Setup(b => b.TempBooking).Returns(new BookingVM { ID = 2, Date = DateTime.Now });
-            _beastRepository.Setup(b => b.GetAll()).Returns(list);
-            _bookingscontroller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
-            
-
-            //2. Act
-            var result = _bookingscontroller.Step1() as ViewResult;
-            var beastlist = (List<BeastVM>)result.Model;
-
-            //3. Assert
-            //var viewResult = Assert.IsInstanceOfType<ViewResult>(result);
-            Assert.AreEqual(0, beastlist.Count);
-        }
-
-        [TestMethod]
-        public void BookUnavailableBeast_ListIsNotEmpty_Test()
-        {
-            //1. Arrange
-            var existingBooking = new Booking { ID = 1, Date = DateTime.Now.AddDays(1) };
-            var list = new List<Beast>();
-            var beast = new Beast { Name = "Koe" };
-            list.Add(beast);
-
-            beast.Booking.Add(existingBooking);
-            _boekingsRepository.Setup(b => b.TempBooking).Returns(new BookingVM { ID = 2, Date = DateTime.Now });
-            _beastRepository.Setup(b => b.GetAll()).Returns(list);
-            _bookingscontroller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
-
-
-            //2. Act
-            var result = _bookingscontroller.Step1() as ViewResult;
-            var beastlist = (List<BeastVM>)result.Model;
-
-            //3. Assert
-            //var viewResult = Assert.IsInstanceOfType<ViewResult>(result);
-            Assert.AreEqual(1, beastlist.Count);
-
-
-        }
-        [TestMethod]
         public void AddLion_NoFarmAnimalsInList_Test()
         {
             //1. Arrange
