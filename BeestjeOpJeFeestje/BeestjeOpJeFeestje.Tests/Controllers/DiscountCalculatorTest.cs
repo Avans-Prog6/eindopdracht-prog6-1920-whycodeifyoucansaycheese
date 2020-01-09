@@ -116,7 +116,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         {
             //1. Arrange
             _calc = new DiscountCalculator();
-            const string duckName = "Eend";
+            const string duckName = "Eend"; 
             const int expectedDuckDiscount = 50;
             var randomMock = new Mock<Random>();
             randomMock.Setup(r => r.Next(6)).Returns(1);
@@ -186,6 +186,20 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             Assert.IsNull(resultFriday);
             Assert.IsNull(resultSaturday);
             Assert.IsNull(resultSunday);
+        }
+
+        [TestMethod]
+        public void TotalDiscountDoesNotExceedSixty_Test()
+        {
+            //1. Arrange
+            _calc = new DiscountCalculator();
+            const int maximumDiscount = 60;
+
+            //2. Act
+            var actualResult = _calc.CalculateHalvedDiscount(80);
+            
+            //3. Assert.
+            Assert.AreEqual(maximumDiscount, actualResult);
         }
     }
 }
