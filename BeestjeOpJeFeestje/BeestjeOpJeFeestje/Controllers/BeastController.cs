@@ -93,7 +93,7 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Delete(int id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var beast = _beastrepo.Get(id);
+            var beast = new BeastVM(_beastrepo.Get(id));
             if (beast == null) return HttpNotFound();
             return View(beast);
         }

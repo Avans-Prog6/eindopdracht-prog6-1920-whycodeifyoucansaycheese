@@ -38,7 +38,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //1. Arrange
             Mock<BeastVM> pin = new Mock<BeastVM>();
             pin.Setup(p => p.Name == "Pinguin");
-            var list = _beastRepository.Object.BeastsAvailable(DateTime.Parse("16/02/2008")).ToList();
+            var list = _beastRepository.Object.BeastsAvailable(DateTime.Parse()).ToList();
             //2. Act
 
             bool IsIn = list.Contains(pin.Object);

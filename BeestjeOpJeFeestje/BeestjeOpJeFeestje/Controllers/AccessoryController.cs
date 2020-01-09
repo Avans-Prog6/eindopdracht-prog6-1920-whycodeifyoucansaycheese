@@ -93,7 +93,7 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Delete(int id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var accessory = _accessRepo.Get(id);
+            var accessory = new AccessoryVM(_accessRepo.Get(id));
             if (accessory == null) return HttpNotFound();
             return View(accessory);
         }
