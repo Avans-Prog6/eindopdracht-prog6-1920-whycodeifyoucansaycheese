@@ -18,11 +18,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         private Mock<IBeastRepository> _beastRepository;
         private Mock<IAccessoryRepository> _accessoryRepository;
         private Mock<IContactpersonRepository> _contactpersonRepository;
-        //private Mock<ApplicationUserManager> _userManager;
-        //private Mock<ApplicationSignInManager> _signInManager;
         private BookingController _bookingscontroller;
-        //private Mock<IUserStore<ApplicationUser>> _userStore;
-        //private Mock<IAuthenticationManager> _authManager;
         [TestInitialize]
         public void Init()
         {

@@ -103,6 +103,7 @@
   <ItemGroup>
     <Compile Include="Controllers\BookingControllerTest.cs" />
     <Compile Include="Controllers\DiscountCalculatorTest.cs" />
+    <Compile Include="Controllers\BeastControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
