@@ -10,54 +10,59 @@ namespace BeestjeOpJeFeestje.Domain.Models
 {
     public partial class AccessoryVM
     {
-        private Accessory _accessory;
-        private BeastVM _accessoryBeast;
         public AccessoryVM()
         {
-            _accessory = new Accessory();
-            _accessoryBeast = new BeastVM();
+            Accessory = new Accessory();
+            Beast = new BeastVM();
             Booking = new List<BookingVM>();
-    }
+        }
 
         public AccessoryVM(Accessory accessory)
         {
-            _accessory = accessory;
-            _accessoryBeast = new BeastVM(accessory.Beast);
-            //Booking = new List<BookingVM>(accessory.Booking.Select(b => new BookingVM(b)));
+            Accessory = accessory;
+            Beast = new BeastVM(accessory.Beast);
         }
         [Key]
-        public int ID { get => _accessory.ID; set { _accessory.ID = value; } }
+        public int ID
+        {
+            get => Accessory.ID; set => Accessory.ID = value;
+        }
 
         [Required]
         [MinLength(2)]
-        [MaxLength(50)]
+        [MaxLength(15)]
         [DisplayName("Naam accessoire")]
-        public string Name { get => _accessory.Name; set { _accessory.Name = value; } }
+        public string Name
+        {
+            get => Accessory.Name; set => Accessory.Name = value;
+        }
 
         [Required]
         [DataType(DataType.Currency)]
         [DisplayName("Prijs accessoire")]
-        public decimal Price { get => _accessory.Price; set { _accessory.Price = value; } }
+        [Range(0.0, Double.MaxValue, ErrorMessage = "De geldprijs moet positief zijn.")]
+        public decimal Price
+        {
+            get => Accessory.Price; set => Accessory.Price = value;
+        }
 
         [Required]
         [DisplayName("Beest")]
-        public int BeastID { get => _accessory.BeastID; set { _accessory.BeastID = value; } }
+        public int BeastID
+        {
+            get => Accessory.BeastID; set => Accessory.BeastID = value;
+        }
 
         public bool IsSelected { get; set; }
 
         public string Selected { get; set; } = "Selecteren";
 
-        public string ImagePath
-        {
-            get
-            {
-                return Name + ".png";
-            }
-        }
+        public string ImagePath => Name + ".png";
 
-        public Accessory Accessory { get => _accessory; }
+        public Accessory Accessory { get; }
 
-        public BeastVM Beast { get => _accessoryBeast; set { _accessoryBeast = value; } }
-        public virtual List<BookingVM> Booking { get => _accessory.Booking.Select(b => new BookingVM(b)).ToList(); set {_accessory.Booking = value.Select(b => b.Booking).ToList(); } }
+        public BeastVM Beast { get; set; }
+
+        public virtual List<BookingVM> Booking { get => Accessory.Booking.Select(b => new BookingVM(b)).ToList(); set { Accessory.Booking = value.Select(b => b.Booking).ToList(); } }
     }
 }

@@ -7,14 +7,14 @@
 <h4>Kies uw accessoires</h4>
 <hr />
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-9">
             @foreach (var acc in Model)
             {
                 <div class="col-lg-4">
                     <div class="thumbnail">
-                        <img src="~/Images/donkey.png" alt="animal.png" width="50" height="50" />
+                        <img src="~/Images/bever.png" alt="animal.png" width="50" height="50" />
                         <div class="caption" align="center">
-                            <h3>@acc.Name: €@acc.Price</h3>
+                            <h3 style="word-wrap: break-word">@acc.Name <br/> €@acc.Price</h3>
                             @using (Html.BeginForm("AddCheckedAccessory", "Booking", FormMethod.Post))
                             {
                                 @Html.AntiForgeryToken()
