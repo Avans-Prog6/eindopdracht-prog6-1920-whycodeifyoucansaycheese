@@ -93,6 +93,59 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
 
 
         }
+        [TestMethod]
+        public void AddLion_NoFarmAnimalsInList_Test()
+        {
+            //1. Arrange
+            var existingBooking = new Booking { ID = 1, Date = DateTime.Now.AddDays(1) };
+            var list = new List<Beast>();
+            var beast = new Beast { Name = "Leeuw" };
+            //list.Add(beast);
+
+            beast.Booking.Add(existingBooking);
+            _boekingsRepository.Setup(b => b.TempBooking).Returns(new BookingVM { ID = 2, Date = DateTime.Now });
+            _beastRepository.Setup(b => b.GetAll()).Returns(GetListLion());
+            _bookingscontroller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
+
+
+            //2. Act
+            var iets = _bookingscontroller.AddCheckedAnimal(new BeastVM(beast)) as ViewResult;
+            //var result = _beastRepository.Object.BeastsAvailable(DateTime.Now).ToList();
+            var result = (List<BeastVM>) iets.ViewData.Model;
+            //var result1 =  result.ExecuteResult()
+           // _bookingscontroller.Step1() as ViewResult;
+            //var beastlist = (List<BeastVM>)result.ViewData.Model;
+
+            //3. Assert
+            //var viewResult = Assert.IsInstanceOfType<ViewResult>(result);
+            Assert.AreEqual(1, result.Count);
+        }
+
+        public List<Beast> GetListLion()
+        {
+            var beasts = new List<Beast>
+            {
+                new Beast
+                {
+                    Name = "Koe",
+                    Price = 100,
+                    Type = "Boerderij"
+                },
+                new Beast
+                {
+                    Name = "Paard",
+                    Price = 100,
+                    Type = "Boerderij"
+                },
+                new Beast
+                {
+                    Name = "Hagedis",
+                    Price = 200,
+                    Type = "Woestijn"
+                }
+            };
+            return beasts;
+        }
 
 
 

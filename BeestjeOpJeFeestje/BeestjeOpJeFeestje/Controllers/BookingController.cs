@@ -108,6 +108,44 @@ namespace BeestjeOpJeFeestje.Controllers
             return RedirectToAction("Step1");
         }
 
+
+
+        #endregion
+        #region TestMethods
+        public ActionResult AddCheckedAnimal(BeastVM beast)
+        {
+            BeastVM beastie = beast;
+            var temp = _boekingRepository.TempBooking;
+            var beastieList = _boekingRepository.AnimalsBooked().ToList();
+            foreach (var item in beastieList)
+            {
+                if (beastie.ID == item.ID)
+                {
+                    beastie = item;
+                }
+            }
+            if (beastieList.Contains(beastie))
+            {
+                beastieList.Remove(beastie);
+                temp.Beast = beastieList;
+                _boekingRepository.TempBooking = temp;
+                if (!_boekingRepository.PolarLionExists()) _beastrepo.ExcludeFarm = false;
+                if (!_boekingRepository.FarmExists()) _beastrepo.ExcludePolarLion = false;
+                InfoBar();
+                return RedirectToAction("Step1");
+            }
+
+            if (beastie.Name == "Leeuw" || beastie.Name == "Ijsbeer")
+                _beastrepo.ExcludeFarm = true;
+            if (beastie.Type == "Boerderij")
+                _beastrepo.ExcludePolarLion = true;
+            beastieList.Add(beastie);
+            temp.Beast = beastieList;
+            _boekingRepository.TempBooking = temp;
+            InfoBar();
+
+            return RedirectToAction("Step1");
+        }
         #endregion
 
         #region AddAccessory
