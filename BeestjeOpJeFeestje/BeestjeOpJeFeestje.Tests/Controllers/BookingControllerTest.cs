@@ -280,25 +280,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //Assert.AreEqual("Booking", result.RouteValues["controller"]);
         }
 
-        [TestMethod]
 
-        public void TempBooking_IsCalled_Test()
-        {
-            //1. Arrange
-            _boekingsRepository.SetupGet(b => b.TempBooking).Returns(new BookingVM());
-            var Controller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
-            var Beast = new BeastVM { Name = "Leeuw" };
-
-            //2. Act
-            var result = (RedirectToRouteResult)Controller.AddCheckedAnimal(Beast);
-            //var list = (IEnumerable<AccessoryVM>)result.ViewData.Model;
-            // result.RouteValues["action"].Equals("Step1");
-            //result.RouteValues["controller"].Equals("Booking");
-            //3. Assert
-
-            _boekingsRepository.Verify(m => m.TempBooking, Times.Exactly(2));
-            //Assert.AreEqual("Booking", result.RouteValues["controller"]);
-        }
         [TestMethod]
 
         public void Step1Redirect_Step2_Test()
