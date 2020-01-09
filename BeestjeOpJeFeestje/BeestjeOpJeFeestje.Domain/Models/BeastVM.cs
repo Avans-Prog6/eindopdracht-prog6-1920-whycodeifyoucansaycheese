@@ -10,72 +10,58 @@ namespace BeestjeOpJeFeestje.Domain.Models
 {
     public partial class BeastVM : IValidatableObject
     {
-        private Beast _beast;
         public BeastVM()
         {
-            _beast = new Beast();
+            Beast = new Beast();
             Selected = "Selecteren";
-            //Accessory = new List<AccessoryVM>();
-            //Booking = new List<BookingVM>();
         }
 
         public BeastVM(Beast beast)
         {
-            _beast = beast;
+            Beast = beast;
             Selected = "Selecteren";
-            //Accessory = new List<AccessoryVM>(beast.Accessory.Select(a => new AccessoryVM(a)));
-            //Booking = new List<BookingVM>(beast.Booking.Select(b => new BookingVM(b)));
         }
         [Key]
         public int ID
         {
-            get
-            {
-                return _beast.ID;
-            }
-            set
-            {
-                _beast.ID = value;
-            }
+            get => Beast.ID;
+            set => Beast.ID = value;
         }
 
         [Required]
         [MinLength(2)]
-        [MaxLength(50)]
+        [MaxLength(15)]
         [DisplayName("Naam beest")]
         public string Name
         {
-            get => _beast.Name;
+            get => Beast.Name;
 
-            set
-            {
-                _beast.Name = value;
-            }
+            set => Beast.Name = value;
         }
 
         [Required]
         [DisplayName("Type")]
-        public string Type { get => _beast.Type; set { _beast.Type = value; } }
+        public string Type
+        {
+            get => Beast.Type; set => Beast.Type = value;
+        }
 
         [Required]
         [DataType(DataType.Currency)]
         [Range(0.0, Double.MaxValue, ErrorMessage = "De geldprijs moet positief zijn.")]
         [DisplayName("Prijs beest")]
-        public decimal Price { get => _beast.Price; set { _beast.Price = value; } }
-
-        public string Selected { get; set; } = "Selected";
-        public string ImagePath
+        public decimal Price
         {
-            get
-            {
-                return Name + ".png";
-            }
+            get => Beast.Price; set => Beast.Price = value;
         }
 
-        public Beast Beast { get => _beast; }
+        public string Selected { get; set; } = "Selected";
+        public string ImagePath => Name + ".png";
 
-        public virtual List<AccessoryVM> Accessory { get => _beast.Accessory.Select(a => new AccessoryVM(a)).ToList(); set { _beast.Accessory = value.Select(a => a.Accessory).ToList(); } }
-        public virtual List<BookingVM> Booking { get => _beast.Booking.Select(a => new BookingVM(a)).ToList(); set { _beast.Booking = value.Select(a => a.Booking).ToList(); } }
+        public Beast Beast { get; }
+
+        public virtual List<AccessoryVM> Accessory { get => Beast.Accessory.Select(a => new AccessoryVM(a)).ToList(); set { Beast.Accessory = value.Select(a => a.Accessory).ToList(); } }
+        public virtual List<BookingVM> Booking { get => Beast.Booking.Select(a => new BookingVM(a)).ToList(); set { Beast.Booking = value.Select(a => a.Booking).ToList(); } }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
