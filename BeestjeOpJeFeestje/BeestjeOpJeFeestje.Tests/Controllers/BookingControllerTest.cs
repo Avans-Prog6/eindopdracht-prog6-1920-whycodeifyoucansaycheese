@@ -32,6 +32,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             _contactpersonRepository = new Mock<IContactpersonRepository>();
         }
 
+        [TestMethod]
         public void BookPinguinInWeekend_False_Test()
         {
             //1. Arrange
