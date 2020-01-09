@@ -63,7 +63,7 @@ namespace BeestjeOpJeFeestje.Domain.Models
         [DisplayName("Prijs beest")]
         public decimal Price { get => _beast.Price; set { _beast.Price = value; } }
 
-        public string Selected { get; set; }
+        public string Selected { get; set; } = "Selected";
         public string ImagePath
         {
             get

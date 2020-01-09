@@ -202,10 +202,6 @@ namespace BeestjeOpJeFeestje.Controllers
                     {
                         item.Selected = "Deselecteren";
                     }
-                    else
-                    {
-                        item.Selected = "Selecteren";
-                    }
                 }
             }
             
@@ -234,10 +230,6 @@ namespace BeestjeOpJeFeestje.Controllers
                     if (temp.Accessory[i].ID == item.ID)
                     {
                         item.Selected = "Deselecteren";
-                    }
-                    else
-                    {
-                        item.Selected = "Selecteren";
                     }
                 }
             }
