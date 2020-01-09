@@ -31,18 +31,61 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             _accessoryRepository = new Mock<IAccessoryRepository>();
             _contactpersonRepository = new Mock<IContactpersonRepository>();
         }
-
+        #region Rules
         [TestMethod]
-        public void BookPinguinInWeekend_False_Test()
+        public void DateInWeekend_True_Test()
         {
             //1. Arrange
-            Mock<BeastVM> pin = new Mock<BeastVM>();
-            pin.Setup(p => p.Name == "Pinguin");
-            var list = _beastRepository.Object.BeastsAvailable(DateTime.Parse()).ToList();
+            Mock<BookingVM> booking = new Mock<BookingVM>();
+            var date = DateTime.Parse("16/02/2008");
+            booking.Object.Date = date;
             //2. Act
+            bool isTrue = Validator.IsWeekend(booking.Object);
 
-            bool IsIn = list.Contains(pin.Object);
+            //3. Assert
+            Assert.IsTrue(isTrue);
+        }
 
+        [TestMethod]
+        public void DateInWeekend_False_Test()
+        {
+            //1. Arrange
+            Mock<BookingVM> booking = new Mock<BookingVM>();
+            var date = DateTime.Parse("15/02/2008");
+            booking.Object.Date = date;
+            //2. Act
+            bool isFalse = Validator.IsWeekend(booking.Object);
+
+            //3. Assert
+            Assert.IsFalse(isFalse);
+        }
+
+        [TestMethod]
+        public void ExcludeDesert_True_Test()
+        {
+            //1. Arrange
+            Mock<BookingVM> booking = new Mock<BookingVM>();
+            var date = DateTime.Parse("15/02/2008");
+            booking.Object.Date = date;
+            //2. Act
+            bool isTrue = Validator.ExcludeDesert(booking.Object);
+
+            //3. Assert
+            Assert.IsTrue(isTrue);
+        }
+
+        [TestMethod]
+        public void ExcludeSnow_True_Test()
+        {
+            //1. Arrange
+            Mock<BookingVM> booking = new Mock<BookingVM>();
+            var date = DateTime.Parse("15/06/2008");
+            booking.Object.Date = date;
+            //2. Act
+            bool isTrue = Validator.ExcludeSnow(booking.Object);
+
+            //3. Assert
+            Assert.IsTrue(isTrue);
         }
 
         [TestMethod]
@@ -137,6 +180,26 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
                 }
             };
             return beasts;
+        }
+        #endregion
+
+        [TestMethod]
+
+        public void AddCheckAnimalRedirect_Step1_Test()
+        {
+            //1. Arrange
+            _boekingsRepository.SetupGet(b => b.TempBooking).Returns(new BookingVM());
+            var Controller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
+            var Beast = new BeastVM { Name = "Leeuw" };
+
+            //2. Act
+            var result = (RedirectToRouteResult)Controller.AddCheckedAnimal(Beast);
+            result.RouteValues["action"].Equals("Step1");
+            //result.RouteValues["controller"].Equals("Booking");
+            //3. Assert
+
+            Assert.AreEqual("Step1", result.RouteValues["action"]);
+            //Assert.AreEqual("Booking", result.RouteValues["controller"]);
         }
 
 
