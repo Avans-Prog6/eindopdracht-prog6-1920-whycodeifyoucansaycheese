@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using BeestjeOpJeFeestje.Domain;
-using BeestjeOpJeFeestje.Domain.Interface_Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -12,7 +10,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
     public class DiscountCalculatorTest
     {
         private DiscountCalculator _calc;
-        
+
         [TestMethod]
         public void TypeDiscount_DiscountTrue_Test()
         {
@@ -46,8 +44,8 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
 
             //3. Assert
             Assert.AreEqual(10, result.PercentageDiscount);
-
         }
+
         [TestMethod]
         public void TypeDiscount_DiscountFalse_Test()
         {
@@ -82,7 +80,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //3. Assert
             Assert.IsNull(result);
         }
-        
+
         [TestMethod]
         public void CalculateCharacterDiscount_DiscountFalse_Test()
         {
@@ -127,7 +125,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             var discount = _calc.DuckDiscount(duckName, randomMock.Object.Next(6));
 
             //3. Assert
-                Assert.AreEqual(expectedDuckDiscount, discount.PercentageDiscount);
+            Assert.AreEqual(expectedDuckDiscount, discount.PercentageDiscount);
         }
 
         [TestMethod]
