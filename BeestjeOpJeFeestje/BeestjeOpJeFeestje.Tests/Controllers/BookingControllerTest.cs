@@ -110,17 +110,57 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
 
 
             //2. Act
-            var iets = _bookingscontroller.AddCheckedAnimal(new BeastVM(beast)) as ViewResult;
-            //var result = _beastRepository.Object.BeastsAvailable(DateTime.Now).ToList();
-            var result = (List<BeastVM>) iets.ViewData.Model;
-            //var result1 =  result.ExecuteResult()
-           // _bookingscontroller.Step1() as ViewResult;
-            //var beastlist = (List<BeastVM>)result.ViewData.Model;
+            var result = (RedirectToRouteResult)  _bookingscontroller.AddCheckedAnimal(new BeastVM(beast));
 
             //3. Assert
-            //var viewResult = Assert.IsInstanceOfType<ViewResult>(result);
-            Assert.AreEqual(1, result.Count);
+            _beastRepository.VerifySet(m => m.ExcludeFarm = true);
         }
+
+        [TestMethod]
+        public void AddPolarBear_NoFarmAnimalsInList_Test()
+        {
+            //1. Arrange
+            var existingBooking = new Booking { ID = 1, Date = DateTime.Now.AddDays(1) };
+            var list = new List<Beast>();
+            var beast = new Beast { Name = "Ijsbeer" };
+            //list.Add(beast);
+
+            beast.Booking.Add(existingBooking);
+            _boekingsRepository.Setup(b => b.TempBooking).Returns(new BookingVM { ID = 2, Date = DateTime.Now });
+            _beastRepository.Setup(b => b.GetAll()).Returns(GetListLion());
+            _bookingscontroller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
+
+
+            //2. Act
+            var result = (RedirectToRouteResult)_bookingscontroller.AddCheckedAnimal(new BeastVM(beast));
+
+            //3. Assert
+            _beastRepository.VerifySet(m => m.ExcludeFarm = true);
+        }
+
+        [TestMethod]
+        public void AddCow_ExcludePolarLionIsCalled_Test()
+        {
+            //1. Arrange
+            var existingBooking = new Booking { ID = 1, Date = DateTime.Now.AddDays(1) };
+            var list = new List<Beast>();
+            var beast = new Beast { Name = "Koe" , Type = "Boerderij"};
+            //list.Add(beast);
+
+            beast.Booking.Add(existingBooking);
+            _boekingsRepository.Setup(b => b.TempBooking).Returns(new BookingVM { ID = 2, Date = DateTime.Now });
+            _beastRepository.Setup(b => b.GetAll()).Returns(GetListLion());
+            _bookingscontroller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
+
+
+            //2. Act
+            _bookingscontroller.AddCheckedAnimal(new BeastVM(beast));
+
+            //3. Assert
+            _beastRepository.VerifySet(m => m.ExcludePolarLion = true);
+        }
+
+
 
         public List<Beast> GetListLion()
         {

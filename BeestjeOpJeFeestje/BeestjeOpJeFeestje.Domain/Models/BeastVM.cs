@@ -8,7 +8,7 @@ using System.Web;
 
 namespace BeestjeOpJeFeestje.Domain.Models
 {
-    public partial class BeastVM
+    public partial class BeastVM : IValidatableObject
     {
         private Beast _beast;
         public BeastVM()
@@ -76,5 +76,10 @@ namespace BeestjeOpJeFeestje.Domain.Models
 
         public virtual List<AccessoryVM> Accessory { get => _beast.Accessory.Select(a => new AccessoryVM(a)).ToList(); set { _beast.Accessory = value.Select(a => a.Accessory).ToList(); } }
         public virtual List<BookingVM> Booking { get => _beast.Booking.Select(a => new BookingVM(a)).ToList(); set { _beast.Booking = value.Select(a => a.Booking).ToList(); } }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            return new List<ValidationResult>();
+        }
     }
 }
