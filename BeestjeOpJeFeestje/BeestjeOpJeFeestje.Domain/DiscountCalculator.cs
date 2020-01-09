@@ -16,6 +16,7 @@ namespace BeestjeOpJeFeestje.Domain
         public DiscountCalculator()
         {
             Discounts = new List<Discount>();
+            GetRandomNumber();
         }
 
         public List<Discount> CalculateTotalDiscount(Booking booking)
@@ -24,11 +25,11 @@ namespace BeestjeOpJeFeestje.Domain
             {
                 CalculateCharacterDiscount(beast.Name);
                 Discounts.Add(DuckDiscount(beast.Name, _randomNumber));
-                if(Discounts[Discounts.Count - 1] == null)
+                if (Discounts[Discounts.Count - 1] == null)
                 {
                     Discounts.RemoveAt(Discounts.Count - 1);
                 }
-                
+
             }
             if (_characterdiscount > 0)
             {
@@ -63,10 +64,9 @@ namespace BeestjeOpJeFeestje.Domain
                 {
                     _totaldiscount += 2;
                     _characterdiscount += 2;
-                    if (_totaldiscount > 60)
-                    {
-                        _characterdiscount = CalculateHalvedDiscount(_characterdiscount);
-                    }
+
+                    _characterdiscount = CalculateHalvedDiscount(_characterdiscount);
+
                 }
                 else
                 {
@@ -80,10 +80,9 @@ namespace BeestjeOpJeFeestje.Domain
             if (!name.Equals("Eend") || _totaldiscount >= 60 || random != 1) return null;
             _totaldiscount += 50;
             var discount = 50;
-            if (_totaldiscount > 60)
-            {
-                discount = CalculateHalvedDiscount(discount);
-            }
+
+            discount = CalculateHalvedDiscount(discount);
+
 
             return new Discount("Eend: ", discount);
         }
@@ -99,10 +98,9 @@ namespace BeestjeOpJeFeestje.Domain
             if ((date.DayOfWeek != DayOfWeek.Monday && date.DayOfWeek != DayOfWeek.Tuesday) || _totaldiscount >= 60) return null;
             _totaldiscount += 15;
             var discount = 15;
-            if (_totaldiscount > 60)
-            {
-                discount = CalculateHalvedDiscount(discount);
-            }
+
+            discount = CalculateHalvedDiscount(discount);
+
             return new Discount("Dag van de week korting: ", discount);
         }
 
@@ -135,16 +133,15 @@ namespace BeestjeOpJeFeestje.Domain
             if (jungleAmount < 3 && desertAmount < 3 && farmAmount < 3 && snowAmount < 3) return null;
             _totaldiscount += 10;
             var discount = 10;
-            if (_totaldiscount > 60)
-            {
-                discount = CalculateHalvedDiscount(discount);
-            }
+            discount = CalculateHalvedDiscount(discount);
+
             return new Discount("Type korting:", discount);
         }
 
-        private int CalculateHalvedDiscount(int discount)
+        public int CalculateHalvedDiscount(int discount)
         {
-            var temp = _totaldiscount - 60;
+            if (discount < 60) return discount;
+            var temp = discount - 60;
             discount -= temp;
             _totaldiscount = 60;
             return discount;
