@@ -22,5 +22,7 @@ namespace BeestjeOpJeFeestje.Domain.Interface_Repositories
         bool ExcludeFarm { get; set; }
         bool ExcludePolarLion { get; set; }
 
+        void SetFiltersToDefault();
+
     }
 }

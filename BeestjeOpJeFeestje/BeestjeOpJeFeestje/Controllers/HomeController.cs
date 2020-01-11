@@ -8,10 +8,12 @@ namespace BeestjeOpJeFeestje.Controllers
     public class HomeController : Controller
     {
         private readonly IBoekingRepository _bookRepo;
+        private readonly IBeastRepository _beastRepo;
 
-        public HomeController(IBoekingRepository BookRepo)
+        public HomeController(IBoekingRepository BookRepo, IBeastRepository beastRepository)
         {
             _bookRepo = BookRepo;
+            _beastRepo = beastRepository;
         }
 
         public ActionResult Index()
@@ -26,7 +28,9 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             if (ModelState.IsValid)
             {
-                _bookRepo.TempBooking.Date = booking.Date;
+                _bookRepo.TempBooking = booking;
+                _beastRepo.SetFiltersToDefault();
+                //_bookRepo.TempBooking.Date = booking.Date;
                 return RedirectToAction("Step1", "Booking");
             }
 

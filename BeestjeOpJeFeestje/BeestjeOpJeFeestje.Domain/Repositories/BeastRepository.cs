@@ -93,5 +93,14 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
         public bool ExcludeSnow { get; set; }
         public bool ExcludeFarm { get; set; }
         public bool ExcludePolarLion { get; set; }
+
+        public void SetFiltersToDefault()
+        {
+            ExcludePinguin = false;
+            ExcludeDesert = false;
+            ExcludeSnow = false;
+            ExcludeFarm = false;
+            ExcludePolarLion = false;
+        }
     }
 }
