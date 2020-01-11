@@ -291,6 +291,62 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             Assert.AreEqual("Step2", result.RouteValues["action"]);
         }
 
+        [TestMethod]
+        public void DetailsBeast_ReturnsInput_Test()
+        {
+            //1. Arrange
+
+            _bookingscontroller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object,_contactpersonRepository.Object);
+
+            var Booking = new BookingVM { ID = 1};
+            _boekingsRepository.Setup(b => b.Get(Booking.ID)).Returns(Booking.Booking);
+            _beastRepository.Setup(b => b.ContextDB()).Returns(new BeesteOpJeFeestjeEntities());
+
+            //2. Act
+            var result = (ViewResult)_bookingscontroller.Details(Booking.ID);
+            var SameBooking = (BookingVM)result.ViewData.Model;
+            //3.Assert
+
+            Assert.AreEqual(Booking.ID, SameBooking.ID);
+
+        }
+
+        [TestMethod]
+        public void DeleteBeast_ReturnsInput_Test()
+        {
+            //1. Arrange
+
+            _bookingscontroller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
+
+            var Booking = new BookingVM { ID = 1 };
+            _boekingsRepository.Setup(b => b.Get(Booking.ID)).Returns(Booking.Booking);
+            _boekingsRepository.Setup(b => b.ContextDB()).Returns(new BeesteOpJeFeestjeEntities());
+
+            //2. Act
+            var result = (ViewResult)_bookingscontroller.Delete(Booking.ID);
+            var SameBooking = (BookingVM)result.ViewData.Model;
+            //3.Assert
+            Assert.AreEqual(Booking.ID, SameBooking.ID);
+        }
+
+        [TestMethod]
+        public void DeleteConfirmed_RemovesBeast_Test()
+        {
+            //1. Arrange
+
+            _bookingscontroller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
+
+            var Booking = new BookingVM { ID = 1 };
+            _boekingsRepository.Setup(b => b.Get(Booking.ID)).Returns(Booking.Booking);
+            _boekingsRepository.Setup(b => b.ContextDB()).Returns(new BeesteOpJeFeestjeEntities());
+
+            //2. Act
+            _bookingscontroller.DeleteConfirmed(Booking.ID);
+            //3.Assert
+
+            _boekingsRepository.Verify(b => b.Remove(Booking.Booking), Times.Once());
+        }
+
 
 
 

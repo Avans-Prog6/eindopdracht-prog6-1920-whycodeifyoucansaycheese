@@ -116,7 +116,6 @@ namespace BeestjeOpJeFeestje.Controllers
             _boekingRepository.RecalculateTotalPrice(temp);
             _beastrepo.Remove(beast.Beast);
             _beastrepo.Complete();
-            //_boekingRepository.Complete();
             return RedirectToAction("Index");
         }
 
