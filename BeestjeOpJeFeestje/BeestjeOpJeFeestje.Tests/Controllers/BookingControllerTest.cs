@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web.Mvc;
 using BeestjeOpJeFeestje.Controllers;
@@ -12,6 +13,7 @@ using Moq;
 namespace BeestjeOpJeFeestje.Tests.Controllers
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class BookingControllerTest
     {
         private Mock<IBoekingRepository> _boekingsRepository;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
 using System.Web.Mvc;
 using BeestjeOpJeFeestje.Controllers;
 using BeestjeOpJeFeestje.Domain;
@@ -12,6 +13,7 @@ using Moq;
 namespace BeestjeOpJeFeestje.Tests.Controllers
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class BeastControllerTest
     {
 

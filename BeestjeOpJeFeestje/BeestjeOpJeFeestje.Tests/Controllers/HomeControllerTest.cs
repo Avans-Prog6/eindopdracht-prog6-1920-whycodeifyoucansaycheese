@@ -9,10 +9,12 @@ using BeestjeOpJeFeestje.Controllers;
 using BeestjeOpJeFeestje.Domain.Repositories;
 using Moq;
 using BeestjeOpJeFeestje.Domain.Interface_Repositories;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BeestjeOpJeFeestje.Tests.Controllers
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class HomeControllerTest
     {
         private Mock<IBoekingRepository> _boekingsRepository;

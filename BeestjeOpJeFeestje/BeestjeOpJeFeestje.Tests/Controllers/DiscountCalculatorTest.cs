@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using BeestjeOpJeFeestje.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -7,6 +8,7 @@ using Moq;
 namespace BeestjeOpJeFeestje.Tests.Controllers
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class DiscountCalculatorTest
     {
         private DiscountCalculator _calc;

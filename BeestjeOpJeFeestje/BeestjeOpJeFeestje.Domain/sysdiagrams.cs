@@ -11,7 +11,9 @@ namespace BeestjeOpJeFeestje.Domain
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Diagnostics.CodeAnalysis;
+
+    [ExcludeFromCodeCoverage]
     public partial class sysdiagrams
     {
         public string name { get; set; }
