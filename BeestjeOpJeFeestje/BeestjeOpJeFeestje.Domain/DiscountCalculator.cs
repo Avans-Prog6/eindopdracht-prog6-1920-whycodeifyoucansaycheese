@@ -24,10 +24,10 @@ namespace BeestjeOpJeFeestje.Domain
             foreach (var beast in booking.Beast)
             {
                 CalculateCharacterDiscount(beast.Name);
-                Discounts.Add(DuckDiscount(beast.Name, _randomNumber));
-                if (Discounts[Discounts.Count - 1] == null)
+                var temp = DuckDiscount(beast.Name, _randomNumber);
+                if (temp != null)
                 {
-                    Discounts.RemoveAt(Discounts.Count - 1);
+                    Discounts.Add(temp);
                 }
 
             }
@@ -65,7 +65,7 @@ namespace BeestjeOpJeFeestje.Domain
                     _totaldiscount += 2;
                     _characterdiscount += 2;
 
-                    _characterdiscount = CalculateHalvedDiscount(_characterdiscount);
+                    _characterdiscount = CalculateHalvedDiscount(_totaldiscount, _characterdiscount);
 
                 }
                 else
@@ -81,7 +81,7 @@ namespace BeestjeOpJeFeestje.Domain
             _totaldiscount += 50;
             var discount = 50;
 
-            discount = CalculateHalvedDiscount(discount);
+            discount = CalculateHalvedDiscount(_totaldiscount, discount);
 
 
             return new Discount("Eend: ", discount);
@@ -99,7 +99,7 @@ namespace BeestjeOpJeFeestje.Domain
             _totaldiscount += 15;
             var discount = 15;
 
-            discount = CalculateHalvedDiscount(discount);
+            discount = CalculateHalvedDiscount(_totaldiscount, discount);
 
             return new Discount("Dag van de week korting: ", discount);
         }
@@ -133,15 +133,15 @@ namespace BeestjeOpJeFeestje.Domain
             if (jungleAmount < 3 && desertAmount < 3 && farmAmount < 3 && snowAmount < 3) return null;
             _totaldiscount += 10;
             var discount = 10;
-            discount = CalculateHalvedDiscount(discount);
+            discount = CalculateHalvedDiscount(_totaldiscount, discount);
 
             return new Discount("Type korting:", discount);
         }
 
-        public int CalculateHalvedDiscount(int discount)
+        public int CalculateHalvedDiscount(int total, int discount)
         {
-            if (discount < 60) return discount;
-            var temp = discount - 60;
+            if (total < 60) return discount;
+            var temp = total - 60;
             discount -= temp;
             _totaldiscount = 60;
             return discount;

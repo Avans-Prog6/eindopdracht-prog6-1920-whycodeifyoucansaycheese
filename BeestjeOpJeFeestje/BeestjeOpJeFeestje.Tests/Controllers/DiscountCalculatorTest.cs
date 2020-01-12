@@ -191,17 +191,17 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         }
 
         [TestMethod]
-        public void TotalDiscountDoesNotExceedSixty_Test()
+        public void PartialDiscountShouldbeTen_Test()
         {
             //1. Arrange
             _calc = new DiscountCalculator();
-            const int maximumDiscount = 60;
+            const int ExpectedPartialDiscount = 10;
 
             //2. Act
-            var actualResult = _calc.CalculateHalvedDiscount(80);
+            var actualResult = _calc.CalculateHalvedDiscount(80, 30);
             
             //3. Assert.
-            Assert.AreEqual(maximumDiscount, actualResult);
+            Assert.AreEqual(ExpectedPartialDiscount, actualResult);
         }
     }
 }
