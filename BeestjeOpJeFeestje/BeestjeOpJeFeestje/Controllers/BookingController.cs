@@ -327,7 +327,6 @@ namespace BeestjeOpJeFeestje.Controllers
         {
             _contactrepo.Add(_contactrepo.TempPerson.ContactPerson);
             _contactrepo.Complete();
-            //_boekingRepository.TempBooking.ContactPerson = _contactrepo.TempPerson;
             _boekingRepository.Add(_boekingRepository.TempBooking.Booking);
             _boekingRepository.Complete();
             _boekingRepository.TempBooking = new BookingVM();

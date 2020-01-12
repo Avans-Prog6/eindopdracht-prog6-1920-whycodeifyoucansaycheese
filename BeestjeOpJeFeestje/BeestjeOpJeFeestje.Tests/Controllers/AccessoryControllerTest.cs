@@ -47,7 +47,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
 
             _accessorycontroller = new AccessoryController(_accessoryRepository.Object, _boekingsRepository.Object);
 
-            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal"};
+            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal" };
             _accessoryRepository.Setup(b => b.Get(Accessory.ID)).Returns(Accessory.Accessory);
             _accessoryRepository.Setup(b => b.ContextDB()).Returns(new Domain.BeesteOpJeFeestjeEntities());
 
@@ -66,7 +66,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //1. Arrange
             _accessorycontroller = new AccessoryController(_accessoryRepository.Object, _boekingsRepository.Object);
             _accessorycontroller.ModelState.AddModelError("test", "test");
-            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal"};
+            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal" };
             _accessoryRepository.Setup(b => b.ContextDB()).Returns(new Domain.BeesteOpJeFeestjeEntities());
 
             //2. Act
@@ -96,9 +96,9 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         public void EditAccessory_ReturnsAccessory_Test()
         {
             //1. Arrange
-            _accessorycontroller = new AccessoryController( _accessoryRepository.Object, _boekingsRepository.Object);
+            _accessorycontroller = new AccessoryController(_accessoryRepository.Object, _boekingsRepository.Object);
             _accessorycontroller.ModelState.AddModelError("test", "test");
-            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal"};
+            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal" };
             _accessoryRepository.Setup(b => b.ContextDB()).Returns(new Domain.BeesteOpJeFeestjeEntities());
 
             //2. Act
@@ -113,7 +113,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         {
             //1. Arrange
             _accessorycontroller = new AccessoryController(_accessoryRepository.Object, _boekingsRepository.Object);
-            var accessory = new AccessoryVM { ID = 1, Name = "Speelbal"};
+            var accessory = new AccessoryVM { ID = 1, Name = "Speelbal" };
             var List = new List<Accessory>();
             List.Add(accessory.Accessory);
             _accessoryRepository.Setup(b => b.GetAll()).Returns(List);
@@ -132,7 +132,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
 
             _accessorycontroller = new AccessoryController(_accessoryRepository.Object, _boekingsRepository.Object);
 
-            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal"};
+            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal" };
             _accessoryRepository.Setup(b => b.Get(Accessory.ID)).Returns(Accessory.Accessory);
             _accessoryRepository.Setup(b => b.ContextDB()).Returns(new BeesteOpJeFeestjeEntities());
 
@@ -172,7 +172,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
 
             _accessorycontroller = new AccessoryController(_accessoryRepository.Object, _boekingsRepository.Object);
 
-            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal"};
+            var Accessory = new AccessoryVM { ID = 1, Name = "Speelbal" };
             _accessoryRepository.Setup(b => b.Get(Accessory.ID)).Returns(Accessory.Accessory);
             _accessoryRepository.Setup(b => b.ContextDB()).Returns(new BeesteOpJeFeestjeEntities());
 

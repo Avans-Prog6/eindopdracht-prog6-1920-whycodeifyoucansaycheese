@@ -28,22 +28,27 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
         public IEnumerable<BeastVM> BeastsAvailable(DateTime date)
         {
             var list = GetAll().ToList();
-            var unavailable = Context.GetUnavailableBeasts(date.Date).ToList();
-
-            foreach (var item in unavailable)
+            if (ExcludeUnavailable)
             {
-                list.Remove(item);
+                var unavailable = Context.GetUnavailableBeasts(date.Date).ToList();
+
+
+                foreach (var item in unavailable)
+                {
+                    list.Remove(item);
+                }
+                
             }
             if (ExcludePinguin == true)
             {
                 var pin = list.Where(beast => beast.Name == "Pinguin").SingleOrDefault();
-                if(pin != null)
+                if (pin != null)
                 {
                     list.Remove(pin);
                 }
-                
+
             }
-            if(ExcludePolarLion == true)
+            if (ExcludePolarLion == true)
             {
                 for (int i = list.Count-1; i >= 0; i--)
                 {
@@ -93,6 +98,8 @@ namespace BeestjeOpJeFeestje.Domain.Repositories
         public bool ExcludeSnow { get; set; }
         public bool ExcludeFarm { get; set; }
         public bool ExcludePolarLion { get; set; }
+
+        public bool ExcludeUnavailable { get; set; } = false;
 
         public void SetFiltersToDefault()
         {

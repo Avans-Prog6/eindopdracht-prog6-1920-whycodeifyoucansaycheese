@@ -193,11 +193,9 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //2. Act
             var result = (RedirectToRouteResult)Controller.AddCheckedAnimal(Beast);
             result.RouteValues["action"].Equals("Step1");
-            //result.RouteValues["controller"].Equals("Booking");
             //3. Assert
 
             Assert.AreEqual("Step1", result.RouteValues["action"]);
-            //Assert.AreEqual("Booking", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -207,17 +205,12 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //1. Arrange
              _boekingsRepository.SetupGet(b => b.TempBooking).Returns(new BookingVM());
             var Controller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
-            //var Beast = new BeastVM { Name = "Leeuw" };
 
             //2. Act
             var result = (ViewResult)Controller.Step1();
             var list = (List<BeastVM>)result.ViewData.Model;
-            // result.RouteValues["action"].Equals("Step1");
-            //result.RouteValues["controller"].Equals("Booking");
             //3. Assert
-
             Assert.IsInstanceOfType(list , typeof(List<BeastVM>));
-            //Assert.AreEqual("Booking", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -227,17 +220,13 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //1. Arrange
             _boekingsRepository.SetupGet(b => b.TempBooking).Returns(new BookingVM());
             var Controller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
-            //var Beast = new BeastVM { Name = "Leeuw" };
 
             //2. Act
             var result = (ViewResult)Controller.Step2();
             var list = (IEnumerable<AccessoryVM>)result.ViewData.Model;
-            // result.RouteValues["action"].Equals("Step1");
-            //result.RouteValues["controller"].Equals("Booking");
-            //3. Assert
 
+            //3. Assert
             Assert.IsInstanceOfType(list, typeof(IEnumerable<AccessoryVM>));
-            //Assert.AreEqual("Booking", result.RouteValues["controller"]);
         }
         [TestMethod]
         public void Step3_returnsStep4_Test()
@@ -245,19 +234,13 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //1. Arrange
             _boekingsRepository.SetupGet(b => b.TempBooking).Returns(new BookingVM());
             var Controller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
-            //var Beast = new BeastVM { Name = "Leeuw" };
             var cperson = new ContactpersonVM { ID = 1, FirstName = "Henk", LastName = "Spenk", Adress = "Teringlaan" };
 
             //2. Act
             var result = (RedirectToRouteResult)Controller.Step3(cperson);
-           // var person = (ContactpersonVM)result.ViewData.Model;
-            // result.RouteValues["action"].Equals("Step1");
-            //result.RouteValues["controller"].Equals("Booking");
-            //3. Assert
 
-            //Assert.IsInstanceOfType(person, typeof(ContactpersonVM));
+            //3. Assert
             Assert.AreEqual("Step4", result.RouteValues["action"]);
-            //Assert.AreEqual("Booking", result.RouteValues["controller"]);
         }
 
         [TestMethod]
@@ -267,7 +250,6 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //1. Arrange
             _boekingsRepository.SetupGet(b => b.TempBooking).Returns(new BookingVM());
             var Controller = new BookingController(_boekingsRepository.Object, _beastRepository.Object, _accessoryRepository.Object, _contactpersonRepository.Object);
-            //var Beast = new BeastVM { Name = "Leeuw" };
 
             //2. Act
             var result = (ViewResult)Controller.Step4();
@@ -275,7 +257,6 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //3. Assert
 
             Assert.IsInstanceOfType(list, typeof(BookingVM));
-            //Assert.AreEqual("Booking", result.RouteValues["controller"]);
         }
 
 

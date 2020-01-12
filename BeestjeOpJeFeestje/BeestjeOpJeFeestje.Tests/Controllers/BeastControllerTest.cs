@@ -48,21 +48,21 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
         public void EditBeast_ReturnsInput_Test()
         {
             //1. Arrange
-            
+
             _beastcontroller = new BeastController(_beastRepository.Object, _accessoryRepository.Object, _boekingsRepository.Object);
-            
-            var Beast = new BeastVM { ID = 1,Name = "Leeuw", Type="Jungle"};
+
+            var Beast = new BeastVM { ID = 1, Name = "Leeuw", Type = "Jungle" };
             _beastRepository.Setup(b => b.Get(Beast.ID)).Returns(Beast.Beast);
             _beastRepository.Setup(b => b.ContextDB()).Returns(new Domain.BeesteOpJeFeestjeEntities());
 
             //2. Act
-            var result = (ViewResult) _beastcontroller.Edit(Beast.ID);
+            var result = (ViewResult)_beastcontroller.Edit(Beast.ID);
             var SameBeast = (BeastVM)result.ViewData.Model;
             //3.Assert
             Assert.AreEqual(Beast.ID, SameBeast.ID);
             Assert.AreEqual(Beast.Name, SameBeast.Name);
             Assert.AreEqual(Beast.Type, SameBeast.Type);
-            
+
         }
 
         [TestMethod]
@@ -103,7 +103,7 @@ namespace BeestjeOpJeFeestje.Tests.Controllers
             //1. Arrange
             _beastcontroller = new BeastController(_beastRepository.Object, _accessoryRepository.Object, _boekingsRepository.Object);
             _beastcontroller.ModelState.AddModelError("test", "test");
-            var Beast = new BeastVM {ID=1, Name = "Leeuw", Type="Jungle"};
+            var Beast = new BeastVM { ID = 1, Name = "Leeuw", Type = "Jungle" };
             _beastRepository.Setup(b => b.ContextDB()).Returns(new Domain.BeesteOpJeFeestjeEntities());
 
             //2. Act
