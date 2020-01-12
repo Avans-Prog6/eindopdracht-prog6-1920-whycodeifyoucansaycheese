@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(BeestjeOpJeFeestje.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(BeestjeOpJeFeestje.App_Start.NinjectWebCommon), "Stop")]
 
@@ -13,6 +15,7 @@ namespace BeestjeOpJeFeestje.App_Start
     using Ninject;
     using Ninject.Web.Common;
 
+    [ExcludeFromCodeCoverage]
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();

@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace BeestjeOpJeFeestje.Domain
 {
     using System;
@@ -14,7 +16,8 @@ namespace BeestjeOpJeFeestje.Domain
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
+
+    [ExcludeFromCodeCoverage]
     public partial class BeesteOpJeFeestjeEntities : DbContext
     {
         public BeesteOpJeFeestjeEntities()
