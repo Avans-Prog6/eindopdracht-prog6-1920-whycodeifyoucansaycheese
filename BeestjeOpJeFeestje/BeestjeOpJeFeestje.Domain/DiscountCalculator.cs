@@ -36,14 +36,16 @@ namespace BeestjeOpJeFeestje.Domain
                 Discounts.Add(new Discount("Letter korting: ", _characterdiscount));
             }
 
-            if (DateDiscount(booking.Date) != null)
+            var datediscount = DateDiscount(booking.Date);
+            if (datediscount != null)
             {
-                Discounts.Add(DateDiscount(booking.Date));
+                Discounts.Add(datediscount);
             }
 
-            if (TypeDiscount(booking.Beast.ToList()) != null)
+            var typeDiscount = TypeDiscount(booking.Beast.ToList());
+            if (typeDiscount != null)
             {
-                Discounts.Add(TypeDiscount(booking.Beast.ToList()));
+                Discounts.Add(typeDiscount);
             }
             return Discounts;
         }
@@ -90,6 +92,7 @@ namespace BeestjeOpJeFeestje.Domain
         private int GetRandomNumber()
         {
             _randomNumber = new Random().Next(6);
+            _randomNumber = 1;
             return _randomNumber;
         }
 
