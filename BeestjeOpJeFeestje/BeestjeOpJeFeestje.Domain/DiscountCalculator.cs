@@ -92,7 +92,7 @@ namespace BeestjeOpJeFeestje.Domain
         private int GetRandomNumber()
         {
             _randomNumber = new Random().Next(6);
-            _randomNumber = 1;
+            //_randomNumber = 1;
             return _randomNumber;
         }
 

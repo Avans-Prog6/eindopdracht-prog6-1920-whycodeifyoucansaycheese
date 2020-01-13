@@ -228,6 +228,7 @@ namespace BeestjeOpJeFeestje.Controllers
         public ActionResult Step1()
         {
             var temp = _boekingRepository.TempBooking;
+            _beastrepo.ExcludeUnavailable = true;
             _beastrepo.ExcludeDesert = Validator.ExcludeDesert(temp);
             _beastrepo.ExcludeSnow = Validator.ExcludeSnow(temp);
             _beastrepo.ExcludePinguin = Validator.IsWeekend(temp);
